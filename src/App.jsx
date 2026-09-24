@@ -5,7 +5,7 @@ import { ReviewCard } from './components/ReviewCard';
 import { ReviewOption } from './components/ReviewOption';
 import { CopyButton } from './components/CopyButton';
 import { GoogleReviewButton } from './components/GoogleReviewButton';
-import { Bus, RefreshCw, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { RefreshCw, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 // Auto-select the first 3 items of the Left Column by default (Staff, Timing, Parcel)
 const DEFAULT_INITIAL_TAGS = ['staff', 'timing', 'parcel'];
@@ -50,11 +50,13 @@ export default function App() {
     <div className="min-h-screen bg-slate-100 flex flex-col justify-between selection:bg-amber-100 selection:text-amber-900">
       {/* Header Bar */}
       <header className="bg-slate-900 text-white sticky top-0 z-20 border-b border-slate-800 shadow-md">
-        <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="bg-amber-500 text-slate-950 p-2 rounded-xl flex items-center justify-center font-black shadow-sm">
-              <Bus className="w-5 h-5 stroke-[2.5]" />
-            </div>
+        <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img
+              src="/savan-logo.png"
+              alt="Savan Travels Logo"
+              className="w-10 h-10 rounded-full object-cover ring-2 ring-amber-500 shadow-sm"
+            />
             <div>
               <h1 className="text-lg font-extrabold tracking-tight leading-none text-white">
                 SAVAN TRAVELS
@@ -164,7 +166,12 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-400 text-center py-3 px-4 text-[11px] border-t border-slate-800">
-        <p className="flex items-center justify-center gap-1 font-medium text-slate-300">
+        <p className="flex items-center justify-center gap-1.5 font-medium text-slate-300">
+          <img
+            src="/savan-logo.png"
+            alt="Savan Travels"
+            className="w-4 h-4 rounded-full inline"
+          />
           <span>Thank you for choosing</span>
           <span className="text-amber-400 font-bold">Savan Travels</span>
           <HeartHandshake className="w-3.5 h-3.5 text-rose-400 inline" />
