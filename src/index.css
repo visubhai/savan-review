@@ -22,25 +22,15 @@ body {
   border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
+/* Refined Elevation & Smooth Transitions */
 .chip-transition {
-  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Glowing Pulsing Ring on Google Button after Copy */
-.google-glow-active {
-  animation: google-pulse-glow 1.2s infinite alternate ease-in-out;
+.executive-glow {
+  box-shadow: 0 4px 20px -2px rgba(234, 88, 12, 0.25), 0 2px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes google-pulse-glow {
-  0% {
-    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.8), 0 4px 20px 0 rgba(249, 115, 22, 0.4);
-    transform: scale(1);
-  }
-  100% {
-    box-shadow: 0 0 0 16px rgba(249, 115, 22, 0), 0 10px 30px 0 rgba(249, 115, 22, 0.6);
-    transform: scale(1.02);
-  }
-}
 
 .bounce-arrow {
   animation: bounce-down 0.8s infinite alternate ease-in-out;
