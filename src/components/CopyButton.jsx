@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Check, ArrowRight } from 'lucide-react';
+import { Copy, Check, ArrowRight, Sparkles } from 'lucide-react';
 
 export function CopyButton({ textToCopy, onCopySuccess }) {
   const [copied, setCopied] = useState(false);
@@ -42,7 +42,7 @@ export function CopyButton({ textToCopy, onCopySuccess }) {
       setCopied(true);
       setErrorMsg('');
       if (onCopySuccess) onCopySuccess();
-      setTimeout(() => setCopied(false), 3500);
+      setTimeout(() => setCopied(false), 4500);
     } else {
       setErrorMsg('Copy failed — please select and copy the text manually.');
     }
@@ -53,29 +53,30 @@ export function CopyButton({ textToCopy, onCopySuccess }) {
       <button
         type="button"
         onClick={handleCopy}
-        className={`w-full min-h-[52px] py-3 px-5 rounded-xl text-base font-bold flex items-center justify-center gap-2.5 transition-all duration-150 cursor-pointer active:scale-[0.98] shadow-lg touch-manipulation ${
+        className={`w-full min-h-[54px] py-3.5 px-5 rounded-2xl text-base font-extrabold flex items-center justify-center gap-2.5 transition-all duration-200 cursor-pointer active:scale-[0.98] shadow-lg touch-manipulation border ${
           copied
-            ? 'bg-emerald-600 text-white shadow-emerald-600/30 ring-2 ring-emerald-500'
-            : 'bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 shadow-amber-500/25 ring-2 ring-amber-400/50'
+            ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-500 shadow-emerald-600/30 ring-4 ring-emerald-500/30'
+            : 'bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 hover:from-orange-400 hover:to-amber-400 text-slate-950 border-orange-400 shadow-orange-500/25 ring-2 ring-orange-400/40'
         }`}
       >
         {copied ? (
           <>
-            <Check className="w-5 h-5 stroke-[2.5]" />
-            <span>✓ Review Copied!</span>
+            <Check className="w-5 h-5 stroke-[3] animate-bounce" />
+            <span className="tracking-wide">✓ STEP 1 DONE: REVIEW COPIED!</span>
           </>
         ) : (
           <>
             <Copy className="w-5 h-5 stroke-[2.5]" />
-            <span>📋 Copy Review</span>
+            <span className="tracking-wide">📋 STEP 1: COPY REVIEW</span>
           </>
         )}
       </button>
 
       {copied && (
-        <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 py-1.5 px-3 rounded-lg border border-emerald-200/70 animate-fade-in text-center">
-          <span>Now tap <strong>"⭐ Review on Google"</strong> below</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+        <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 py-2 px-3.5 rounded-xl border border-emerald-200/80 shadow-xs animate-fade-in text-center">
+          <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
+          <span>Review Copied! Now tap <strong>"⭐ Review on Google"</strong> below</span>
+          <ArrowRight className="w-4 h-4 text-emerald-700 shrink-0 animate-pulse" />
         </div>
       )}
 
