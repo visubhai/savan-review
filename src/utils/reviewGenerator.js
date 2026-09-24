@@ -61,10 +61,15 @@ function generateSinglePass(selectedOptions = [], lang = 'en') {
   // 1. Pick Opening
   const opening = getRandomItem(data.openings);
 
-  // 2. Active options (default to staff, timing, parcel)
-  const activeOptions = selectedOptions.length > 0
-    ? selectedOptions
-    : ['staff', 'timing', 'parcel'];
+  // 2. Active options: if no pre-selection, pick 1 pleasant general topic
+  let activeOptions = [];
+  if (selectedOptions && selectedOptions.length > 0) {
+    activeOptions = selectedOptions;
+  } else {
+    // No pre-selection: pick 1 general highlight so review is clean & natural
+    const generalPool = ['staff', 'timing', 'sleeper'];
+    activeOptions = [getRandomItem(generalPool)];
+  }
 
   // Shuffle active category order for high variation
   const shuffledCategories = shuffleArray(activeOptions);
@@ -76,7 +81,7 @@ function generateSinglePass(selectedOptions = [], lang = 'en') {
     if (sentences && sentences.length > 0) {
       let sentence = getRandomItem(sentences);
       
-      // Inject connector for variety in non-English or English
+      // Inject connector for variety
       if (index > 0 && Math.random() > 0.65) {
         const connector = getRandomItem(connectorsList);
         const properNouns = ['Savan', 'Surat', 'Ahmedabad', 'Mumbai', 'Pune', 'Rajkot', 'I '];
@@ -133,4 +138,28 @@ export function generateReview(selectedOptions = [], lang = 'en') {
   }
 
   return bestReview;
+}
+
+/**
+ * Generate a batch of unique reviews (e.g. 4 options for carousel navigation)
+ */
+export function generateReviewBatch(selectedOptions = [], lang = 'en', count = 4) {
+  const batch = [];
+  const localSet = new Set();
+  let attempts = 0;
+
+  while (batch.length < count && attempts < count * 20) {
+    attempts++;
+    const candidate = generateReview(selectedOptions, lang);
+    if (!localSet.has(candidate)) {
+      localSet.add(candidate);
+      batch.push(candidate);
+    }
+  }
+
+  while (batch.length < count) {
+    batch.push(generateSinglePass(selectedOptions, lang));
+  }
+
+  return batch;
 }
