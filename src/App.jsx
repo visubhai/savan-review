@@ -5,7 +5,7 @@ import { ReviewCard } from './components/ReviewCard';
 import { ReviewOption } from './components/ReviewOption';
 import { CopyButton } from './components/CopyButton';
 import { GoogleReviewButton } from './components/GoogleReviewButton';
-import { RefreshCw, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { RefreshCw, ShieldCheck, HeartHandshake, PhoneCall } from 'lucide-react';
 
 // Auto-select the first 3 items of the Left Column by default (Staff, Timing, Parcel)
 const DEFAULT_INITIAL_TAGS = ['staff', 'timing', 'parcel'];
@@ -76,6 +76,31 @@ export default function App() {
             <RefreshCw className="w-3.5 h-3.5 text-amber-400" />
             <span>Shuffle</span>
           </button>
+        </div>
+
+        {/* Office Contact Numbers Sub-Bar */}
+        <div className="bg-slate-950 text-slate-300 py-1.5 px-4 text-xs border-t border-slate-800/80">
+          <div className="max-w-md mx-auto flex items-center justify-between text-[11px] font-medium">
+            <span className="flex items-center gap-1 text-amber-400 font-bold">
+              <PhoneCall className="w-3.5 h-3.5" />
+              Office & Parcel:
+            </span>
+            <div className="flex items-center gap-2">
+              <a
+                href="tel:7567529600"
+                className="hover:text-amber-300 transition-colors underline decoration-slate-600 underline-offset-2"
+              >
+                7567529600
+              </a>
+              <span className="text-slate-600">|</span>
+              <a
+                href="tel:7567529700"
+                className="hover:text-amber-300 transition-colors underline decoration-slate-600 underline-offset-2"
+              >
+                7567529700
+              </a>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -165,8 +190,14 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 text-center py-3 px-4 text-[11px] border-t border-slate-800">
-        <p className="flex items-center justify-center gap-1.5 font-medium text-slate-300">
+      <footer className="bg-slate-900 text-slate-400 text-center py-3 px-4 text-[11px] border-t border-slate-800 space-y-1.5">
+        <div className="flex items-center justify-center gap-2 text-[11px] text-slate-300">
+          <span>Office & Parcel Inquiry:</span>
+          <a href="tel:7567529600" className="text-amber-400 font-bold hover:underline">7567529600</a>
+          <span>•</span>
+          <a href="tel:7567529700" className="text-amber-400 font-bold hover:underline">7567529700</a>
+        </div>
+        <p className="flex items-center justify-center gap-1.5 font-medium text-slate-400">
           <img
             src="/savan-logo.png"
             alt="Savan Travels"
