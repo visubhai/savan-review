@@ -1,3 +1,36 @@
+export const MAIN_6_CHIPS = [
+  { 
+    id: 'staff', 
+    label: { en: 'Driver & Staff', gu: 'ડ્રાઇવર અને સ્ટાફ', hi: 'ड्राइवर व स्टाफ' }, 
+    icon: '👨‍💼' 
+  },
+  { 
+    id: 'timing', 
+    label: { en: 'On-Time Bus', gu: 'સમયસર બસ સર્વિસ', hi: 'समय पर बस' }, 
+    icon: '⏰' 
+  },
+  { 
+    id: 'parcel', 
+    label: { en: 'Parcel Service', gu: 'પાર્સલ સર્વિસ', hi: 'पार्सल सर्विस' }, 
+    icon: '📦' 
+  },
+  { 
+    id: 'route_ahmedabad', 
+    label: { en: 'Surat ⇄ Ahmedabad', gu: 'સુરત ⇄ અમદાવાદ', hi: 'सूरत ⇄ अहमदाबाद' }, 
+    icon: '🚌' 
+  },
+  { 
+    id: 'route_mumbai', 
+    label: { en: 'Surat ⇄ Mumbai', gu: 'સુરત ⇄ મુંબઈ', hi: 'सूरत ⇄ मुंबई' }, 
+    icon: '🚌' 
+  },
+  { 
+    id: 'sleeper', 
+    label: { en: 'Comfort Sleeper', gu: 'આરામદાયક સ્લીપર', hi: 'आरामदायक स्लीपर' }, 
+    icon: '🛏' 
+  }
+];
+
 export const CHIPS_DATA = [
   // Left Column Priority Items (First 3 Auto-Selected on link open)
   { 
@@ -14,7 +47,7 @@ export const CHIPS_DATA = [
   },
   { 
     id: 'parcel', 
-    label: { en: 'Parcel & Cargo Service', gu: 'પાર્સલ અને કાર્ગો સર્વિસ', hi: 'पार्सल व कार्गो सर्विस' }, 
+    label: { en: 'Parcel & Cargo Service', gu: 'પાર્સલ અને કાર્ગો સર્વિસ', hi: 'पार्सल व कार्ગો સર્વિસ' }, 
     icon: '📦', 
     col: 'left' 
   },
@@ -34,13 +67,13 @@ export const CHIPS_DATA = [
   // Right Column Routes (First 4 items)
   { 
     id: 'route_ahmedabad', 
-    label: { en: 'Surat ⇄ Ahmedabad', gu: 'સુરત ⇄ અમદાવાદ', hi: 'सूरत ⇄ अहमदाबाद' }, 
+    label: { en: 'Surat ⇄ Ahmedabad', gu: 'સુરત ⇄ અમદાવાદ', hi: 'सूरत ⇄ અમદાવાદ' }, 
     icon: '🚌', 
     col: 'right' 
   },
   { 
     id: 'route_mumbai', 
-    label: { en: 'Surat ⇄ Mumbai', gu: 'સુરત ⇄ મુંબઈ', hi: 'सूरत ⇄ मुंबई' }, 
+    label: { en: 'Surat ⇄ Mumbai', gu: 'સુરત ⇄ મુંબઈ', hi: 'સૂરત ⇄ મુંબઈ' }, 
     icon: '🚌', 
     col: 'right' 
   },
@@ -52,7 +85,7 @@ export const CHIPS_DATA = [
   },
   { 
     id: 'route_rajkot', 
-    label: { en: 'Surat ⇄ Rajkot', gu: 'સુરત ⇄ રાજકોટ', hi: 'सूरत ⇄ राजकोट' }, 
+    label: { en: 'Surat ⇄ Rajkot', gu: 'સુરત ⇄ રાજકોટ', hi: 'सूरत ⇄ રાજકોટ' }, 
     icon: '🚌', 
     col: 'right' 
   },
@@ -60,37 +93,37 @@ export const CHIPS_DATA = [
   // Secondary Features
   { 
     id: 'sleeper', 
-    label: { en: 'Comfortable Sleeper', gu: 'આરામદાયક સ્લીપર', hi: 'आरामदायक स्लीपर' }, 
+    label: { en: 'Comfortable Sleeper', gu: 'આરામદાયક સ્લીપર', hi: 'આરામદાયક સ્લીપર' }, 
     icon: '🛏', 
     col: 'left' 
   },
   { 
     id: 'hygiene', 
-    label: { en: 'Clean & Hygienic', gu: 'એકદમ સ્વચ્છ બસ', hi: 'साफ-सुथरी बस' }, 
+    label: { en: 'Clean & Hygienic', gu: 'એકદમ સ્વચ્છ બસ', hi: 'સાફ-સુથરી બસ' }, 
     icon: '✨', 
     col: 'right' 
   },
   { 
     id: 'ac', 
-    label: { en: 'Good AC', gu: 'સરસ AC કૂલિંગ', hi: 'बढ़िया AC कूलिंग' }, 
+    label: { en: 'Good AC', gu: 'સરસ AC કૂલિંગ', hi: 'બઢિયા AC કૂલિંગ' }, 
     icon: '❄️', 
     col: 'left' 
   },
   { 
     id: 'charging', 
-    label: { en: 'Charging Facility', gu: 'મોબાઇલ ચાર્જિંગ', hi: 'चार्जिंग सुविधा' }, 
+    label: { en: 'Charging Facility', gu: 'મોબાઇલ ચાર્જિંગ', hi: 'ચાર્જિંગ સુવિધા' }, 
     icon: '🔋', 
     col: 'right' 
   },
   { 
     id: 'booking', 
-    label: { en: 'Easy Booking', gu: 'સરળ બુકિંગ', hi: 'आसान बुकिंग' }, 
+    label: { en: 'Easy Booking', gu: 'સરળ બુકિંગ', hi: 'આસાન બુકિંગ' }, 
     icon: '🎫', 
     col: 'left' 
   },
   { 
     id: 'overall', 
-    label: { en: 'Overall Experience', gu: '૧૦૦% સંતોષકારક સફર', hi: 'शानदार अनुभव' }, 
+    label: { en: 'Overall Experience', gu: '૧૦૦% સંતોષકારક સફર', hi: 'શાનદાર અનુભવ' }, 
     icon: '💯', 
     col: 'right' 
   },
@@ -212,7 +245,7 @@ export const localizedReviewData = {
     ]
   },
 
-  // ENGLISH SENTENCE TEMPLATES (Existing SEO Rich)
+  // ENGLISH SENTENCE TEMPLATES
   en: {
     openings: [
       "Had a great experience traveling with Savan Travels.",
@@ -317,7 +350,7 @@ export const localizedReviewData = {
     parcel: [
       "सावन ट्रैवल्स ऑफिस की पार्सल डिलीवरी सेवा बहुत तेज, सुरक्षित और भरोसेमंद है।",
       "मैंने सावन ट्रैवल्स ऑफिस से पार्सल भेजा था जो समय पर सुरक्षित पहुंच गया।",
-      "पार्सल बुकिंग के लिए सावन ट्रैવल्स ऑफिस (7567529600 / 7567529700) सबसे बढ़िया विकल्प है।"
+      "पार्सल बुकिंग के लिए सावन ट्रैवल्स ऑफिस (7567529600 / 7567529700) सबसे बढ़िया विकल्प है।"
     ],
     new_bus: [
       "बस एकदम नई लग्जरी कोच थी, जिसका सस्पेंशन बहुत आरामदायक था।",
