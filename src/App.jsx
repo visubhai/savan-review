@@ -7,12 +7,14 @@ import { CopyButton } from './components/CopyButton';
 import { GoogleReviewButton } from './components/GoogleReviewButton';
 import { Bus, RefreshCw, ShieldCheck, HeartHandshake } from 'lucide-react';
 
-export default function App() {
-  // Default selected chips for a rich initial review
-  const [selectedChips, setSelectedChips] = useState(['bus', 'service', 'journey']);
+// Default initial tags focusing on SEO routes, staff, parcel, and timing
+const DEFAULT_INITIAL_TAGS = ['route_ahmedabad', 'staff', 'parcel', 'timing'];
 
-  // Pre-generate review immediately on mount using default options
-  const [reviewText, setReviewText] = useState(() => generateReview(['bus', 'service', 'journey']));
+export default function App() {
+  const [selectedChips, setSelectedChips] = useState(DEFAULT_INITIAL_TAGS);
+
+  // Pre-generate review immediately on mount using initial tags
+  const [reviewText, setReviewText] = useState(() => generateReview(DEFAULT_INITIAL_TAGS));
   
   const [isCopied, setIsCopied] = useState(false);
 
@@ -40,6 +42,10 @@ export default function App() {
     setIsCopied(true);
   }, []);
 
+  // Separate chips into Left and Right columns for side-by-side alignment
+  const leftColumnChips = useMemo(() => CHIPS_DATA.filter(c => c.col === 'left'), []);
+  const rightColumnChips = useMemo(() => CHIPS_DATA.filter(c => c.col === 'right'), []);
+
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col justify-between selection:bg-amber-100 selection:text-amber-900">
       {/* Header Bar */}
@@ -54,7 +60,7 @@ export default function App() {
                 SAVAN TRAVELS
               </h1>
               <p className="text-[11px] text-amber-400 font-semibold tracking-wide uppercase mt-0.5">
-                Ultra-Fast Review Assistant
+                Surat • Ahmedabad • Mumbai • Pune • Rajkot
               </p>
             </div>
           </div>
@@ -63,7 +69,7 @@ export default function App() {
             type="button"
             onClick={handleShuffle}
             title="Generate alternate phrasing"
-            className="flex items-center gap-1 text-xs font-semibold bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-700 transition-colors"
+            className="flex items-center gap-1 text-xs font-semibold bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-700 transition-colors shrink-0"
           >
             <RefreshCw className="w-3.5 h-3.5 text-amber-400" />
             <span>Shuffle</span>
@@ -77,10 +83,10 @@ export default function App() {
         {/* Title Prompt */}
         <div className="text-center py-1">
           <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
-            How was your trip?
+            How was your experience?
           </h2>
           <p className="text-xs text-slate-500 mt-0.5 font-medium">
-            Tap your favorite experience tags below to customize your review
+            Tap tags below to customize your review for Savan Travels
           </p>
         </div>
 
@@ -93,23 +99,45 @@ export default function App() {
         {/* STEP 2: CHIPS SELECTION SECTION */}
         <section aria-labelledby="experience-heading" className="space-y-2.5">
           <div className="flex items-center justify-between px-1">
-            <h3 id="experience-heading" className="text-xs font-bold uppercase tracking-wider text-slate-600">
+            <h3 id="experience-heading" className="text-xs font-bold uppercase tracking-wider text-slate-700">
               What did you like?
             </h3>
-            <span className="text-[11px] text-slate-400 font-medium">
+            <span className="text-[11px] text-slate-500 font-semibold bg-slate-200/70 px-2 py-0.5 rounded-md">
               {selectedChips.length} selected
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-2">
-            {CHIPS_DATA.map((chip) => (
-              <ReviewOption
-                key={chip.id}
-                option={chip}
-                isSelected={selectedChips.includes(chip.id)}
-                onToggle={handleToggleChip}
-              />
-            ))}
+          {/* 2-COLUMN CHIPS LAYOUT */}
+          <div className="grid grid-cols-2 gap-2 items-start">
+            {/* LEFT COLUMN: Staff, Timing, Parcel, New Bus, Rest Stop, etc. */}
+            <div className="space-y-2">
+              <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
+                Services & Amenities
+              </span>
+              {leftColumnChips.map((chip) => (
+                <ReviewOption
+                  key={chip.id}
+                  option={chip}
+                  isSelected={selectedChips.includes(chip.id)}
+                  onToggle={handleToggleChip}
+                />
+              ))}
+            </div>
+
+            {/* RIGHT COLUMN: First 4 are Routes (Surat-Ahmedabad, Surat-Mumbai, Surat-Pune, Surat-Rajkot) */}
+            <div className="space-y-2">
+              <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
+                Popular Routes
+              </span>
+              {rightColumnChips.map((chip) => (
+                <ReviewOption
+                  key={chip.id}
+                  option={chip}
+                  isSelected={selectedChips.includes(chip.id)}
+                  onToggle={handleToggleChip}
+                />
+              ))}
+            </div>
           </div>
         </section>
 

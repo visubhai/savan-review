@@ -1,19 +1,24 @@
 export const CHIPS_DATA = [
-  { id: 'bus', label: 'Comfortable Bus', icon: '🚌' },
-  { id: 'staff', label: 'Helpful Staff', icon: '👨‍💼' },
-  { id: 'hygiene', label: 'Clean & Hygienic', icon: '✨' },
-  { id: 'sleeper', label: 'Comfortable Sleeper', icon: '🛏' },
-  { id: 'journey', label: 'Smooth Journey', icon: '🛣' },
-  { id: 'timing', label: 'On-Time Service', icon: '⏰' },
-  { id: 'service', label: 'Good Service', icon: '👍' },
-  { id: 'staff_friendly', label: 'Friendly Staff', icon: '😊' },
-  { id: 'ac', label: 'Good AC', icon: '❄️' },
-  { id: 'charging', label: 'Charging Facility', icon: '🔋' },
-  { id: 'clean_bus', label: 'Clean Bus', icon: '🧹' },
-  { id: 'seats', label: 'Comfortable Seats', icon: '💺' },
-  { id: 'well_maintained', label: 'Well-Maintained Bus', icon: '🚍' },
-  { id: 'booking', label: 'Easy Booking', icon: '🎫' },
-  { id: 'overall', label: 'Overall Experience', icon: '💯' },
+  // Left Column Priority Items
+  { id: 'staff', label: 'Driver & Office Staff', icon: '👨‍💼', col: 'left' },
+  { id: 'timing', label: 'Punctual Bus Timing', icon: '⏰', col: 'left' },
+  { id: 'parcel', label: 'Parcel & Cargo Service', icon: '📦', col: 'left' },
+  { id: 'new_bus', label: 'Brand New Bus', icon: '🚍', col: 'left' },
+  { id: 'rest_stop', label: 'Good Rest Stop', icon: '🍽', col: 'left' },
+  
+  // Right Column Routes (First 4 items)
+  { id: 'route_ahmedabad', label: 'Surat ⇄ Ahmedabad', icon: '🚌', col: 'right' },
+  { id: 'route_mumbai', label: 'Surat ⇄ Mumbai', icon: '🚌', col: 'right' },
+  { id: 'route_pune', label: 'Surat ⇄ Pune', icon: '🚌', col: 'right' },
+  { id: 'route_rajkot', label: 'Surat ⇄ Rajkot', icon: '🚌', col: 'right' },
+
+  // Secondary Features
+  { id: 'sleeper', label: 'Comfortable Sleeper', icon: '🛏', col: 'left' },
+  { id: 'hygiene', label: 'Clean & Hygienic', icon: '✨', col: 'right' },
+  { id: 'ac', label: 'Good AC', icon: '❄️', col: 'left' },
+  { id: 'charging', label: 'Charging Facility', icon: '🔋', col: 'right' },
+  { id: 'booking', label: 'Easy Booking', icon: '🎫', col: 'left' },
+  { id: 'overall', label: 'Overall Experience', icon: '💯', col: 'right' },
 ];
 
 export const CONNECTORS = [
@@ -25,7 +30,11 @@ export const CONNECTORS = [
   "Special mention to the fact that",
   "What stood out was that",
   "To add to that,",
-  "Moreover,"
+  "Moreover,",
+  "Another great thing was that",
+  "Equally impressive was that",
+  "In addition,",
+  "Apart from this,"
 ];
 
 export const reviewData = {
@@ -38,74 +47,157 @@ export const reviewData = {
     "Savan Travels provided an excellent journey from start to finish.",
     "My trip with Savan Travels was smooth, relaxing, and hassle-free.",
     "Traveled recently with Savan Travels and had a fantastic ride.",
-    "Extremely pleased with the trip arranged by Savan Travels.",
-    "Savan Travels exceeded my expectations on this journey.",
+    "Extremely pleased with the travel service arranged by Savan Travels.",
+    "Savan Travels exceeded my expectations on this trip.",
     "Just completed a trip with Savan Travels and it was wonderful.",
     "Top-class journey experience with Savan Travels.",
     "Had a peaceful and comfortable ride with Savan Travels.",
     "Traveling with Savan Travels was a total delight.",
     "Impressed by the quality of travel provided by Savan Travels.",
-    "Savan Travels delivers top-tier bus travel every single time.",
+    "Savan Travels delivers top-tier bus travel and parcel service every single time.",
     "Had a hassle-free and cozy journey with Savan Travels.",
     "Glad I chose Savan Travels for my travel requirement.",
     "Savan Travels made our journey very memorable and relaxing.",
-    "Superb journey with Savan Travels from pickup to destination."
+    "Superb service by Savan Travels from pickup to destination.",
+    "Savan Travels is my go-to choice for bus travel and parcel delivery.",
+    "Best bus operator service provided by Savan Travels.",
+    "Taking Savan Travels was the best decision for my trip.",
+    "Seamless, safe, and pleasant experience with Savan Travels.",
+    "A wonderful road trip experience with Savan Travels."
   ],
 
-  bus: [
-    "The bus was very comfortable and spacious.",
-    "The luxury coach was well maintained and comfortable.",
-    "Really liked the comfort and suspension of the bus.",
-    "The bus was extremely comfortable throughout the entire trip.",
-    "The seating arrangement and interior room in the bus were excellent.",
-    "Felt very relaxed as the bus was super comfortable.",
-    "The bus condition was top notch with great comfort level.",
-    "Riding in their bus was smooth and very comfortable.",
-    "The bus offered supreme comfort for long-distance travel.",
-    "A clean, quiet, and highly comfortable bus experience.",
-    "The interior layout of the bus is modern and comfortable.",
-    "Felt zero fatigue because the bus was so comfortable.",
-    "The bus design ensures a relaxed travel environment.",
-    "The bus was surprisingly comfortable and quiet.",
-    "Everything inside the vehicle was built for maximum comfort."
-  ],
-
+  // LEFT COLUMN 1: Staff (Bus Driver + Office Staff)
   staff: [
-    "The staff was very helpful and professional.",
-    "The staff was polite, attentive, and supportive.",
-    "The staff behaviour was courteous and helpful throughout.",
-    "The on-board crew was friendly and cooperative.",
-    "The driver and helper were very helpful with luggage and guidance.",
-    "Staff ensured all passengers were taken care of properly.",
-    "Very humble and well-behaved staff members.",
-    "Appreciated how supportive and responsive the staff was.",
-    "The crew handled everything professionally and kindly.",
-    "Great hospitality from the entire staff on board.",
-    "Staff members were respectful and ready to assist anytime.",
-    "The conductor and driver were exceptionally supportive.",
-    "Felt safe and respected due to the professional staff.",
-    "The team on board went out of their way to assist us.",
-    "Courteous staff that made the entire ride pleasant."
+    "The bus driver and Savan Travels office staff were very helpful, polite, and professional.",
+    "Great coordination between the office staff at Surat office and the bus driver on board.",
+    "The driver drove very safely while the office staff handled boarding and baggage with care.",
+    "Both the driver and conductor were courteous, attentive, and soft-spoken throughout.",
+    "Special thanks to the office staff for guidance and the driver for smooth, cautious highway driving.",
+    "The office team at Savan Travels was very supportive and the bus driver maintained safe speeds.",
+    "Humble behavior by the bus driver and prompt assistance from the office staff.",
+    "The crew on board and office management handled all passenger queries politely.",
+    "Driver was expert on highway routes and the office staff ensured a hassle-free boarding process.",
+    "Appreciated the professional response from the Savan Travels office team and friendly driver.",
+    "Very humble, well-behaved office staff and disciplined bus driver.",
+    "The driver drove smoothly without sudden jerks and office staff guided us properly.",
+    "Respectful conduct by the driver, conductor, and main office staff.",
+    "Great customer service by Savan Travels office staff and dedicated bus driver.",
+    "Driver and office staff took complete care of passenger safety and comfort."
   ],
 
-  hygiene: [
-    "The bus was spotless, clean, and well hygienic.",
-    "Everything inside was neat, sanitized, and tidy.",
-    "The cleanliness of the bus interior was truly impressive.",
-    "The bus was maintained with high standards of hygiene.",
-    "Really appreciated how fresh and clean the bus felt.",
-    "Spotless curtains, fresh blankets, and clean surroundings.",
-    "Hygiene standards were top tier throughout the vehicle.",
-    "Clean air, dust-free seats, and well-kept interiors.",
-    "The coach smelled fresh and was kept perfectly clean.",
-    "Very clean surroundings which made the journey comfortable.",
-    "Impressive sanitation and neatness inside the bus.",
-    "Cleanliness was taken care of with utmost priority.",
-    "Clean berths and fresh cabin environment.",
-    "Very neat cabin area with zero dust or odor.",
-    "Hygiene was 10/10, making it a safe choice."
+  // LEFT COLUMN 2: Punctual Bus Timing
+  timing: [
+    "The bus arrived and reached the destination strictly on schedule.",
+    "Really appreciated the punctual pickup and drop timing of Savan Travels.",
+    "The bus timing was managed with high efficiency and precision.",
+    "No unnecessary delays, departed right on time and reached as promised.",
+    "Impressive punctuality at both Surat boarding point and destination halts.",
+    "Punctual bus service made my travel schedule completely stress-free.",
+    "Departed exactly on time and arrived right on schedule without wasting time.",
+    "Timely rest stops and disciplined departure schedule throughout.",
+    "Great time management on highway with prompt pickup and drop.",
+    "Zero time wasted during boarding or en-route halts.",
+    "Extremely punctual bus timing, exactly as advertised!",
+    "Appreciated their commitment to exact departure and arrival timing.",
+    "Punctual and reliable bus service every single time.",
+    "Exact boarding time updates provided by the team.",
+    "On-time performance was spot on from start to finish."
   ],
 
+  // LEFT COLUMN 3: Parcel & Cargo Service
+  parcel: [
+    "Savan Travels office provides fast, safe, and reliable parcel cargo delivery service.",
+    "Sent my parcel package through Savan Travels office and it reached safely on time.",
+    "Best parcel delivery office in Surat for sending urgent packages safely.",
+    "Highly recommend Savan Travels office for fast and affordable parcel courier booking.",
+    "My parcel was handled with great care and delivered intact by Savan Travels office.",
+    "Savan Travels parcel service is extremely fast, secure, and trustworthy.",
+    "Booked a parcel at Savan Travels office and received same-day safe delivery.",
+    "Great parcel loading care and prompt parcel status updates from office staff.",
+    "Savan Travels office is the most reliable choice for parcel dispatch and courier service.",
+    "Very smooth parcel booking experience at their main office with reasonable rates.",
+    "Safe handling of fragile parcels by Savan Travels office staff.",
+    "Prompt notification when the parcel arrived at the destination office.",
+    "Fastest parcel cargo service between major cities by Savan Travels.",
+    "Excellent parcel service with guaranteed safe delivery.",
+    "Convenient parcel pickup and drop at Savan Travels office branch."
+  ],
+
+  // LEFT COLUMN 4: Brand New Bus
+  new_bus: [
+    "Rode in their brand new luxury bus fleet which was immaculate and quiet.",
+    "The bus was a brand new luxury coach with top-class air suspension.",
+    "Felt like traveling in a factory-new luxury bus with modern amenities.",
+    "Very modern brand new bus with quiet engine and smooth suspension.",
+    "The brand new vehicle had zero noise, fresh interiors, and high comfort.",
+    "Impressed by their brand new bus fleet equipped with modern technology.",
+    "Top specification brand new luxury sleeper bus with superior ride quality.",
+    "Savan Travels has introduced brand new luxury buses for high passenger comfort.",
+    "Gliding ride quality thanks to their brand new air-suspension coach.",
+    "Spotless, modern, and brand new bus condition throughout."
+  ],
+
+  // LEFT COLUMN 5: Good Rest Stop
+  rest_stop: [
+    "Great rest stop selection with clean washrooms and hygienic food options.",
+    "Appreciated the well-chosen highway rest stop for food and fresh-up.",
+    "The food halt stopover was clean, spacious, and family-friendly.",
+    "Clean rest stop with good quality food and neat restroom facilities.",
+    "Timely and comfortable rest stop arranged during the journey.",
+    "The bus stopped at a top quality highway hotel with hygienic amenities.",
+    "Well-planned rest stop timing allowing ample time to eat and relax.",
+    "Hygienic halt place selected by Savan Travels for passenger convenience."
+  ],
+
+  // RIGHT COLUMN 1: Surat ⇄ Ahmedabad
+  route_ahmedabad: [
+    "Best bus service for Surat to Ahmedabad and Ahmedabad to Surat travel.",
+    "Had a very comfortable journey on the Surat to Ahmedabad route with Savan Travels.",
+    "Punctual pickup and smooth ride from Surat to Ahmedabad.",
+    "Extremely reliable bus service between Ahmedabad and Surat.",
+    "Top choice for daily and weekend travel between Surat to Ahmedabad.",
+    "Traveled from Ahmedabad to Surat comfortably with clean sleeper berths.",
+    "Smooth highway driving on the Surat - Ahmedabad express route.",
+    "Fastest and most comfortable bus option for Surat to Ahmedabad route."
+  ],
+
+  // RIGHT COLUMN 2: Surat ⇄ Mumbai
+  route_mumbai: [
+    "Superb luxury sleeper bus service from Surat to Mumbai and Mumbai to Surat.",
+    "Travelled from Surat to Mumbai with Savan Travels and reached right on time.",
+    "Best overnight sleeper bus route between Surat and Mumbai.",
+    "Very safe and comfortable travel experience on Mumbai to Surat route.",
+    "Punctual boarding at Surat office for Mumbai route travel.",
+    "Smooth highway ride from Mumbai to Surat with courteous staff.",
+    "Top recommended bus operator for Surat to Mumbai travelers.",
+    "Hassle-free journey between Surat and Mumbai with great AC cooling."
+  ],
+
+  // RIGHT COLUMN 3: Surat ⇄ Pune
+  route_pune: [
+    "Smooth and peaceful travel experience from Surat to Pune and Pune to Surat.",
+    "Best sleeper bus option available for Surat to Pune overnight journey.",
+    "Punctual timing and comfortable sleeper on the Pune to Surat route.",
+    "Driver drove safely on the Surat to Pune highway line.",
+    "Extremely comfortable long distance bus service between Surat and Pune.",
+    "Traveled from Pune to Surat with Savan Travels and had a great sleep.",
+    "Top choice for family travel on the Surat to Pune route.",
+    "Prompt departure and safe highway driving from Surat to Pune."
+  ],
+
+  // RIGHT COLUMN 4: Surat ⇄ Rajkot
+  route_rajkot: [
+    "Excellent bus service on Surat to Rajkot and Rajkot to Surat route.",
+    "Punctual timing and smooth ride on the Surat to Rajkot journey.",
+    "Very comfortable luxury sleeper coach between Rajkot and Surat.",
+    "Traveled from Surat to Rajkot effortlessly with Savan Travels.",
+    "Clean sleeper berths and safe driving on Rajkot to Surat route.",
+    "Top rated bus operator for traveling between Surat and Rajkot.",
+    "Great service and on-time arrival on the Surat - Rajkot line.",
+    "Best choice for comfortable travel from Rajkot to Surat."
+  ],
+
+  // SECONDARY FEATURES
   sleeper: [
     "The sleeper berth was spacious, cozy, and comfortable.",
     "The sleeper arrangement was very comfortable for a restful sleep.",
@@ -118,82 +210,19 @@ export const reviewData = {
     "The sleeper design provides complete comfort on overnight trips.",
     "Spacious sleeper berth made the overnight trip effortless.",
     "Super cozy sleeper section with clean bedding.",
-    "Best sleeper bus experience I've had in a long time.",
-    "Very roomy sleeper space with comfortable cushioning.",
-    "The sleeper berth allowed for a completely undisturbed rest.",
-    "Solid, sturdy, and comfortable sleeper layout."
+    "Best sleeper bus experience I've had in a long time."
   ],
 
-  journey: [
-    "The journey was smooth, safe, and pleasant.",
-    "Overall, the journey was very comfortable and enjoyable.",
-    "Had a smooth, bump-free, and safe ride.",
-    "The driver drove smoothly and maintained safe speeds.",
-    "The whole trip went by smoothly without any hiccups.",
-    "Very peaceful journey with steady and skilled driving.",
-    "Enjoyed a stress-free and pleasant journey throughout.",
-    "Smooth highway driving ensured a relaxed experience.",
-    "Safety and comfort were maintained across the journey.",
-    "A remarkably smooth trip from departure to destination.",
-    "Felt completely safe thanks to the cautious driving.",
-    "The drive was steady and smooth even on rough roads.",
-    "No jerks or aggressive turns, just pure smooth driving.",
-    "Extremely calm and pleasant road journey.",
-    "One of the smoothest bus journeys I have taken."
-  ],
-
-  timing: [
-    "The service was prompt and right on time.",
-    "The bus arrived and reached the destination strictly on schedule.",
-    "Really appreciated the punctual pickup and drop service.",
-    "The timing was managed with high efficiency and precision.",
-    "No unnecessary delays, reached right on promised time.",
-    "Impressive punctuality at both boarding and arrival points.",
-    "Punctual service made my schedule very convenient.",
-    "Departed exactly on time and arrived ahead of schedule.",
-    "Timely stops and quick boarding process.",
-    "Great time management throughout the entire journey.",
-    "Zero time wasted during boarding or en-route halts.",
-    "Extremely punctual bus service!",
-    "Appreciated their commitment to exact departure timing.",
-    "Punctual and reliable service as promised.",
-    "On-time performance was spot on."
-  ],
-
-  service: [
-    "The overall service quality was top notch.",
-    "Very satisfied with the high-quality travel service provided.",
-    "Service was prompt, organized, and well executed.",
-    "Great service experience from start to finish.",
-    "Professional service that makes traveling a joy.",
-    "Savan Travels provides premium quality customer service.",
-    "First-rate service experience in every aspect.",
-    "Extremely happy with the overall travel management.",
-    "Exemplary service that sets high standards.",
-    "Flawless execution of customer service.",
-    "Consistently superior travel service experience.",
-    "High standard of travel service maintained throughout.",
-    "Remarkable customer care and service quality.",
-    "The quality of service exceeded my expectation.",
-    "Unmatched service standards on the road."
-  ],
-
-  staff_friendly: [
-    "The driver and conductor were very friendly and polite.",
-    "Appreciated the warmth and friendly behavior of the crew.",
-    "Staff made sure everyone felt welcomed and comfortable.",
-    "Very supportive, warm, and approachable team on board.",
-    "Friendly staff made the long travel feel easy and cozy.",
-    "Kind and cheerful staff members on duty.",
-    "Always smiling and helpful crew members.",
-    "Great attitude from the staff made a big difference.",
-    "Warm behavior by the conductor and driver alike.",
-    "Friendly interactions that made the trip memorable.",
-    "The crew created a welcoming atmosphere inside.",
-    "Very humble, polite, and patient staff.",
-    "Friendly crew who handled passenger queries gently.",
-    "Awesome behavior from the bus staff.",
-    "Pleasant interactions with the entire team."
+  hygiene: [
+    "The bus was spotless, clean, and well hygienic.",
+    "Everything inside was neat, sanitized, and tidy.",
+    "The cleanliness of the bus interior was truly impressive.",
+    "The bus was maintained with high standards of hygiene.",
+    "Really appreciated how fresh and clean the bus felt.",
+    "Spotless curtains, fresh blankets, and clean surroundings.",
+    "Hygiene standards were top tier throughout the vehicle.",
+    "Clean air, dust-free seats, and well-kept interiors.",
+    "The coach smelled fresh and was kept perfectly clean."
   ],
 
   ac: [
@@ -203,15 +232,7 @@ export const reviewData = {
     "Appreciated the comfortable climate control inside.",
     "Clean air flow with optimum AC cooling throughout.",
     "The AC maintained a refreshing atmosphere all night.",
-    "Perfect temperature control without feeling too cold.",
-    "Effective AC system that kept the ride comfortable.",
-    "Fresh air circulation and great cooling quality.",
-    "AC vents were clean and working flawlessly.",
-    "Cool and pleasant environment maintained inside.",
-    "Great cooling system for a long journey.",
-    "Well-regulated AC that ensured a soothing ride.",
-    "Air conditioning worked consistently well.",
-    "Climate inside the coach was pleasant and comfortable."
+    "Perfect temperature control without feeling too cold."
   ],
 
   charging: [
@@ -220,70 +241,7 @@ export const reviewData = {
     "Appreciated the convenient individual charging sockets.",
     "Charging ports kept my phone powered throughout the trip.",
     "Easily accessible charging outlets at seat level.",
-    "Functional USB/power outlets made the trip easy.",
-    "Charging setup was reliable and working properly.",
-    "Great amenity to have functional charging ports.",
-    "Power sockets worked seamlessly for all passengers.",
-    "Kept my devices charged without any issues.",
-    "Convenient charging points made long travel stress-free.",
-    "Properly placed and working charging sockets.",
-    "Appreciated having a fast charging point near my berth.",
-    "Charging facility was a big plus point.",
-    "Worked smoothly for charging electronics on the go."
-  ],
-
-  clean_bus: [
-    "Clean seat covers, dust-free curtains, and spotless floors.",
-    "The bus interior was sanitized, fresh, and tidy.",
-    "Freshly laundered blankets and spotless berth covers.",
-    "Very clean environment maintained inside the luxury coach.",
-    "The cleanliness of the entire vehicle was impressive.",
-    "No foul smell or dust anywhere in the bus.",
-    "Well-washed curtains and crisp clean seat fabric.",
-    "Sanitized cabin that gave a fresh travel feeling.",
-    "Clean gangway and well-kept luggage space.",
-    "Everything smelled fresh and looked sparkling clean.",
-    "High level of cleanliness observed across all seats.",
-    "Clean windows, pristine seats, and tidy floor.",
-    "Tidy interior that shows proper care and maintenance.",
-    "Very clean bus body and interiors.",
-    "Hygiene and cleanliness were top notch."
-  ],
-
-  seats: [
-    "Seats were spacious with generous legroom and recline.",
-    "Pushback seats were very comfortable for long hours.",
-    "Cushioning of the seats was soft and ergonomically designed.",
-    "Very comfortable seating posture with ample back support.",
-    "Plush seating that made the long ride fatigue-free.",
-    "Great leg space and headrest comfort on the seats.",
-    "Ergonomic seats that provided solid lumbar support.",
-    "Reclining feature worked smoothly and comfortably.",
-    "Wide seats with premium fabric and soft cushioning.",
-    "Comfortable seating arrangements for a long travel.",
-    "Enough room to stretch legs and sit comfortably.",
-    "Seats felt premium, clean, and cushioned.",
-    "High quality seats that prevented travel tiredness.",
-    "Loved the comfort and recline of the seats.",
-    "Spacious seating layout across the coach."
-  ],
-
-  well_maintained: [
-    "The vehicle was in pristine condition with smooth suspension.",
-    "Bus engine and mechanical condition were top class.",
-    "Modern, well-maintained luxury coach on the road.",
-    "The vehicle operated quietly without any rattle or noise.",
-    "Smooth shocks and air suspension made the ride float.",
-    "Very modern bus fleet in excellent running condition.",
-    "Maintained to high standards for passenger safety.",
-    "Smooth mechanical performance throughout the route.",
-    "The coach felt brand new and extremely quiet.",
-    "High-end luxury bus in peak operational condition.",
-    "Suspension absorbed all road bumps effortlessly.",
-    "Well-tuned vehicle that ensured a noise-free ride.",
-    "Top-spec bus with great mechanical reliability.",
-    "Felt like traveling in a brand new vehicle.",
-    "Vehicle maintenance quality is commendable."
+    "Functional USB/power outlets made the trip easy."
   ],
 
   booking: [
@@ -291,17 +249,7 @@ export const reviewData = {
     "Seamless online booking experience with quick confirmation.",
     "Easy boarding process with quick ticket validation.",
     "Booking was straightforward, clear, and convenient.",
-    "Prompt SMS updates and easy seat selection during booking.",
-    "Smooth ticket reservation process from start to finish.",
-    "Simple, quick, and transparent booking procedure.",
-    "Hassle-free ticket confirmation and precise location info.",
-    "Very convenient booking workflow with instant details.",
-    "Boarding point guidance and ticket management were simple.",
-    "Quick verification during boarding saved time.",
-    "Effortless ticket booking experience.",
-    "Clear communication regarding boarding time and seat.",
-    "Booking the trip was completely smooth.",
-    "Easy ticketing process with zero confusion."
+    "Prompt SMS updates and easy seat selection during booking."
   ],
 
   overall: [
@@ -311,15 +259,7 @@ export const reviewData = {
     "Extremely satisfied with the entire trip from Savan Travels.",
     "Top class travel provider, will always prefer Savan Travels.",
     "A 5-star travel experience in every aspect!",
-    "Truly value for money travel service.",
-    "Savan Travels has earned a loyal customer today.",
-    "Outstanding overall trip experience!",
-    " benchmark for long-distance bus journeys.",
-    "Complete peace of mind traveling with Savan Travels.",
-    "Will definitely choose Savan Travels for future trips.",
-    "Exceptional journey quality from start to end.",
-    "Overall, an unbeatable bus travel experience.",
-    "Very happy customer! Keep up the great service."
+    "Truly value for money travel service."
   ],
 
   closings: [
@@ -327,16 +267,16 @@ export const reviewData = {
     "Overall, a very pleasant and satisfying experience.",
     "Would be happy to travel with them again soon.",
     "Definitely a good travel experience. Will book again!",
-    "Highly recommended for anyone looking for reliable travel!",
-    "Five stars for their great service and comfortable bus!",
+    "Highly recommended for anyone looking for reliable travel and parcel service!",
+    "Five stars for their great service, parcel office, and comfortable bus!",
     "Will recommend Savan Travels to my friends and family.",
     "Looking forward to my next trip with Savan Travels!",
-    "A reliable travel partner for long journeys.",
+    "A reliable travel and parcel partner for Surat and beyond.",
     "Will certainly book with Savan Travels again.",
     "Keep up the brilliant work, Savan Travels!",
-    "Must try service for smooth highway travel.",
-    "Full stars for safety, comfort, and service!",
+    "Must try service for smooth highway travel and parcel delivery!",
+    "Full stars for safety, comfort, timing, and service!",
     "Kudos to the entire Savan Travels team!",
-    "My go-to choice for bus travel going forward!"
+    "My go-to choice for bus travel and parcel service going forward!"
   ]
 };
