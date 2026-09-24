@@ -24,7 +24,7 @@ const CONTENT = {
     chipsTitle: 'Select what you liked (Optional):',
     mainBtn: 'Copy & Post to Google',
     mainBtnCopied: 'Copied! Opening Google...',
-    regenerateBtn: 'Regenerate',
+    regenerateBtn: 'Regenerate Options',
     copyOnly: 'Copy',
     copiedOnly: 'Copied!',
     editBtn: 'Edit',
@@ -40,7 +40,7 @@ const CONTENT = {
     chipsTitle: 'Tamne shu gamyu (Optional - tap karo):',
     mainBtn: 'Copy & Post to Google',
     mainBtnCopied: 'Copied! Google khule che...',
-    regenerateBtn: 'Regenerate',
+    regenerateBtn: 'Regenerate Options',
     copyOnly: 'Copy',
     copiedOnly: 'Copied!',
     editBtn: 'Edit',
@@ -56,7 +56,7 @@ const CONTENT = {
     chipsTitle: 'Aapko kya pasand aaya (Optional - select karein):',
     mainBtn: 'Copy & Post to Google',
     mainBtnCopied: 'Copied! Google khul raha hai...',
-    regenerateBtn: 'Regenerate',
+    regenerateBtn: 'Regenerate Options',
     copyOnly: 'Copy',
     copiedOnly: 'Copied!',
     editBtn: 'Edit',
@@ -232,44 +232,44 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between p-3.5 sm:p-5 selection:bg-indigo-500 selection:text-white">
       
       {/* 1. TOP HEADER: BRAND */}
-      <header className="w-full max-w-sm mx-auto flex items-center justify-between pt-0.5">
-        <div className="flex items-center gap-2.5">
+      <header className="w-full max-w-md mx-auto flex items-center justify-between pt-0.5">
+        <div className="flex items-center gap-3">
           <img
             src="/savan-logo.png"
             alt="Savan Travels"
-            className="w-9 h-9 rounded-full object-cover ring-2 ring-indigo-500/20 shadow-xs shrink-0"
+            className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500/20 shadow-xs shrink-0"
           />
           <div>
-            <h1 className="text-base font-black tracking-tight text-slate-900 leading-none">
+            <h1 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 leading-tight">
               {t.title}
             </h1>
-            <p className="text-[10px] text-indigo-600 font-bold uppercase tracking-wider mt-0.5">
+            <p className="text-xs text-indigo-600 font-extrabold uppercase tracking-wide">
               {t.subtitle}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 text-[10px] font-bold text-indigo-800 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-full shadow-xs">
+        <div className="flex items-center gap-1 text-xs font-black text-indigo-800 bg-indigo-50 border border-indigo-200/80 px-2.5 py-1 rounded-full shadow-xs">
           <span>{t.badge}</span>
         </div>
       </header>
 
       {/* 2. PROMINENT 3-LANGUAGE TOGGLE: ENGLISH | GUJLISH | HINGLISH */}
-      <div className="w-full max-w-sm mx-auto mt-2 bg-slate-200/70 p-1 rounded-xl border border-slate-200 shadow-inner">
-        <div className="grid grid-cols-3 gap-1">
+      <div className="w-full max-w-md mx-auto mt-2.5 bg-slate-200/70 p-1.5 rounded-2xl border border-slate-200 shadow-inner">
+        <div className="grid grid-cols-3 gap-1.5">
           {/* English Tab */}
           <button
             type="button"
             onClick={() => handleLang('en')}
-            className={`py-1.5 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
+            className={`py-2 px-2 rounded-xl text-sm font-black transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
               lang === 'en'
-                ? 'bg-white text-indigo-600 font-black shadow-xs border border-slate-200 ring-1 ring-slate-200'
+                ? 'bg-white text-indigo-600 shadow-sm border border-slate-200 ring-1 ring-slate-200'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1.5 text-sm sm:text-base">
               English
-              {lang === 'en' && <span className="text-[11px] font-black text-indigo-600">✓</span>}
+              {lang === 'en' && <span className="text-xs font-black text-indigo-600">✓</span>}
             </span>
           </button>
 
@@ -277,44 +277,44 @@ export default function App() {
           <button
             type="button"
             onClick={() => handleLang('gu')}
-            className={`py-1.5 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
+            className={`py-2 px-2 rounded-xl text-sm font-black transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
               lang === 'gu'
-                ? 'bg-white text-indigo-600 font-black shadow-xs border border-slate-200 ring-1 ring-slate-200'
+                ? 'bg-white text-indigo-600 shadow-sm border border-slate-200 ring-1 ring-slate-200'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1.5 text-sm sm:text-base">
               Gujlish
-              {lang === 'gu' && <span className="text-[11px] font-black text-indigo-600">✓</span>}
+              {lang === 'gu' && <span className="text-xs font-black text-indigo-600">✓</span>}
             </span>
-            <span className="text-[9px] font-semibold text-slate-400 -mt-0.5">ગુજરાતી</span>
+            <span className="text-[11px] font-bold text-slate-400">ગુજરાતી</span>
           </button>
 
           {/* Hinglish Tab */}
           <button
             type="button"
             onClick={() => handleLang('hi')}
-            className={`py-1.5 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
+            className={`py-2 px-2 rounded-xl text-sm font-black transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
               lang === 'hi'
-                ? 'bg-white text-indigo-600 font-black shadow-xs border border-slate-200 ring-1 ring-slate-200'
+                ? 'bg-white text-indigo-600 shadow-sm border border-slate-200 ring-1 ring-slate-200'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1.5 text-sm sm:text-base">
               Hinglish
-              {lang === 'hi' && <span className="text-[11px] font-black text-indigo-600">✓</span>}
+              {lang === 'hi' && <span className="text-xs font-black text-indigo-600">✓</span>}
             </span>
-            <span className="text-[9px] font-semibold text-slate-400 -mt-0.5">हिंदी</span>
+            <span className="text-[11px] font-bold text-slate-400">हिंदी</span>
           </button>
         </div>
       </div>
 
       {/* 3. CENTER WORKSPACE: CHIPS + CAROUSEL CARD + ACTIONS */}
-      <main className="w-full max-w-sm mx-auto my-auto space-y-3 py-1">
+      <main className="w-full max-w-md mx-auto my-auto space-y-3.5 py-1">
         
         {/* CHOICE CHIPS (8 OPTIONS - NO PRE-SELECTION BY DEFAULT) */}
         <section aria-label="Review topics" className="space-y-1.5">
-          <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-slate-500 px-1">
+          <div className="flex items-center justify-between text-xs font-black uppercase tracking-wider text-slate-500 px-1">
             <span>{t.chipsTitle}</span>
             {selectedChips.length > 0 && (
               <button
@@ -326,7 +326,7 @@ export default function App() {
                   setCurrentIndex(0);
                   setIsEditing(false);
                 }}
-                className="text-indigo-600 hover:underline cursor-pointer lowercase"
+                className="text-indigo-600 hover:underline cursor-pointer lowercase text-xs font-bold"
               >
                 clear all
               </button>
@@ -343,17 +343,17 @@ export default function App() {
                   key={chip.id}
                   type="button"
                   onClick={() => handleToggleChip(chip.id)}
-                  className={`min-h-[36px] px-2.5 py-1 rounded-xl text-xs font-bold flex items-center justify-between gap-1.5 transition-all cursor-pointer active:scale-95 touch-manipulation border ${
+                  className={`min-h-[42px] px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-between gap-1.5 transition-all cursor-pointer active:scale-95 touch-manipulation border ${
                     isSelected
                       ? 'bg-indigo-50 hover:bg-indigo-100/70 text-indigo-950 border-indigo-300 shadow-xs ring-1 ring-indigo-400/30'
                       : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200 shadow-xs'
                   }`}
                 >
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-sm shrink-0">{chip.icon}</span>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-base sm:text-lg shrink-0">{chip.icon}</span>
                     <span className="truncate">{chipLabel}</span>
                   </div>
-                  <span className={`text-[11px] font-black shrink-0 ${isSelected ? 'text-indigo-600' : 'text-slate-400'}`}>
+                  <span className={`text-xs sm:text-sm font-black shrink-0 ${isSelected ? 'text-indigo-600' : 'text-slate-400'}`}>
                     {isSelected ? '✓' : '+'}
                   </span>
                 </button>
@@ -363,22 +363,22 @@ export default function App() {
         </section>
 
         {/* REVIEW CAROUSEL CARD WITH LEFT / RIGHT CHOICE & QUOTES */}
-        <section aria-label="Review carousel" className="space-y-2">
+        <section aria-label="Review carousel" className="space-y-2.5">
           
           {/* THE CAROUSEL CARD */}
           <div 
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-200/90 relative min-h-[155px] flex flex-col justify-between transition-all"
+            className="bg-white rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-200/90 relative min-h-[170px] sm:min-h-[185px] flex flex-col justify-between transition-all"
           >
             {/* LEFT ARROW BUTTON (<) */}
             <button
               type="button"
               onClick={handlePrev}
               aria-label="Previous review option"
-              className="absolute left-2.5 top-[44%] -translate-y-1/2 w-8 h-8 rounded-full bg-slate-100/90 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-xs z-10 touch-manipulation"
+              className="absolute left-2.5 top-[44%] -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100/90 hover:bg-slate-200 text-slate-700 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-xs z-10 touch-manipulation"
             >
-              <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
             </button>
 
             {/* RIGHT ARROW BUTTON (>) */}
@@ -386,20 +386,20 @@ export default function App() {
               type="button"
               onClick={handleNext}
               aria-label="Next review option"
-              className="absolute right-2.5 top-[44%] -translate-y-1/2 w-8 h-8 rounded-full bg-slate-100/90 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-xs z-10 touch-manipulation"
+              className="absolute right-2.5 top-[44%] -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100/90 hover:bg-slate-200 text-slate-700 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-xs z-10 touch-manipulation"
             >
-              <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
             </button>
 
-            {/* REVIEW TEXT (IN QUOTES WITH LEFT/RIGHT MARGIN FOR BUTTONS) */}
-            <div className="px-7 sm:px-8 py-1 my-auto flex items-center justify-center">
+            {/* REVIEW TEXT (LARGER FONT SIZE FOR MOBILE READABILITY) */}
+            <div className="px-8 sm:px-10 py-1 my-auto flex items-center justify-center">
               {isEditing ? (
                 <textarea
                   ref={textareaRef}
                   value={currentReview}
                   onChange={handleTextChange}
-                  className="w-full text-xs sm:text-sm font-normal text-slate-800 placeholder-slate-400 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed text-center p-0"
-                  rows={3}
+                  className="w-full text-base sm:text-lg font-medium text-slate-800 placeholder-slate-400 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed text-center p-0"
+                  rows={4}
                   aria-label="Edit review text"
                 />
               ) : (
@@ -408,7 +408,7 @@ export default function App() {
                     setIsEditing(true);
                     setTimeout(() => textareaRef.current?.focus(), 50);
                   }}
-                  className="text-xs sm:text-sm font-normal text-slate-800 leading-relaxed text-center select-none cursor-text line-clamp-4"
+                  className="text-base sm:text-lg font-medium text-slate-800 leading-relaxed text-center select-none cursor-text"
                 >
                   "{currentReview}"
                 </p>
@@ -416,7 +416,7 @@ export default function App() {
             </div>
 
             {/* BOTTOM CAROUSEL DOTS (• • ▬ •) */}
-            <div className="flex items-center justify-center gap-1.5 pt-2">
+            <div className="flex items-center justify-center gap-1.5 pt-2.5">
               {reviewsList.map((_, idx) => (
                 <button
                   key={idx}
@@ -425,10 +425,10 @@ export default function App() {
                     setCurrentIndex(idx);
                     setIsEditing(false);
                   }}
-                  className={`transition-all duration-200 rounded-full h-1.5 cursor-pointer touch-manipulation ${
+                  className={`transition-all duration-200 rounded-full h-2 cursor-pointer touch-manipulation ${
                     currentIndex === idx
-                      ? 'w-6 bg-[#6355ee]'
-                      : 'w-1.5 bg-slate-300 hover:bg-slate-400'
+                      ? 'w-7 bg-[#6355ee]'
+                      : 'w-2 bg-slate-300 hover:bg-slate-400'
                   }`}
                   aria-label={`Go to review option ${idx + 1}`}
                 />
@@ -437,29 +437,29 @@ export default function App() {
           </div>
 
           {/* BAR BELOW CARD: 5★ ON LEFT | COPY & EDIT/DONE ON RIGHT */}
-          <div className="flex items-center justify-between px-1 text-xs select-none">
+          <div className="flex items-center justify-between px-1.5 text-sm select-none">
             
             {/* 5★ BADGE */}
-            <div className="flex items-center gap-1 text-slate-900 font-bold text-sm">
+            <div className="flex items-center gap-1.5 text-slate-900 font-black text-base sm:text-lg">
               <span>5★</span>
             </div>
 
             {/* ACTION LINKS: COPY & EDIT/DONE */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {/* Copy only button */}
               <button
                 type="button"
                 onClick={handleCopyOnly}
-                className="flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold cursor-pointer active:scale-95 transition-all py-0.5 px-1 rounded touch-manipulation"
+                className="flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-bold text-sm cursor-pointer active:scale-95 transition-all py-1 px-1.5 rounded-md touch-manipulation"
               >
                 {copiedOnly ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                    <Check className="w-4 h-4 text-emerald-600 stroke-[2.5]" />
                     <span className="text-emerald-700 font-bold">{t.copiedOnly}</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-600 stroke-[2]" />
+                    <Copy className="w-4 h-4 text-slate-600 stroke-[2]" />
                     <span>{t.copyOnly}</span>
                   </>
                 )}
@@ -469,16 +469,16 @@ export default function App() {
               <button
                 type="button"
                 onClick={handleToggleEdit}
-                className="flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold cursor-pointer active:scale-95 transition-all py-0.5 px-1 rounded touch-manipulation"
+                className="flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-bold text-sm cursor-pointer active:scale-95 transition-all py-1 px-1.5 rounded-md touch-manipulation"
               >
                 {isEditing ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-indigo-600 stroke-[2.5]" />
+                    <Check className="w-4 h-4 text-indigo-600 stroke-[2.5]" />
                     <span className="text-indigo-600 font-bold">{t.doneBtn}</span>
                   </>
                 ) : (
                   <>
-                    <Pencil className="w-3.5 h-3.5 text-slate-600 stroke-[2]" />
+                    <Pencil className="w-4 h-4 text-slate-600 stroke-[2]" />
                     <span>{t.editBtn}</span>
                   </>
                 )}
@@ -491,7 +491,7 @@ export default function App() {
           <button
             type="button"
             onClick={handleCopyAndPost}
-            className={`w-full min-h-[52px] py-3.5 px-5 rounded-2xl font-bold text-base transition-all duration-150 cursor-pointer active:scale-[0.98] shadow-md shadow-indigo-600/20 touch-manipulation flex items-center justify-center gap-2.5 ${
+            className={`w-full min-h-[56px] py-4 px-6 rounded-2xl font-black text-base sm:text-lg transition-all duration-150 cursor-pointer active:scale-[0.98] shadow-md shadow-indigo-600/20 touch-manipulation flex items-center justify-center gap-2.5 ${
               copiedAction
                 ? 'bg-emerald-600 text-white shadow-emerald-600/25'
                 : 'bg-[#6355ee] hover:bg-[#5346dd] text-white'
@@ -504,7 +504,7 @@ export default function App() {
               </>
             ) : (
               <>
-                <ExternalLink className="w-4 h-4 stroke-[2.5] text-white" />
+                <ExternalLink className="w-5 h-5 stroke-[2.5] text-white" />
                 <span>{t.mainBtn}</span>
               </>
             )}
@@ -514,14 +514,14 @@ export default function App() {
           <button
             type="button"
             onClick={handleRegenerate}
-            className="w-full min-h-[48px] py-3 px-5 rounded-2xl font-bold text-sm sm:text-base bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-xs cursor-pointer active:scale-[0.98] transition-all touch-manipulation flex items-center justify-center gap-2"
+            className="w-full min-h-[50px] py-3.5 px-6 rounded-2xl font-bold text-sm sm:text-base bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-xs cursor-pointer active:scale-[0.98] transition-all touch-manipulation flex items-center justify-center gap-2"
           >
             <Sparkles className={`w-4 h-4 text-indigo-600 ${isRegenerating ? 'animate-spin' : ''}`} />
             <span>{t.regenerateBtn}</span>
           </button>
 
           {/* SIMPLE HELPFUL 1-LINE INSTRUCTION */}
-          <p className="text-center text-[10px] sm:text-[11px] font-semibold text-slate-500 pt-0.5">
+          <p className="text-center text-xs sm:text-sm font-semibold text-slate-600 pt-0.5">
             {t.helperText}
           </p>
 
@@ -529,17 +529,17 @@ export default function App() {
       </main>
 
       {/* 4. FOOTER: OFFICE CONTACT PHONES */}
-      <footer className="w-full max-w-sm mx-auto text-center pt-2 pb-0.5 border-t border-slate-200 text-[10px] sm:text-[11px] text-slate-500 space-y-0.5">
+      <footer className="w-full max-w-md mx-auto text-center pt-2 pb-0.5 border-t border-slate-200 text-xs sm:text-sm text-slate-500 space-y-1">
         <div className="flex items-center justify-center gap-2">
-          <PhoneCall className="w-3 h-3 text-indigo-600 shrink-0" />
+          <PhoneCall className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
           <span>{t.callUs}</span>
-          <a href="tel:7567529600" className="text-indigo-600 font-bold hover:underline">7567529600</a>
+          <a href="tel:7567529600" className="text-indigo-600 font-extrabold hover:underline">7567529600</a>
           <span>•</span>
-          <a href="tel:7567529700" className="text-indigo-600 font-bold hover:underline">7567529700</a>
+          <a href="tel:7567529700" className="text-indigo-600 font-extrabold hover:underline">7567529700</a>
         </div>
-        <p className="text-[9px] text-slate-400 flex items-center justify-center gap-1">
+        <p className="text-[11px] text-slate-400 flex items-center justify-center gap-1 font-medium">
           <span>સાવન ટ્રાવેલ્સ</span>
-          <HeartHandshake className="w-2.5 h-2.5 text-rose-500 inline" />
+          <HeartHandshake className="w-3 h-3 text-rose-500 inline" />
         </p>
       </footer>
 
