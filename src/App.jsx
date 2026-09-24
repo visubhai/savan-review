@@ -3,8 +3,7 @@ import { CHIPS_DATA } from './data/reviews';
 import { generateReview } from './utils/reviewGenerator';
 import { ReviewCard } from './components/ReviewCard';
 import { ReviewOption } from './components/ReviewOption';
-import { CopyButton } from './components/CopyButton';
-import { GoogleReviewButton } from './components/GoogleReviewButton';
+import { CopyAndReviewButton } from './components/CopyAndReviewButton';
 import { RefreshCw, ShieldCheck, HeartHandshake, PhoneCall } from 'lucide-react';
 
 // Auto-select the first 3 items of the Left Column by default (Staff, Timing, Parcel)
@@ -15,8 +14,6 @@ export default function App() {
 
   // Pre-generate review immediately on mount using initial default tags
   const [reviewText, setReviewText] = useState(() => generateReview(DEFAULT_INITIAL_TAGS));
-  
-  const [isCopied, setIsCopied] = useState(false);
 
   // Instant chip toggle handler (synchronous, <1ms UI response)
   const handleToggleChip = useCallback((chipId) => {
@@ -37,10 +34,6 @@ export default function App() {
     const newReview = generateReview(selectedChips);
     setReviewText(newReview);
   }, [selectedChips]);
-
-  const handleCopySuccess = useCallback(() => {
-    setIsCopied(true);
-  }, []);
 
   // Separate chips into Left and Right columns for side-by-side alignment
   const leftColumnChips = useMemo(() => CHIPS_DATA.filter(c => c.col === 'left'), []);
@@ -85,7 +78,7 @@ export default function App() {
               <PhoneCall className="w-3.5 h-3.5" />
               Office & Parcel:
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 font-semibold">
               <a
                 href="tel:7567529600"
                 className="hover:text-amber-300 transition-colors underline decoration-slate-600 underline-offset-2"
@@ -168,15 +161,10 @@ export default function App() {
           </div>
         </section>
 
-        {/* STEP 3: ACTION BUTTONS (COPY & GOOGLE) */}
-        <section className="space-y-3 pt-2">
-          <CopyButton
+        {/* STEP 3: SINGLE UNIFIED CTA BUTTON (COPY & REVIEW ON GOOGLE) */}
+        <section className="pt-2">
+          <CopyAndReviewButton
             textToCopy={reviewText}
-            onCopySuccess={handleCopySuccess}
-          />
-
-          <GoogleReviewButton
-            isCopied={isCopied}
           />
         </section>
 
