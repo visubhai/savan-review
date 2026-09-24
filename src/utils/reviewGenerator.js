@@ -1,4 +1,4 @@
-import { localizedReviewData, CONNECTORS } from '../data/reviews';
+import { localizedReviewData, CONNECTORS, RARE_PHONE_SNIPPETS } from '../data/reviews';
 
 // Persistent memory to track generated review hashes and prevent repetitions
 const SEEN_HASHES_KEY = 'savan_seen_reviews_v2';
@@ -90,11 +90,24 @@ function generateSinglePass(selectedOptions = [], lang = 'gu') {
     }
   });
 
-  // 4. Closing
+  // 4. Very rare phone mention (~8% probability: approx 1 in 12 to 14 reviews)
+  let rarePhone = null;
+  if (Math.random() < 0.08) {
+    const phoneList = RARE_PHONE_SNIPPETS[lang] || RARE_PHONE_SNIPPETS.gu;
+    rarePhone = getRandomItem(phoneList);
+  }
+
+  // 5. Closing
   const closing = getRandomItem(data.closings);
 
   // Combine into one clean review string
-  return [opening, ...middleSentences, closing].filter(Boolean).join(" ");
+  const reviewParts = [opening, ...middleSentences];
+  if (rarePhone) {
+    reviewParts.push(rarePhone);
+  }
+  reviewParts.push(closing);
+
+  return reviewParts.filter(Boolean).join(" ");
 }
 
 /**

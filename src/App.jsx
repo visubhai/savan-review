@@ -143,34 +143,49 @@ export default function App() {
           </div>
         </div>
 
-        {/* COMPACT LANGUAGE SWITCHER */}
-        <div className="flex bg-slate-900 rounded-lg p-0.5 border border-slate-800 text-[10px] font-bold">
+        <div className="flex items-center gap-1 text-[10px] font-black text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-1 rounded-full">
+          <span>⭐ 5-Star Review</span>
+        </div>
+      </div>
+
+      {/* PROMINENT VISIBLE LANGUAGE TOGGLE: GUJARATI | ENGLISH | HINDI */}
+      <div className="w-full max-w-sm mx-auto mt-2 bg-slate-900/95 p-1 rounded-xl border border-slate-700/80 shadow-md">
+        <div className="grid grid-cols-3 gap-1">
           <button
             type="button"
             onClick={() => handleLang('gu')}
-            className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${
-              lang === 'gu' ? 'bg-orange-500 text-white font-black' : 'text-slate-400'
+            className={`py-1.5 px-2 rounded-lg text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 touch-manipulation active:scale-95 ${
+              lang === 'gu'
+                ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-black shadow-md shadow-orange-500/30 ring-1 ring-orange-300'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
-            ગુજ
+            <span>ગુજરાતી</span>
+            {lang === 'gu' && <span className="text-[11px] font-black">✓</span>}
           </button>
           <button
             type="button"
             onClick={() => handleLang('en')}
-            className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${
-              lang === 'en' ? 'bg-orange-500 text-white font-black' : 'text-slate-400'
+            className={`py-1.5 px-2 rounded-lg text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 touch-manipulation active:scale-95 ${
+              lang === 'en'
+                ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-black shadow-md shadow-orange-500/30 ring-1 ring-orange-300'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
-            EN
+            <span>English</span>
+            {lang === 'en' && <span className="text-[11px] font-black">✓</span>}
           </button>
           <button
             type="button"
             onClick={() => handleLang('hi')}
-            className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${
-              lang === 'hi' ? 'bg-orange-500 text-white font-black' : 'text-slate-400'
+            className={`py-1.5 px-2 rounded-lg text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 touch-manipulation active:scale-95 ${
+              lang === 'hi'
+                ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-black shadow-md shadow-orange-500/30 ring-1 ring-orange-300'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
-            हिं
+            <span>हिंदी</span>
+            {lang === 'hi' && <span className="text-[11px] font-black">✓</span>}
           </button>
         </div>
       </div>

@@ -87,7 +87,7 @@ export const localizedReviewData = {
       "ડ્રાઇવર અને સાવન ટ્રાવેલ્સ ઓફિસ સ્ટાફનો સ્વભાવ ખૂબ જ નમ્ર અને મદદરૂપ હતો.",
       "સુરત ઓફિસ સ્ટાફ અને બસ ડ્રાઇવરે સામાન મુકવામાં ખૂબ જ સારી મદદ કરી.",
       "ડ્રાઇવિંગ ખૂબ જ સુરક્ષિત અને શાંત હતું, તેમજ ઓફિસ સ્ટાફનું વર્તન પણ ઉત્તમ રહ્યું.",
-      "ઓફિસ ટીમ (7567529600) તરફથી ખૂબ જ ઝડપી અને સંતોષકારક જવાબ મળ્યો.",
+      "ઓફિસ ટીમ તરફથી ખૂબ જ ઝડપી અને સંતોષકારક સહયોગ મળ્યો.",
       "બસ ડ્રાઇવર અને કંડક્ટર ખૂબ જ વિનમ્ર અને વ્યવસ્થિત હતા."
     ],
     timing: [
@@ -100,7 +100,7 @@ export const localizedReviewData = {
       "સાવન ટ્રાવેલ્સ ઓફિસની પાર્સલ સર્વિસ ખૂબ જ ઝડપી, સુરક્ષિત અને ભરોસાપાત્ર છે.",
       "મેં સાવન ટ્રાવેલ્સ ઓફિસથી પાર્સલ મોકલ્યું હતું જે સમયસર અને સલામત પહોંચી ગયું.",
       "સુરતથી અન્ય શહેરોમાં તાત્કાલિક પાર્સલ મોકલવા માટે સાવન ટ્રાવેલ્સ ઉત્તમ છે.",
-      "ઓફિસ સ્ટાફ (7567529600 / 7567529700) પાર્સલ બુકિંગ ખૂબ જ ઝડપથી કરી આપે છે."
+      "ઓફિસ સ્ટાફ પાર્સલ બુકિંગ ખૂબ જ ઝડપથી અને સહેલાઈથી કરી આપે છે."
     ],
     sleeper: [
       "સ્લીપર બર્થ ખૂબ જ પહોળો, સ્વચ્છ અને આરામદાયક હતો.",
@@ -150,7 +150,7 @@ export const localizedReviewData = {
       "The bus driver and Savan Travels office staff were very helpful, polite, and professional.",
       "Great coordination between the office staff at Surat office and the bus driver on board.",
       "The driver drove very safely while the office staff handled boarding and baggage with utmost care.",
-      "Special thanks to the Savan Travels office staff (7567529600) for guidance and the driver for smooth, cautious highway driving."
+      "Special thanks to the Savan Travels office staff for helpful guidance and the driver for smooth, cautious highway driving."
     ],
     timing: [
       "The bus arrived and reached the destination strictly on schedule.",
@@ -162,7 +162,7 @@ export const localizedReviewData = {
       "Savan Travels office provides fast, safe, and reliable parcel cargo delivery service.",
       "Sent my parcel package through Savan Travels office and it reached safely on time.",
       "Best parcel delivery office in Surat for sending urgent packages safely.",
-      "Highly recommend Savan Travels office (7567529600 / 7567529700) for fast parcel courier booking."
+      "Highly recommend Savan Travels office for fast and dependable parcel courier booking."
     ],
     sleeper: [
       "The sleeper berth was spacious, cozy, and comfortable.",
@@ -204,7 +204,7 @@ export const localizedReviewData = {
     staff: [
       "बस ड्राइवर और सावन ट्रैवल्स ऑफिस स्टाफ बहुत ही मददगार और विनम्र रहे।",
       "सूरत ऑफिस स्टाफ और ड्राइवर ने बोर्डिंग व लगेज में बहुत सहयोग किया।",
-      "ड्राइवर ने बहुत सुरक्षित ड्राइविंग की और ऑफिस स्टाफ (7567529600) का व्यवहार बहुत अच्छा था।"
+      "ड्राइवर ने बहुत सुरक्षित ड्राइविंग की और ऑफिस स्टाफ का व्यवहार बहुत अच्छा था।"
     ],
     timing: [
       "बस बिल्कुल सही समय पर रवाना हुई और समय पर गंतव्य पर पहुंची।",
@@ -213,7 +213,7 @@ export const localizedReviewData = {
     parcel: [
       "सावन ट्रैवल्स ऑफिस की पार्सल डिलीवरी सेवा बहुत तेज, सुरक्षित और भरोसेमंद है।",
       "मैंने सावन ट्रैवल्स ऑफिस से पार्सल भेजा था जो समय पर सुरक्षित पहुंच गया।",
-      "पार्सल बुकिंग के लिए सावन ट्रैवल्स ऑफिस (7567529600 / 7567529700) सबसे बढ़िया विकल्प है।"
+      "पार्सल बुकिंग के लिए सावन ट्रैवल्स ऑफिस सबसे सुरक्षित और बढ़िया विकल्प है।"
     ],
     sleeper: [
       "स्लीपर बर्थ काफी चौड़ी, आरामदायक और साफ-सुथरी थी।",
@@ -240,4 +240,22 @@ export const localizedReviewData = {
       "अगली बार भी सावन ट्रैवल्स से ही यात्रा करूंगा। 5 स्टार सर्विस!"
     ]
   }
+};
+
+export const RARE_PHONE_SNIPPETS = {
+  gu: [
+    "ઓફિસ સંપર્ક: 7567529600.",
+    "પાર્સલ કે મુસાફરી માહિતી માટે સંપર્ક: 7567529600.",
+    "(સુરત ઓફિસ: 7567529600 / 7567529700)"
+  ],
+  en: [
+    "Office contact: 7567529600.",
+    "For travel or parcel inquiry: 7567529600.",
+    "(Surat office: 7567529600 / 7567529700)"
+  ],
+  hi: [
+    "ऑफिस संपर्क: 7567529600.",
+    "बस व पार्सल पूछताछ के लिए संपर्क: 7567529600.",
+    "(सूरत ऑफिस: 7567529600 / 7567529700)"
+  ]
 };
