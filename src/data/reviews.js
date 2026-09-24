@@ -1,42 +1,42 @@
 export const MAIN_CHIPS = [
   { 
     id: 'staff', 
-    label: { en: 'Driver & Staff', gu: 'ડ્રાઇવર અને સ્ટાફ', hi: 'ड्राइवर व स्टाफ' }, 
+    label: { en: 'Driver & Staff', gu: 'Driver & Staff', hi: 'Driver & Staff' }, 
     icon: '👨‍💼' 
   },
   { 
     id: 'timing', 
-    label: { en: 'On-Time Bus', gu: 'સમયસર બસ સર્વિસ', hi: 'समय पर बस' }, 
+    label: { en: 'On-Time Bus', gu: 'On-Time Bus', hi: 'On-Time Bus' }, 
     icon: '⏰' 
   },
   { 
     id: 'parcel', 
-    label: { en: 'Parcel Service', gu: 'પાર્સલ સર્વિસ', hi: 'पार्सल सर्विस' }, 
+    label: { en: 'Parcel Service', gu: 'Parcel Service', hi: 'Parcel Service' }, 
     icon: '📦' 
   },
   { 
     id: 'sleeper', 
-    label: { en: 'Comfort Sleeper', gu: 'આરામદાયક સ્લીપર', hi: 'आरामदायक स्लीपर' }, 
+    label: { en: 'Comfort Sleeper', gu: 'Comfort Sleeper', hi: 'Comfort Sleeper' }, 
     icon: '🛏' 
   },
   { 
     id: 'route_ahmedabad', 
-    label: { en: 'Surat ⇄ Ahmedabad', gu: 'સુરત ⇄ અમદાવાદ', hi: 'सूरत ⇄ अहमदाबाद' }, 
+    label: { en: 'Surat ⇄ Ahmedabad', gu: 'Surat ⇄ Ahmedabad', hi: 'Surat ⇄ Ahmedabad' }, 
     icon: '🚌' 
   },
   { 
     id: 'route_mumbai', 
-    label: { en: 'Surat ⇄ Mumbai', gu: 'સુરત ⇄ મુંબઈ', hi: 'सूरत ⇄ मुंबई' }, 
+    label: { en: 'Surat ⇄ Mumbai', gu: 'Surat ⇄ Mumbai', hi: 'Surat ⇄ Mumbai' }, 
     icon: '🚌' 
   },
   { 
     id: 'route_pune', 
-    label: { en: 'Surat ⇄ Pune', gu: 'સુરત ⇄ પુણે', hi: 'सूरत ⇄ पुणे' }, 
+    label: { en: 'Surat ⇄ Pune', gu: 'Surat ⇄ Pune', hi: 'Surat ⇄ Pune' }, 
     icon: '🚌' 
   },
   { 
     id: 'route_rajkot', 
-    label: { en: 'Surat ⇄ Rajkot', gu: 'સુરત ⇄ રાજકોટ', hi: 'सूरत ⇄ राजकोट' }, 
+    label: { en: 'Surat ⇄ Rajkot', gu: 'Surat ⇄ Rajkot', hi: 'Surat ⇄ Rajkot' }, 
     icon: '🚌' 
   }
 ];
@@ -50,92 +50,96 @@ export const CONNECTORS = {
     "On top of that,",
     "Furthermore,",
     "Besides that,",
-    "Special mention to the fact that",
-    "What stood out was that",
     "To add to that,",
     "Moreover,"
   ],
   gu: [
-    "તેમજ,",
-    "વધુમાં,",
-    "સાથે સાથે,",
-    "ખાસ કરીને,",
-    "ખરેખર,",
-    "ઉપરાંત,"
+    "Sathe sathe,",
+    "Temaj,",
+    "Khas karine,",
+    "Vadhuma,",
+    "Ekdum,"
   ],
   hi: [
-    "साथ ही,",
-    "इसके अलावा,",
-    "विशेष रूप से,",
-    "सचमुच,",
-    "और तो और,"
+    "Sath hi,",
+    "Iske alawa,",
+    "Khas taur par,",
+    "Sach me,",
+    "Aur to aur,"
   ]
 };
 
 export const localizedReviewData = {
-  // GUJARATI SENTENCE TEMPLATES
+  // GUJLISH (Gujarati written in English / Roman script)
   gu: {
     openings: [
-      "સાવન ટ્રાવેલ્સ સાથે ખૂબ જ સુંદર અને આરામદાયક મુસાફરી રહી.",
-      "સાવન ટ્રાવેલ્સમાં મુસાફરી કરવાનો મારો અનુભવ ખૂબ જ શ્રેષ્ઠ રહ્યો.",
-      "સાવન ટ્રાવેલ્સની સર્વિસ ખરેખર ખૂબ જ પ્રશંસનીય છે.",
-      "સુરતથી સફર માટે સાવન ટ્રાવેલ્સ હંમેશા મારી પહેલી પસંદ છે.",
-      "ખૂબ જ સરસ, સલામત અને શાંત મુસાફરીનો અનુભવ રહ્યો.",
-      "સાવન ટ્રાવેલ્સની સુવિધા અને વ્યવસ્થા એકદમ શ્રેષ્ઠ છે."
+      "Savan travels sathe journey bau j mast ane comfortable rahi.",
+      "Savan travels ma travel karvano experience ekdum best rahyo.",
+      "Savan travels ni service kharekhar bau j jordar ane reliable che.",
+      "Surat thi travel karva mate Savan travels hammesha mari first choice che.",
+      "Bau j saras, safe ane peaceful journey no anubhav rahyo.",
+      "Savan travels ni luxury bus ane arrangement ekdum top class che.",
+      "Family sathe Savan travels ma travel karvu ekdum safe ane comfortable che.",
+      "Khub j saro anubhav rahyo Savan travels sathe journey ma."
     ],
     staff: [
-      "ડ્રાઇવર અને સાવન ટ્રાવેલ્સ ઓફિસ સ્ટાફનો સ્વભાવ ખૂબ જ નમ્ર અને મદદરૂપ હતો.",
-      "સુરત ઓફિસ સ્ટાફ અને બસ ડ્રાઇવરે સામાન મુકવામાં ખૂબ જ સારી મદદ કરી.",
-      "ડ્રાઇવિંગ ખૂબ જ સુરક્ષિત અને શાંત હતું, તેમજ ઓફિસ સ્ટાફનું વર્તન પણ ઉત્તમ રહ્યું.",
-      "ઓફિસ ટીમ તરફથી ખૂબ જ ઝડપી અને સંતોષકારક સહયોગ મળ્યો.",
-      "બસ ડ્રાઇવર અને કંડક્ટર ખૂબ જ વિનમ્ર અને વ્યવસ્થિત હતા."
+      "Driver ane office staff no swabhav bau j polite ane helpful hato.",
+      "Surat office staff ane bus driver e luggage mukva ma bau sari help kari.",
+      "Driver nu driving ekdum safe ane smooth hatu, highway par koi rush driving nahi.",
+      "Office team taraf thi bau fast ane cooperative response malyo.",
+      "Bus conductor ane driver banne bau supportive ane well-mannered hata.",
+      "Staff no behavior bau respectful ane helpful hato."
     ],
     timing: [
-      "બસ બિલકુલ સમયસર ઉપડી અને નિયત સમયે પહોંચાડી દીધી.",
-      "સમયપાલન બાબતે સાવન ટ્રાવેલ્સ ૧ નંબર છે, જરાય મોડું ન થયું.",
-      "પીકઅપ અને ડ્રોપ બંને જગ્યાએ બસ એકદમ સમયસર હતી.",
-      "મુસાફરી દરમિયાન સમયનું ખૂબ જ સરસ આયોજન જોવા મળ્યું."
+      "Bus ekdum exact time par upadi ane time par destination pahochadi didhi.",
+      "Punctuality ma Savan travels number one che, bilkul delay na thayu.",
+      "Pickup ane drop banne time to time rahyo, super punctual service.",
+      "Time management bau j saru hatu, exact schedule pramane journey thai.",
+      "On time departure ane on time arrival, time no puro satkar."
     ],
     parcel: [
-      "સાવન ટ્રાવેલ્સ ઓફિસની પાર્સલ સર્વિસ ખૂબ જ ઝડપી, સુરક્ષિત અને ભરોસાપાત્ર છે.",
-      "મેં સાવન ટ્રાવેલ્સ ઓફિસથી પાર્સલ મોકલ્યું હતું જે સમયસર અને સલામત પહોંચી ગયું.",
-      "સુરતથી અન્ય શહેરોમાં તાત્કાલિક પાર્સલ મોકલવા માટે સાવન ટ્રાવેલ્સ ઉત્તમ છે.",
-      "ઓફિસ સ્ટાફ પાર્સલ બુકિંગ ખૂબ જ ઝડપથી અને સહેલાઈથી કરી આપે છે."
+      "Savan travels ni parcel cargo service bau fast, safe ane reliable che.",
+      "Office thi parcel mokalyu hatu je time par securely pahochi gayu.",
+      "Surat thi urgent parcel mokalva mate Savan travels best option che.",
+      "Office staff parcel booking bau fast ane easily kari ape che.",
+      "Parcel delivery ekdum safe ane tension-free rahi, great service."
     ],
     sleeper: [
-      "સ્લીપર બર્થ ખૂબ જ પહોળો, સ્વચ્છ અને આરામદાયક હતો.",
-      "ચાદર અને ઓશિકા એકદમ સાફ-સુથરા મળ્યા, ઊંઘ ખૂબ સરસ આવી.",
-      "સ્લીપર કોચમાં પડદા અને પ્રાઇવસીની વ્યવસ્થા ખૂબ જ સરસ હતી."
+      "Sleeper berth ekdum wide, clean ane comfortable hato.",
+      "Bedsheet ane pillow ekdum neat and clean malya, ungh bau sari aavi.",
+      "Sleeper coach ma AC cooling ane privacy curtains bau sara hata.",
+      "Bus ekdum neat and clean hati ane sleeper space bau comfortable hato."
     ],
     route_ahmedabad: [
-      "સુરતથી અમદાવાદ અને અમદાવાદથી સુરત માટે સૌથી બેસ્ટ બસ સર્વિસ છે.",
-      "સુરત - અમદાવાદ રૂટ પર સાવન ટ્રાવેલ્સની મુસાફરી ખૂબ જ ઝડપી અને આરામદાયક રહી.",
-      "અમદાવાદથી સુરત આવવા માટે સમયસર અને શ્રેષ્ઠ બસ સુવિધા."
+      "Surat thi Ahmedabad ane Ahmedabad thi Surat travel mate best bus service.",
+      "Surat - Ahmedabad route par Savan travels ni ride ekdum fast ane safe che.",
+      "Ahmedabad route par timing ane comfort banne top level rahyo."
     ],
     route_mumbai: [
-      "સુરતથી મુંબઈ અને મુંબઈથી સુરત માટે ઉત્તમ સ્લીપર કોચ છે.",
-      "મુંબઈ રૂટ પર સમયસર અને સુરક્ષિત પહોંચાડવા બદલ સાવન ટ્રાવેલ્સનો આભાર.",
-      "રાત્રે મુંબઈથી સુરતનો સફર ખૂબ જ શાંતિપૂર્ણ રહ્યો."
+      "Surat thi Mumbai overnight journey mate best luxury sleeper bus service.",
+      "Mumbai route par safe driving ane punctual service mate thank you Savan Travels.",
+      "Surat to Mumbai journey ekdum smooth ane peaceful rahi."
     ],
     route_pune: [
-      "સુરતથી પુણે અને પુણેથી સુરત મુસાફરી માટે શ્રેષ્ઠ લક્ઝરી બસ છે.",
-      "પુણે રૂટ પર ડ્રાઇવરે ખૂબ જ સલામત અને શાંત ડ્રાઇવિંગ કર્યું.",
-      "સુરતથી પુણે જવા માટે સમયસર અને આરામદાયક સ્લીપર બસ સર્વિસ."
+      "Surat thi Pune overnight travel mate super comfortable sleeper bus.",
+      "Pune route par peaceful journey rahi ane time par pahochi gaya.",
+      "Surat to Pune route par driving safe ane sleeper ekdum comfortable hato."
     ],
     route_rajkot: [
-      "સુરતથી રાજકોટ અને રાજકોટથી સુરત જવા માટે સૌથી વિશ્વાસુ ટ્રાવેલ્સ છે.",
-      "સુરત - રાજકોટ રૂટ પર બસ સમયસર પહોંચી અને ઊંઘ પણ સરસ આવી.",
-      "રાજકોટથી સુરત આવવા માટે શ્રેષ્ઠ અને આરામદાયક મુસાફરી."
+      "Surat thi Rajkot mate Savan travels sauthi trusted option che.",
+      "Surat - Rajkot route par bus time par aavi ane comfortable ride rahi.",
+      "Rajkot travel karva mate Savan travels ni service best che."
     ],
     closings: [
-      "દરેક મિત્રો અને પરિવારજનોને સાવન ટ્રાવેલ્સમાં મુસાફરી કરવાની ભલામણ કરું છું.",
-      "ફરીથી જ્યારે પણ જવું હશે ત્યારે સાવન ટ્રાવેલ્સ જ પસંદ કરીશ!",
-      "ઉત્તમ સેવા માટે સાવન ટ્રાવેલ્સની આખી ટીમને ખૂબ ખૂબ અભિનંદન!",
-      "સુરતમાં બસ મુસાફરી અને પાર્સલ માટે શ્રેષ્ઠ વિકલ્પ છે."
+      "Badha friends ane family ne Savan travels recommend karu chu. 5-star service!",
+      "Next time pan Savan travels ma j travel karis. Khub j saras anubhav!",
+      "Superb service mate Savan Travels team ne khub khub abhinandan!",
+      "Surat ni best travels che safe journey ane fast parcel service mate.",
+      "Definitely 5 stars for excellent service and clean bus."
     ]
   },
 
-  // ENGLISH SENTENCE TEMPLATES
+  // ENGLISH
   en: {
     openings: [
       "Had a great experience traveling with Savan Travels.",
@@ -193,60 +197,81 @@ export const localizedReviewData = {
     ]
   },
 
-  // HINDI SENTENCE TEMPLATES
+  // HINGLISH (Hindi written in English / Roman script)
   hi: {
     openings: [
-      "सावन ट्रैवल्स के साथ यात्रा का अनुभव बहुत ही शानदार रहा।",
-      "सावन ट्रैवल्स ने हमारे सफर को बहुत आरामदायक और सुरक्षित बनाया।",
-      "सूरत से यात्रा के लिए सावन ट्रैवल्स हमेशा बेहतरीन सेवा प्रदान करता है।",
-      "सावन ट्रैवल्स की बस सेवा और सुविधाएं वाकई बहुत अच्छी हैं।"
+      "Savan travels ke sath safar ka experience bohot hi shandar raha.",
+      "Savan travels ne hamari journey ko super comfortable aur safe banaya.",
+      "Surat se travel karne ke liye Savan travels hamesha meri first choice hai.",
+      "Savan travels ki bus service aur cleanliness sach me bohot acchi hai.",
+      "Bohot hi smooth, safe aur peaceful travel experience raha.",
+      "Overall ekdum top-notch journey with Savan Travels.",
+      "Family ke sath travel karne ke liye Savan travels sabse safe aur best option hai.",
+      "First time travel kiya Savan travels me aur service bohot pasand aayi."
     ],
     staff: [
-      "बस ड्राइवर और सावन ट्रैवल्स ऑफिस स्टाफ बहुत ही मददगार और विनम्र रहे।",
-      "सूरत ऑफिस स्टाफ और ड्राइवर ने बोर्डिंग व लगेज में बहुत सहयोग किया।",
-      "ड्राइवर ने बहुत सुरक्षित ड्राइविंग की और ऑफिस स्टाफ का व्यवहार बहुत अच्छा था।"
+      "Bus driver aur Savan travels office staff ka nature bohot helpful aur polite tha.",
+      "Surat office staff aur driver ne luggage aur boarding me bohot acchi help ki.",
+      "Driver ne bohot safe driving ki aur staff ka behavior bohot respectful tha.",
+      "Office team ki taraf se quick support aur cooperative response mila.",
+      "Conductor aur driver dono bohot courteous aur disciplined the.",
+      "Staff ka polite behavior aur support dekh kar bohot accha laga."
     ],
     timing: [
-      "बस बिल्कुल सही समय पर रवाना हुई और समय पर गंतव्य पर पहुंची।",
-      "सावन ट्रैवल्स की समयबद्धता सचमुच काबिले तारीफ है।"
+      "Bus bilkul perfect time par nikli aur time par destination drop kiya.",
+      "Punctuality ke mamle me Savan travels best hai, koi delay nahi hua.",
+      "Pickup aur drop dono point par bus ekdum time par thi.",
+      "Super punctual service, journey bilkul hassle-free rahi.",
+      "Schedule follow karne me Savan travels 1 number hai, exact timing."
     ],
     parcel: [
-      "सावन ट्रैवल्स ऑफिस की पार्सल डिलीवरी सेवा बहुत तेज, सुरक्षित और भरोसेमंद है।",
-      "मैंने सावन ट्रैवल्स ऑफिस से पार्सल भेजा था जो समय पर सुरक्षित पहुंच गया।",
-      "पार्सल बुकिंग के लिए सावन ट्रैवल्स ऑफिस सबसे सुरक्षित और बढ़िया विकल्प है।"
+      "Savan travels office ki parcel service bohot fast, safe aur reliable hai.",
+      "Maine parcel bheja tha jo destination par bilkul time par aur safely mil gaya.",
+      "Surat se urgent parcel bhejne ke liye Savan travels best aur trustworthy option hai.",
+      "Parcel booking counter par staff bohot quick service deta hai.",
+      "Parcel safe deliver hua bina kisi damage ke, very satisfied."
     ],
     sleeper: [
-      "स्लीपर बर्थ काफी चौड़ी, आरामदायक और साफ-सुथरी थी।",
-      "स्लीपर में पर्दे और कुशनिंग की व्यवस्था बहुत अच्छी थी।"
+      "Sleeper berth kafi spacious, clean aur comfortable thi.",
+      "Bedsheet aur pillow ekdum clean the, travel me bohot acchi neend aayi.",
+      "AC cooling perfect thi aur sleeper cabin me full privacy thi.",
+      "Bus ke sleeper coach me bilkul clean aur hygienic environment tha."
     ],
     route_ahmedabad: [
-      "सूरत से अहमदाबाद और अहमदाबाद से सूरत के लिए सबसे बेहतरीन बस सेवा है।",
-      "सूरत से अहमदाबाद रूट पर समय पर और सुरक्षित पहुंचाने के लिए धन्यवाद।"
+      "Surat se Ahmedabad aur Ahmedabad se Surat ke liye best bus service hai.",
+      "Surat - Ahmedabad route par journey bohot smooth aur fast rahi.",
+      "Ahmedabad route ke liye timing aur comfort dono top class mila."
     ],
     route_mumbai: [
-      "सूरत से मुंबई और मुंबई से सूरत के लिए सबसे आरामदायक स्लीपर बस है।",
-      "मुंबई रूट पर बस में सफर बहुत ही सुकून भरा रहा।"
+      "Surat to Mumbai overnight travel ke liye super comfortable sleeper bus.",
+      "Mumbai route par time se drop kiya aur safe driving rahi.",
+      "Surat to Mumbai journey ekdum smooth aur peaceful thi."
     ],
     route_pune: [
-      "सूरत से पुणे और पुणे से सूरत रूट पर सावन ट्रैवल्स का सफर बहुत ही शांतिपूर्ण और आरामदायक रहा।",
-      "पुणे रूट पर ड्राइवर ने बहुत सुरक्षित ड्राइविंग की।"
+      "Surat to Pune journey ke liye Savan travels sabse reliable option hai.",
+      "Pune route par travel bohot relax aur peaceful raha.",
+      "Surat to Pune safe highway driving aur comfortable sleeper bus."
     ],
     route_rajkot: [
-      "सूरत से राजकोट और राजकोट से सूरत रूट पर समय पर पहुंचाने के लिए धन्यवाद।",
-      "राजकोट रूट पर बहुत ही आरामदायक सफर रहा।"
+      "Surat se Rajkot travel ke liye best and punctual travels service.",
+      "Rajkot route par comfortable sleeper aur on-time service mili.",
+      "Surat - Rajkot safar ke liye Savan travels best choice hai."
     ],
     closings: [
-      "मैं अपने सभी परिचितों को सावन ट्रैवल्स में सफर करने की सलाह दूंगा।",
-      "अगली बार भी सावन ट्रैवल्स से ही यात्रा करूंगा। 5 स्टार सर्विस!"
+      "Family aur friends ko Savan travels me travel karne ki strongly recommend karunga.",
+      "Next time bhi Savan travels hi choose karunga. Full 5-star service!",
+      "Aisi shandar service ke liye Savan travels team ko bohot bohot shukriya!",
+      "Surat ki best travels service for safe journey and parcel delivery.",
+      "Overall 5 star experience, must try Savan Travels!"
     ]
   }
 };
 
 export const RARE_PHONE_SNIPPETS = {
   gu: [
-    "ઓફિસ સંપર્ક: 7567529600.",
-    "પાર્સલ કે મુસાફરી માહિતી માટે સંપર્ક: 7567529600.",
-    "(સુરત ઓફિસ: 7567529600 / 7567529700)"
+    "Office contact: 7567529600.",
+    "Parcel inquiry: 7567529600.",
+    "(Surat office: 7567529600 / 7567529700)"
   ],
   en: [
     "Office contact: 7567529600.",
@@ -254,8 +279,8 @@ export const RARE_PHONE_SNIPPETS = {
     "(Surat office: 7567529600 / 7567529700)"
   ],
   hi: [
-    "ऑफिस संपर्क: 7567529600.",
-    "बस व पार्सल पूछताछ के लिए संपर्क: 7567529600.",
-    "(सूरत ऑफिस: 7567529600 / 7567529700)"
+    "Office contact: 7567529600.",
+    "Parcel inquiry: 7567529600.",
+    "(Surat office: 7567529600 / 7567529700)"
   ]
 };

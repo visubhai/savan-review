@@ -1,4 +1,4 @@
-import { localizedReviewData, CONNECTORS, RARE_PHONE_SNIPPETS } from '../data/reviews';
+import { localizedReviewData, CONNECTORS, RARE_PHONE_SNIPPETS } from '../data/reviews.js';
 
 // Persistent memory to track generated review hashes and prevent repetitions
 const SEEN_HASHES_KEY = 'savan_seen_reviews_v2';
@@ -79,7 +79,9 @@ function generateSinglePass(selectedOptions = [], lang = 'en') {
       // Inject connector for variety in non-English or English
       if (index > 0 && Math.random() > 0.65) {
         const connector = getRandomItem(connectorsList);
-        if (lang === 'en' && !connector.endsWith('.')) {
+        const properNouns = ['Savan', 'Surat', 'Ahmedabad', 'Mumbai', 'Pune', 'Rajkot', 'I '];
+        const startsWithProper = properNouns.some(p => sentence.startsWith(p));
+        if (connector.endsWith(',') && !startsWithProper) {
           const lowerFirst = sentence.charAt(0).toLowerCase() + sentence.slice(1);
           sentence = `${connector} ${lowerFirst}`;
         } else {

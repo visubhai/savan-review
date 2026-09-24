@@ -1,70 +1,93 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MAIN_CHIPS } from './data/reviews';
 import { generateReview } from './utils/reviewGenerator';
-import { RefreshCw, Star, ExternalLink, Check, HeartHandshake, PhoneCall } from 'lucide-react';
+import { 
+  Sparkles, 
+  ExternalLink, 
+  Copy, 
+  Check, 
+  Pencil, 
+  HeartHandshake, 
+  PhoneCall 
+} from 'lucide-react';
 
 export const GOOGLE_REVIEW_URL = 'https://search.google.com/local/writereview?placeid=ChIJoZ0ZYgBP4DsRglX2PXFQ7rk';
 
 const CONTENT = {
-  gu: {
-    title: 'સાવન ટ્રાવેલ્સ',
-    subtitle: 'સુરત • અમદાવાદ • મુંબઈ • પુણે • રાજકોટ',
-    question: 'કેવો રહ્યો તમારો સફર?',
-    subquestion: 'પસંદ કરો તમને શું ગમ્યું (ટેપ કરીને બદલો):',
-    changeText: '🔄 નવું લખાણ',
-    mainBtn: '⭐ ગૂગલ પર 5-Star રિવ્યૂ આપો',
-    mainBtnSub: '(૧ ક્લિકમાં લખાણ કૉપી થશે & ગૂગલ ખુલશે)',
-    copiedToast: '✓ લખાણ કૉપી થઈ ગયું! ગૂગલ ખુલે છે...',
-    step1: '૧. ગૂગલ પર 5-સ્ટાર (⭐⭐⭐⭐⭐) આપો',
-    step2: '૨. કીબોર્ડ પરથી લખાણ દબાવો & "Post" કરો',
-    callUs: 'ઓફિસ પૂછપરછ:'
-  },
   en: {
+    langName: 'English',
+    langSub: '',
     title: 'SAVAN TRAVELS',
     subtitle: 'Surat • Ahmedabad • Mumbai • Pune • Rajkot',
-    question: 'How was your trip?',
-    subquestion: 'Tap what you liked to customize:',
-    changeText: '🔄 Change text',
-    mainBtn: '⭐ Post 5-Star Review on Google',
-    mainBtnSub: '(1-Tap: Copies review & opens Google)',
-    copiedToast: '✓ Copied! Opening Google Review...',
-    step1: '1. Select 5 Stars (⭐⭐⭐⭐⭐) on Google',
-    step2: '2. Tap copied text on keyboard & tap "Post"',
+    badge: '⭐ 5-Star Review',
+    chipsTitle: 'Tap what you liked to customize:',
+    mainBtn: 'Copy & Post to Google',
+    mainBtnCopied: 'Copied! Opening Google...',
+    regenerateBtn: 'Regenerate',
+    copyOnly: 'Copy',
+    copiedOnly: 'Copied!',
+    editBtn: 'Edit',
+    doneBtn: 'Done',
+    helperText: '1-Tap: Copies review & opens Google → Paste on Google & select 5★',
+    callUs: 'Office Inquiry:'
+  },
+  gu: {
+    langName: 'Gujlish',
+    langSub: 'ગુજરાતી',
+    title: 'SAVAN TRAVELS',
+    subtitle: 'Surat • Ahmedabad • Mumbai • Pune • Rajkot',
+    badge: '⭐ 5-Star Review',
+    chipsTitle: 'Tamne shu gamyu (tap kari customize karo):',
+    mainBtn: 'Copy & Post to Google',
+    mainBtnCopied: 'Copied! Google khule che...',
+    regenerateBtn: 'Regenerate',
+    copyOnly: 'Copy',
+    copiedOnly: 'Copied!',
+    editBtn: 'Edit',
+    doneBtn: 'Done',
+    helperText: '1-Tap: Copy thase & Google khulse → Paste kari 5★ aapo',
     callUs: 'Office Inquiry:'
   },
   hi: {
-    title: 'सावन ट्रैवल्स',
-    subtitle: 'सूरत • अहमदाबाद • मुंबई • पुणे • राजकोट',
-    question: 'कैसा रहा आपका सफर?',
-    subquestion: 'आपको क्या पसंद आया (चुनें):',
-    changeText: '🔄 नया टेक्स्ट',
-    mainBtn: '⭐ गूगल पर 5-Star रिव्यू दें',
-    mainBtnSub: '(१ क्लिक में कॉपी होगा और गूगल खुलेगा)',
-    copiedToast: '✓ कॉपी हो गया! गूगल खुल रहा है...',
-    step1: '१. गूगल पर 5-स्टार (⭐⭐⭐⭐⭐) चुनें',
-    step2: '२. कीबोर्ड से टेक्स्ट पेस्ट करें और "Post" दबाएं',
-    callUs: 'ऑफिस पूछताछ:'
+    langName: 'Hinglish',
+    langSub: 'हिंदी',
+    title: 'SAVAN TRAVELS',
+    subtitle: 'Surat • Ahmedabad • Mumbai • Pune • Rajkot',
+    badge: '⭐ 5-Star Review',
+    chipsTitle: 'Aapko kya pasand aaya (select karein):',
+    mainBtn: 'Copy & Post to Google',
+    mainBtnCopied: 'Copied! Google khul raha hai...',
+    regenerateBtn: 'Regenerate',
+    copyOnly: 'Copy',
+    copiedOnly: 'Copied!',
+    editBtn: 'Edit',
+    doneBtn: 'Done',
+    helperText: '1-Tap: Copy hoga & Google khulega → Paste karke 5★ dein',
+    callUs: 'Office Inquiry:'
   }
 };
 
-// Default active chips: Staff, Timing, Parcel
 const DEFAULT_SELECTED = ['staff', 'timing', 'parcel'];
 
 export default function App() {
   const [lang, setLang] = useState('en');
   const [selectedChips, setSelectedChips] = useState(DEFAULT_SELECTED);
   const [reviewText, setReviewText] = useState(() => generateReview(DEFAULT_SELECTED, 'en'));
-  const [copied, setCopied] = useState(false);
+  const [copiedAction, setCopiedAction] = useState(false);
+  const [copiedOnly, setCopiedOnly] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isRegenerating, setIsRegenerating] = useState(false);
 
+  const textareaRef = useRef(null);
   const t = CONTENT[lang] || CONTENT.en;
 
-  // Change Language
+  // Language switch
   const handleLang = (newLang) => {
     setLang(newLang);
     setReviewText(generateReview(selectedChips, newLang));
   };
 
-  // Toggle Chip
+  // Toggle category chip
   const handleToggleChip = (chipId) => {
     setSelectedChips((prev) => {
       const next = prev.includes(chipId)
@@ -77,165 +100,175 @@ export default function App() {
     });
   };
 
-  // Shuffle Review
-  const handleShuffle = () => {
-    setReviewText(generateReview(selectedChips, lang));
+  // Regenerate fresh review
+  const handleRegenerate = () => {
+    setIsRegenerating(true);
+    const newReview = generateReview(selectedChips, lang);
+    setReviewText(newReview);
+    setTimeout(() => setIsRegenerating(false), 300);
   };
 
-  // 1-Tap Copy & Open Google
-  const handleAction = async () => {
-    if (!reviewText) return;
-
-    // Mobile Haptic feedback
-    try {
-      if (navigator.vibrate) navigator.vibrate(60);
-    } catch (e) {}
-
-    // Clipboard Copy
+  // Copy helper
+  const copyToClipboard = async (text) => {
     let success = false;
     if (navigator.clipboard && window.isSecureContext) {
       try {
-        await navigator.clipboard.writeText(reviewText);
+        await navigator.clipboard.writeText(text);
         success = true;
       } catch (e) {}
     }
     if (!success) {
       try {
         const ta = document.createElement('textarea');
-        ta.value = reviewText;
+        ta.value = text;
         ta.style.position = 'fixed';
         ta.style.left = '-9999px';
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
         ta.remove();
+        success = true;
       } catch (e) {}
     }
+    return success;
+  };
 
-    setCopied(true);
+  // 1-Tap Copy & Post to Google (Primary CTA)
+  const handleCopyAndPost = async () => {
+    if (!reviewText) return;
 
-    // Immediate Google launch
+    try {
+      if (navigator.vibrate) navigator.vibrate(60);
+    } catch (e) {}
+
+    await copyToClipboard(reviewText);
+    setCopiedAction(true);
+
     setTimeout(() => {
       window.open(GOOGLE_REVIEW_URL, '_blank', 'noopener,noreferrer');
     }, 300);
 
-    setTimeout(() => setCopied(false), 5000);
+    setTimeout(() => setCopiedAction(false), 4000);
+  };
+
+  // Copy-only button next to 5★
+  const handleCopyOnly = async () => {
+    if (!reviewText) return;
+
+    try {
+      if (navigator.vibrate) navigator.vibrate(40);
+    } catch (e) {}
+
+    await copyToClipboard(reviewText);
+    setCopiedOnly(true);
+    setTimeout(() => setCopiedOnly(false), 2000);
+  };
+
+  // Toggle Edit / Done
+  const handleToggleEdit = () => {
+    if (isEditing) {
+      setIsEditing(false);
+      if (textareaRef.current) textareaRef.current.blur();
+    } else {
+      setIsEditing(true);
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+        textareaRef.current.setSelectionRange(
+          textareaRef.current.value.length,
+          textareaRef.current.value.length
+        );
+      }
+    }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between p-3.5 sm:p-4 selection:bg-orange-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between p-3.5 sm:p-5 selection:bg-indigo-500 selection:text-white">
       
-      {/* TOP HEADER: BRAND */}
-      <div className="w-full max-w-sm mx-auto flex items-center justify-between pt-0.5">
-        <div className="flex items-center gap-2">
+      {/* 1. TOP HEADER: BRAND */}
+      <header className="w-full max-w-sm mx-auto flex items-center justify-between pt-0.5">
+        <div className="flex items-center gap-2.5">
           <img
             src="/savan-logo.png"
             alt="Savan Travels"
-            className="w-9 h-9 rounded-full object-cover ring-2 ring-orange-500/20 shadow-xs shrink-0"
+            className="w-9 h-9 rounded-full object-cover ring-2 ring-indigo-500/20 shadow-xs shrink-0"
           />
           <div>
             <h1 className="text-base font-black tracking-tight text-slate-900 leading-none">
               {t.title}
             </h1>
-            <p className="text-[10px] text-orange-600 font-bold uppercase tracking-wider mt-0.5">
+            <p className="text-[10px] text-indigo-600 font-bold uppercase tracking-wider mt-0.5">
               {t.subtitle}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full shadow-xs">
-          <span>⭐ 5-Star Review</span>
+        <div className="flex items-center gap-1 text-[10px] font-bold text-indigo-800 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-full shadow-xs">
+          <span>{t.badge}</span>
         </div>
-      </div>
+      </header>
 
-      {/* PROMINENT VISIBLE LANGUAGE TOGGLE: GUJARATI | ENGLISH | HINDI */}
+      {/* 2. PROMINENT 3-LANGUAGE TOGGLE: ENGLISH | GUJLISH | HINGLISH */}
       <div className="w-full max-w-sm mx-auto mt-2 bg-slate-200/70 p-1 rounded-xl border border-slate-200 shadow-inner">
         <div className="grid grid-cols-3 gap-1">
-          <button
-            type="button"
-            onClick={() => handleLang('gu')}
-            className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 touch-manipulation active:scale-95 ${
-              lang === 'gu'
-                ? 'bg-white text-orange-600 font-black shadow-xs border border-slate-200/80 ring-1 ring-slate-200'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            <span>ગુજરાતી</span>
-            {lang === 'gu' && <span className="text-[11px] font-black text-orange-600">✓</span>}
-          </button>
+          {/* English Tab */}
           <button
             type="button"
             onClick={() => handleLang('en')}
-            className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 touch-manipulation active:scale-95 ${
+            className={`py-1.5 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
               lang === 'en'
-                ? 'bg-white text-orange-600 font-black shadow-xs border border-slate-200/80 ring-1 ring-slate-200'
+                ? 'bg-white text-indigo-600 font-black shadow-xs border border-slate-200 ring-1 ring-slate-200'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
-            <span>English</span>
-            {lang === 'en' && <span className="text-[11px] font-black text-orange-600">✓</span>}
+            <span className="flex items-center gap-1">
+              English
+              {lang === 'en' && <span className="text-[11px] font-black text-indigo-600">✓</span>}
+            </span>
           </button>
+
+          {/* Gujlish Tab */}
+          <button
+            type="button"
+            onClick={() => handleLang('gu')}
+            className={`py-1.5 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
+              lang === 'gu'
+                ? 'bg-white text-indigo-600 font-black shadow-xs border border-slate-200 ring-1 ring-slate-200'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+            }`}
+          >
+            <span className="flex items-center gap-1">
+              Gujlish
+              {lang === 'gu' && <span className="text-[11px] font-black text-indigo-600">✓</span>}
+            </span>
+            <span className="text-[9px] font-semibold text-slate-400 -mt-0.5">ગુજરાતી</span>
+          </button>
+
+          {/* Hinglish Tab */}
           <button
             type="button"
             onClick={() => handleLang('hi')}
-            className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 touch-manipulation active:scale-95 ${
+            className={`py-1.5 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center touch-manipulation active:scale-95 ${
               lang === 'hi'
-                ? 'bg-white text-orange-600 font-black shadow-xs border border-slate-200/80 ring-1 ring-slate-200'
+                ? 'bg-white text-indigo-600 font-black shadow-xs border border-slate-200 ring-1 ring-slate-200'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
-            <span>हिंदी</span>
-            {lang === 'hi' && <span className="text-[11px] font-black text-orange-600">✓</span>}
+            <span className="flex items-center gap-1">
+              Hinglish
+              {lang === 'hi' && <span className="text-[11px] font-black text-indigo-600">✓</span>}
+            </span>
+            <span className="text-[9px] font-semibold text-slate-400 -mt-0.5">हिंदी</span>
           </button>
         </div>
       </div>
 
-      {/* CENTER WORKSPACE: RATING + REVIEW BUBBLE + MAIN 8 CHIPS + GIANT BUTTON */}
-      <div className="w-full max-w-sm mx-auto my-auto space-y-3 py-1">
+      {/* 3. CENTER WORKSPACE: CHIPS + REVIEW CARD + ACTIONS */}
+      <main className="w-full max-w-sm mx-auto my-auto space-y-3 py-1">
         
-        {/* 5-STAR HEADING */}
-        <div className="text-center space-y-0.5">
-          <div className="inline-flex gap-1 text-amber-400">
-            <Star className="w-6 h-6 fill-amber-400 stroke-amber-500" />
-            <Star className="w-6 h-6 fill-amber-400 stroke-amber-500" />
-            <Star className="w-6 h-6 fill-amber-400 stroke-amber-500" />
-            <Star className="w-6 h-6 fill-amber-400 stroke-amber-500" />
-            <Star className="w-6 h-6 fill-amber-400 stroke-amber-500" />
-          </div>
-          <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight">
-            {t.question}
-          </h2>
-        </div>
-
-        {/* READY-MADE REVIEW TEXT BOX */}
-        <div className="relative bg-white text-slate-900 rounded-2xl p-3.5 shadow-md shadow-slate-200/60 border border-slate-200">
-          <textarea
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
-            className="w-full text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed p-0"
-            rows={3}
-            aria-label="Review text"
-          />
-
-          <div className="flex items-center justify-between pt-2 mt-1 border-t border-slate-100 text-[11px] font-bold">
-            <span className="text-emerald-700 flex items-center gap-1 font-extrabold text-[10px]">
-              ✓ 5-Star Rating Ready
-            </span>
-            <button
-              type="button"
-              onClick={handleShuffle}
-              className="text-orange-600 hover:text-orange-700 bg-orange-50 hover:bg-orange-100/80 px-2 py-0.5 rounded-md border border-orange-200 cursor-pointer active:scale-95 transition-all flex items-center gap-1 text-[10px] font-black"
-            >
-              <RefreshCw className="w-2.5 h-2.5 text-orange-600" />
-              <span>{t.changeText}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* MAIN CHOICE CHIPS (8 CHIPS IN 4x2 GRID) */}
-        <div className="space-y-1.5">
+        {/* CHOICE CHIPS (8 OPTIONS IN 4x2 GRID) */}
+        <section aria-label="Review topics" className="space-y-1.5">
           <p className="text-[10px] font-black uppercase tracking-wider text-slate-500 text-center">
-            {t.subquestion}
+            {t.chipsTitle}
           </p>
 
           <div className="grid grid-cols-2 gap-1.5">
@@ -250,7 +283,7 @@ export default function App() {
                   onClick={() => handleToggleChip(chip.id)}
                   className={`min-h-[38px] px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center justify-between gap-1.5 transition-all cursor-pointer active:scale-95 touch-manipulation border ${
                     isSelected
-                      ? 'bg-orange-50 hover:bg-orange-100/70 text-orange-950 border-orange-400 shadow-xs ring-1 ring-orange-400/40'
+                      ? 'bg-indigo-50 hover:bg-indigo-100/70 text-indigo-950 border-indigo-300 shadow-xs ring-1 ring-indigo-400/30'
                       : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200 shadow-xs'
                   }`}
                 >
@@ -258,71 +291,138 @@ export default function App() {
                     <span className="text-sm shrink-0">{chip.icon}</span>
                     <span className="truncate">{chipLabel}</span>
                   </div>
-                  <span className={`text-[11px] font-black shrink-0 ${isSelected ? 'text-orange-600' : 'text-slate-400'}`}>
+                  <span className={`text-[11px] font-black shrink-0 ${isSelected ? 'text-indigo-600' : 'text-slate-400'}`}>
                     {isSelected ? '✓' : '+'}
                   </span>
                 </button>
               );
             })}
           </div>
-        </div>
+        </section>
 
-        {/* THE GIANT 1-TAP REVIEW BUTTON */}
-        <div className="space-y-2 pt-1">
+        {/* REVIEW TEXT BOX & CONTROLS (MATCHING SCREENSHOT) */}
+        <section aria-label="Review content" className="space-y-2">
+          
+          {/* THE REVIEW CARD */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-200/90 transition-all">
+            <textarea
+              ref={textareaRef}
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+              onFocus={() => setIsEditing(true)}
+              onBlur={() => setIsEditing(false)}
+              className="w-full text-sm sm:text-base font-normal text-slate-800 placeholder-slate-400 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed p-0"
+              rows={3}
+              aria-label="Review text"
+            />
+
+            {/* BAR BELOW TEXTAREA: 5★ ON LEFT | COPY & DONE/EDIT ON RIGHT */}
+            <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-slate-100 text-xs select-none">
+              
+              {/* 5★ BADGE (EXACTLY AS IN SCREENSHOT) */}
+              <div className="flex items-center gap-1 text-slate-900 font-bold text-sm">
+                <span>5★</span>
+              </div>
+
+              {/* ACTION LINKS: COPY & EDIT/DONE */}
+              <div className="flex items-center gap-3">
+                {/* Copy only button */}
+                <button
+                  type="button"
+                  onClick={handleCopyOnly}
+                  className="flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold cursor-pointer active:scale-95 transition-all py-0.5 px-1 rounded touch-manipulation"
+                >
+                  {copiedOnly ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                      <span className="text-emerald-700 font-bold">{t.copiedOnly}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-slate-600 stroke-[2]" />
+                      <span>{t.copyOnly}</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Edit / Done button */}
+                <button
+                  type="button"
+                  onClick={handleToggleEdit}
+                  className="flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold cursor-pointer active:scale-95 transition-all py-0.5 px-1 rounded touch-manipulation"
+                >
+                  {isEditing ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-indigo-600 stroke-[2.5]" />
+                      <span className="text-indigo-600 font-bold">{t.doneBtn}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Pencil className="w-3.5 h-3.5 text-slate-600 stroke-[2]" />
+                      <span>{t.editBtn}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          {/* PRIMARY BUTTON: COPY & POST TO GOOGLE */}
           <button
             type="button"
-            onClick={handleAction}
-            className={`w-full min-h-[62px] py-3.5 px-4 rounded-2xl font-black transition-all duration-200 cursor-pointer active:scale-95 shadow-lg shadow-orange-500/25 touch-manipulation flex flex-col items-center justify-center border border-orange-500 ${
-              copied
-                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-500 shadow-emerald-600/30'
-                : 'bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white'
+            onClick={handleCopyAndPost}
+            className={`w-full min-h-[52px] py-3.5 px-5 rounded-2xl font-bold text-base transition-all duration-150 cursor-pointer active:scale-[0.98] shadow-md shadow-indigo-600/20 touch-manipulation flex items-center justify-center gap-2.5 ${
+              copiedAction
+                ? 'bg-emerald-600 text-white shadow-emerald-600/25'
+                : 'bg-[#6355ee] hover:bg-[#5346dd] text-white'
             }`}
           >
-            {copied ? (
-              <div className="flex items-center gap-2">
+            {copiedAction ? (
+              <>
                 <Check className="w-5 h-5 stroke-[3] text-white animate-bounce" />
-                <span className="text-sm sm:text-base tracking-wide text-white">{t.copiedToast}</span>
-              </div>
+                <span>{t.mainBtnCopied}</span>
+              </>
             ) : (
               <>
-                <div className="flex items-center gap-2 text-base sm:text-lg">
-                  <Star className="w-5 h-5 fill-white text-white shrink-0" />
-                  <span className="tracking-tight">{t.mainBtn}</span>
-                  <ExternalLink className="w-4 h-4 opacity-90 stroke-[3] shrink-0" />
-                </div>
-                <span className="text-[10px] sm:text-[11px] text-white/90 font-bold mt-0.5">
-                  {t.mainBtnSub}
-                </span>
+                <ExternalLink className="w-4 h-4 stroke-[2.5] text-white" />
+                <span>{t.mainBtn}</span>
               </>
             )}
           </button>
 
-          {/* ULTRA-SIMPLE 2-STEP INSTRUCTION */}
-          <div className="bg-slate-100/90 border border-slate-200 rounded-xl p-2 text-center text-xs space-y-0.5">
-            <p className="font-black text-slate-800 text-[10px] sm:text-[11px]">
-              {t.step1}
-            </p>
-            <p className="font-bold text-slate-600 text-[10px] sm:text-[11px]">
-              {t.step2}
-            </p>
-          </div>
-        </div>
-      </div>
+          {/* SECONDARY BUTTON: REGENERATE */}
+          <button
+            type="button"
+            onClick={handleRegenerate}
+            className="w-full min-h-[48px] py-3 px-5 rounded-2xl font-bold text-sm sm:text-base bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-xs cursor-pointer active:scale-[0.98] transition-all touch-manipulation flex items-center justify-center gap-2"
+          >
+            <Sparkles className={`w-4 h-4 text-indigo-600 ${isRegenerating ? 'animate-spin' : ''}`} />
+            <span>{t.regenerateBtn}</span>
+          </button>
 
-      {/* FOOTER: CONTACT PHONES */}
-      <div className="w-full max-w-sm mx-auto text-center pt-1.5 pb-0.5 border-t border-slate-200 text-[10px] sm:text-[11px] text-slate-500 space-y-0.5">
+          {/* SIMPLE HELPFUL 1-LINE INSTRUCTION */}
+          <p className="text-center text-[10px] sm:text-[11px] font-semibold text-slate-500 pt-0.5">
+            {t.helperText}
+          </p>
+
+        </section>
+      </main>
+
+      {/* 4. FOOTER: OFFICE CONTACT PHONES */}
+      <footer className="w-full max-w-sm mx-auto text-center pt-2 pb-0.5 border-t border-slate-200 text-[10px] sm:text-[11px] text-slate-500 space-y-0.5">
         <div className="flex items-center justify-center gap-2">
-          <PhoneCall className="w-3 h-3 text-orange-600 shrink-0" />
+          <PhoneCall className="w-3 h-3 text-indigo-600 shrink-0" />
           <span>{t.callUs}</span>
-          <a href="tel:7567529600" className="text-orange-600 font-extrabold hover:underline">7567529600</a>
+          <a href="tel:7567529600" className="text-indigo-600 font-bold hover:underline">7567529600</a>
           <span>•</span>
-          <a href="tel:7567529700" className="text-orange-600 font-extrabold hover:underline">7567529700</a>
+          <a href="tel:7567529700" className="text-indigo-600 font-bold hover:underline">7567529700</a>
         </div>
         <p className="text-[9px] text-slate-400 flex items-center justify-center gap-1">
           <span>સાવન ટ્રાવેલ્સ</span>
           <HeartHandshake className="w-2.5 h-2.5 text-rose-500 inline" />
         </p>
-      </div>
+      </footer>
 
     </div>
   );
