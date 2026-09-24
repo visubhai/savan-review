@@ -7,13 +7,13 @@ import { CopyButton } from './components/CopyButton';
 import { GoogleReviewButton } from './components/GoogleReviewButton';
 import { Bus, RefreshCw, ShieldCheck, HeartHandshake } from 'lucide-react';
 
-// Default initial tags focusing on SEO routes, staff, parcel, and timing
-const DEFAULT_INITIAL_TAGS = ['route_ahmedabad', 'staff', 'parcel', 'timing'];
+// Auto-select the first 3 items of the Left Column by default (Staff, Timing, Parcel)
+const DEFAULT_INITIAL_TAGS = ['staff', 'timing', 'parcel'];
 
 export default function App() {
   const [selectedChips, setSelectedChips] = useState(DEFAULT_INITIAL_TAGS);
 
-  // Pre-generate review immediately on mount using initial tags
+  // Pre-generate review immediately on mount using initial default tags
   const [reviewText, setReviewText] = useState(() => generateReview(DEFAULT_INITIAL_TAGS));
   
   const [isCopied, setIsCopied] = useState(false);
@@ -109,7 +109,7 @@ export default function App() {
 
           {/* 2-COLUMN CHIPS LAYOUT */}
           <div className="grid grid-cols-2 gap-2 items-start">
-            {/* LEFT COLUMN: Staff, Timing, Parcel, New Bus, Rest Stop, etc. */}
+            {/* LEFT COLUMN: Staff, Timing, Parcel (First 3 Auto-Selected), New Bus, Rest Stop, etc. */}
             <div className="space-y-2">
               <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
                 Services & Amenities

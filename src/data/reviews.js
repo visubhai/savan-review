@@ -1,5 +1,5 @@
 export const CHIPS_DATA = [
-  // Left Column Priority Items
+  // Left Column Priority Items (First 3 Auto-Selected on link open)
   { id: 'staff', label: 'Driver & Office Staff', icon: '👨‍💼', col: 'left' },
   { id: 'timing', label: 'Punctual Bus Timing', icon: '⏰', col: 'left' },
   { id: 'parcel', label: 'Parcel & Cargo Service', icon: '📦', col: 'left' },
@@ -66,26 +66,36 @@ export const reviewData = {
     "A wonderful road trip experience with Savan Travels."
   ],
 
-  // LEFT COLUMN 1: Staff (Bus Driver + Office Staff)
+  // LEFT COLUMN 1: Staff (Bus Driver + Office Staff) — MASSIVE EXPANSION
   staff: [
     "The bus driver and Savan Travels office staff were very helpful, polite, and professional.",
     "Great coordination between the office staff at Surat office and the bus driver on board.",
-    "The driver drove very safely while the office staff handled boarding and baggage with care.",
-    "Both the driver and conductor were courteous, attentive, and soft-spoken throughout.",
-    "Special thanks to the office staff for guidance and the driver for smooth, cautious highway driving.",
-    "The office team at Savan Travels was very supportive and the bus driver maintained safe speeds.",
-    "Humble behavior by the bus driver and prompt assistance from the office staff.",
-    "The crew on board and office management handled all passenger queries politely.",
+    "The driver drove very safely while the office staff handled boarding and baggage with utmost care.",
+    "Both the bus driver and conductor were courteous, attentive, and soft-spoken throughout the route.",
+    "Special thanks to the Savan Travels office staff for guidance and the driver for smooth, cautious highway driving.",
+    "The office team at Savan Travels branch was very supportive and the bus driver maintained safe speed limits.",
+    "Humble behavior by the bus driver and prompt assistance from the main office staff.",
+    "The crew on board and office management team handled all passenger queries politely.",
     "Driver was expert on highway routes and the office staff ensured a hassle-free boarding process.",
-    "Appreciated the professional response from the Savan Travels office team and friendly driver.",
+    "Appreciated the professional response from the Savan Travels office team and friendly bus driver.",
     "Very humble, well-behaved office staff and disciplined bus driver.",
     "The driver drove smoothly without sudden jerks and office staff guided us properly.",
     "Respectful conduct by the driver, conductor, and main office staff.",
     "Great customer service by Savan Travels office staff and dedicated bus driver.",
-    "Driver and office staff took complete care of passenger safety and comfort."
+    "Driver and office staff took complete care of passenger safety and luggage comfort.",
+    "The driver demonstrated highly skilled highway driving while office staff coordinated seamlessly.",
+    "Savan Travels office team was extremely welcoming and the driver ensured a smooth ride.",
+    "Excellent behavior from both the office booking staff and the bus driver.",
+    "Warm hospitality shown by the Savan Travels office crew and expert bus driver.",
+    "The bus driver was calm and professional, while the office staff managed passenger boarding quickly.",
+    "Outstanding assistance from Savan Travels office staff and a very patient bus driver.",
+    "Cooperative staff at the bus office and a well-trained, cautious driver on the steering.",
+    "Punctual and respectful staff at the office along with a responsible bus driver.",
+    "The driver drove at a comfortable pace and office staff handled luggage tagging carefully.",
+    "Polite staff at the booking office and very supportive driver during rest halts."
   ],
 
-  // LEFT COLUMN 2: Punctual Bus Timing
+  // LEFT COLUMN 2: Punctual Bus Timing — MASSIVE EXPANSION
   timing: [
     "The bus arrived and reached the destination strictly on schedule.",
     "Really appreciated the punctual pickup and drop timing of Savan Travels.",
@@ -95,16 +105,26 @@ export const reviewData = {
     "Punctual bus service made my travel schedule completely stress-free.",
     "Departed exactly on time and arrived right on schedule without wasting time.",
     "Timely rest stops and disciplined departure schedule throughout.",
-    "Great time management on highway with prompt pickup and drop.",
+    "Great time management on highway with prompt pickup and drop timings.",
     "Zero time wasted during boarding or en-route halts.",
     "Extremely punctual bus timing, exactly as advertised!",
     "Appreciated their commitment to exact departure and arrival timing.",
     "Punctual and reliable bus service every single time.",
     "Exact boarding time updates provided by the team.",
-    "On-time performance was spot on from start to finish."
+    "On-time performance was spot on from start to finish.",
+    "The bus departed punctually at the scheduled time with zero delay.",
+    "Punctuality is a major strength of Savan Travels, reached right on time.",
+    "Remarkable time accuracy from departure station to final drop location.",
+    "Departure and arrival timings were followed with 100% precision.",
+    "Very disciplined schedule with timely notifications for pickup.",
+    "Quick boarding and punctual arrival made my business trip smooth.",
+    "Perfect departure timing without any irritating waiting period.",
+    "Strict adherence to schedule made this bus journey very convenient.",
+    "Highly punctual execution for pickup, highway driving, and arrival.",
+    "Arrived at the destination on time, allowing me to stick to my schedule."
   ],
 
-  // LEFT COLUMN 3: Parcel & Cargo Service
+  // LEFT COLUMN 3: Parcel & Cargo Service — MASSIVE EXPANSION
   parcel: [
     "Savan Travels office provides fast, safe, and reliable parcel cargo delivery service.",
     "Sent my parcel package through Savan Travels office and it reached safely on time.",
@@ -117,10 +137,20 @@ export const reviewData = {
     "Savan Travels office is the most reliable choice for parcel dispatch and courier service.",
     "Very smooth parcel booking experience at their main office with reasonable rates.",
     "Safe handling of fragile parcels by Savan Travels office staff.",
-    "Prompt notification when the parcel arrived at the destination office.",
-    "Fastest parcel cargo service between major cities by Savan Travels.",
-    "Excellent parcel service with guaranteed safe delivery.",
-    "Convenient parcel pickup and drop at Savan Travels office branch."
+    "Prompt notification when the parcel arrived at the destination office branch.",
+    "Fastest parcel cargo service between major cities operated by Savan Travels office.",
+    "Excellent parcel service with guaranteed safe delivery and complete reliability.",
+    "Convenient parcel pickup and drop at Savan Travels office branches.",
+    "Sent commercial cargo parcel through Savan Travels office and received flawless delivery.",
+    "The parcel booking process at Savan Travels office is very quick and organized.",
+    "Very affordable rates for sending heavy parcel shipments from Surat office.",
+    "Savan Travels office staff ensured my package was loaded securely and dispatched fast.",
+    "Trusted parcel courier service with hassle-free pickup from their office.",
+    "Extremely reliable cargo parcel service connecting major cities effortlessly.",
+    "Best office for sending daily commercial parcels and emergency packages safely.",
+    "Outstanding parcel tracking and friendly staff assistance at Savan Travels office.",
+    "Same-day parcel arrival guaranteed by Savan Travels office logistics.",
+    "Top choice for parcel dispatch in Surat due to safe handling and quick delivery."
   ],
 
   // LEFT COLUMN 4: Brand New Bus
