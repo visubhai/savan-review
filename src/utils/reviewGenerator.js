@@ -1,12 +1,11 @@
-import { reviewData, CONNECTORS } from '../data/reviews';
+import { localizedReviewData, CONNECTORS } from '../data/reviews';
 
 // Persistent memory to track generated review hashes and prevent repetitions
-const SEEN_HASHES_KEY = 'savan_seen_reviews_v1';
-const MAX_SEEN_HISTORY = 1000;
+const SEEN_HASHES_KEY = 'savan_seen_reviews_v2';
+const MAX_SEEN_HISTORY = 1500;
 
 let memorySeenHashes = new Set();
 
-// Load seen hashes from localStorage on startup
 try {
   const stored = localStorage.getItem(SEEN_HASHES_KEY);
   if (stored) {
@@ -19,7 +18,6 @@ try {
 
 function saveHash(hash) {
   memorySeenHashes.add(hash);
-  // Trim set size if it grows too large
   if (memorySeenHashes.size > MAX_SEEN_HISTORY) {
     const firstItem = memorySeenHashes.values().next().value;
     memorySeenHashes.delete(firstItem);
@@ -29,9 +27,6 @@ function saveHash(hash) {
   } catch (e) {}
 }
 
-/**
- * Fast string hash for review comparison
- */
 function simpleHash(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
@@ -42,9 +37,6 @@ function simpleHash(str) {
   return hash.toString(36);
 }
 
-/**
- * Fisher-Yates shuffle array helper
- */
 function shuffleArray(arr) {
   const array = [...arr];
   for (let i = array.length - 1; i > 0; i--) {
@@ -55,36 +47,39 @@ function shuffleArray(arr) {
 }
 
 function getRandomItem(arr) {
+  if (!arr || arr.length === 0) return '';
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
 /**
- * Internal single generation pass
+ * Internal single generation pass for a specific language
  */
-function generateSinglePass(selectedOptions = []) {
-  // 1. Pick Opening
-  const opening = getRandomItem(reviewData.openings);
+function generateSinglePass(selectedOptions = [], lang = 'gu') {
+  const data = localizedReviewData[lang] || localizedReviewData.gu;
+  const connectorsList = CONNECTORS[lang] || CONNECTORS.gu;
 
-  // 2. Determine active category tags
+  // 1. Pick Opening
+  const opening = getRandomItem(data.openings);
+
+  // 2. Active options (default to staff, timing, parcel)
   const activeOptions = selectedOptions.length > 0
     ? selectedOptions
-    : ['bus', 'service', 'journey'];
+    : ['staff', 'timing', 'parcel'];
 
-  // Shuffle active category order for sentence variation
+  // Shuffle active category order for high variation
   const shuffledCategories = shuffleArray(activeOptions);
 
-  // 3. Collect category sentences
+  // 3. Middle Sentences
   const middleSentences = [];
   shuffledCategories.forEach((catId, index) => {
-    const sentences = reviewData[catId];
+    const sentences = data[catId];
     if (sentences && sentences.length > 0) {
       let sentence = getRandomItem(sentences);
       
-      // Inject natural transition connector occasionally for 2nd/3rd sentences
-      if (index > 0 && Math.random() > 0.6) {
-        const connector = getRandomItem(CONNECTORS);
-        // Ensure first letter of sentence is lowercase if connector is used unless connector ends with '.'
-        if (!connector.endsWith('.')) {
+      // Inject connector for variety in non-English or English
+      if (index > 0 && Math.random() > 0.65) {
+        const connector = getRandomItem(connectorsList);
+        if (lang === 'en' && !connector.endsWith('.')) {
           const lowerFirst = sentence.charAt(0).toLowerCase() + sentence.slice(1);
           sentence = `${connector} ${lowerFirst}`;
         } else {
@@ -95,25 +90,24 @@ function generateSinglePass(selectedOptions = []) {
     }
   });
 
-  // 4. Pick Closing
-  const closing = getRandomItem(reviewData.closings);
+  // 4. Closing
+  const closing = getRandomItem(data.closings);
 
-  // Combine into single natural text string
-  return [opening, ...middleSentences, closing].join(" ");
+  // Combine into one clean review string
+  return [opening, ...middleSentences, closing].filter(Boolean).join(" ");
 }
 
 /**
- * Ultra-fast review generator with non-repetition guarantees
- * Uses multi-pass retry logic to ensure newly generated reviews are distinct
+ * Ultra-fast review generator with non-repetition guarantees & multi-language support
  */
-export function generateReview(selectedOptions = []) {
+export function generateReview(selectedOptions = [], lang = 'gu') {
   let bestReview = '';
   let attempts = 0;
-  const maxAttempts = 25; // Completes in <1ms in browser micro-benchmark
+  const maxAttempts = 20;
 
   while (attempts < maxAttempts) {
     attempts++;
-    const candidate = generateSinglePass(selectedOptions);
+    const candidate = generateSinglePass(selectedOptions, lang);
     const hash = simpleHash(candidate);
 
     if (!memorySeenHashes.has(hash)) {
@@ -123,6 +117,5 @@ export function generateReview(selectedOptions = []) {
     bestReview = candidate;
   }
 
-  // If set is exhausted or max attempts reached, return best candidate
   return bestReview;
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Edit3, Sparkles, MessageSquareQuote } from 'lucide-react';
 
-export function ReviewCard({ reviewText, onChangeText }) {
+export function ReviewCard({ reviewText, onChangeText, t }) {
   const textareaRef = useRef(null);
 
   // Auto-adjust height smoothly based on content
@@ -19,12 +19,12 @@ export function ReviewCard({ reviewText, onChangeText }) {
       <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100">
         <div className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-orange-700 bg-orange-50 px-3 py-1 rounded-lg border border-orange-200/60 shadow-2xs">
           <Sparkles className="w-3.5 h-3.5 text-orange-500 animate-pulse" />
-          <span>Your Customized Review</span>
+          <span>{t?.reviewCardBadge || 'Your Prepared Review'}</span>
         </div>
         
         <div className="flex items-center gap-1 text-[11px] text-slate-400 font-medium">
           <Edit3 className="w-3.5 h-3.5 text-slate-400" />
-          <span>Tap text to edit</span>
+          <span>{t?.tapToEdit || 'Tap text to edit'}</span>
         </div>
       </div>
 
@@ -45,10 +45,10 @@ export function ReviewCard({ reviewText, onChangeText }) {
       <div className="mt-2 pt-2 border-t border-slate-100/80 flex items-center justify-between text-[11px] font-medium text-slate-400">
         <span className="flex items-center gap-1 text-slate-500">
           <MessageSquareQuote className="w-3.5 h-3.5 text-orange-500" />
-          Ready to post
+          {t?.readyToPost || 'Ready to post'}
         </span>
         <span className="bg-slate-100 px-2 py-0.5 rounded-md font-semibold text-slate-600">
-          {reviewText.length} characters
+          {reviewText.length} {t?.characters || 'characters'}
         </span>
       </div>
     </div>
