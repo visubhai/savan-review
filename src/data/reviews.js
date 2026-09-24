@@ -1,4 +1,4 @@
-export const MAIN_6_CHIPS = [
+export const MAIN_CHIPS = [
   { 
     id: 'staff', 
     label: { en: 'Driver & Staff', gu: 'ડ્રાઇવર અને સ્ટાફ', hi: 'ड्राइवर व स्टाफ' }, 
@@ -15,6 +15,11 @@ export const MAIN_6_CHIPS = [
     icon: '📦' 
   },
   { 
+    id: 'sleeper', 
+    label: { en: 'Comfort Sleeper', gu: 'આરામદાયક સ્લીપર', hi: 'आरामदायक स्लीपर' }, 
+    icon: '🛏' 
+  },
+  { 
     id: 'route_ahmedabad', 
     label: { en: 'Surat ⇄ Ahmedabad', gu: 'સુરત ⇄ અમદાવાદ', hi: 'सूरत ⇄ अहमदाबाद' }, 
     icon: '🚌' 
@@ -25,109 +30,18 @@ export const MAIN_6_CHIPS = [
     icon: '🚌' 
   },
   { 
-    id: 'sleeper', 
-    label: { en: 'Comfort Sleeper', gu: 'આરામદાયક સ્લીપર', hi: 'आरामदायक स्लीपर' }, 
-    icon: '🛏' 
-  }
-];
-
-export const CHIPS_DATA = [
-  // Left Column Priority Items (First 3 Auto-Selected on link open)
-  { 
-    id: 'staff', 
-    label: { en: 'Driver & Office Staff', gu: 'ડ્રાઇવર અને ઓફિસ સ્ટાફ', hi: 'ड्राइवर व ऑफिस स्टाफ' }, 
-    icon: '👨‍💼', 
-    col: 'left' 
-  },
-  { 
-    id: 'timing', 
-    label: { en: 'Punctual Bus Timing', gu: 'સમયસર બસ સર્વિસ', hi: 'समय पर बस सेवा' }, 
-    icon: '⏰', 
-    col: 'left' 
-  },
-  { 
-    id: 'parcel', 
-    label: { en: 'Parcel & Cargo Service', gu: 'પાર્સલ અને કાર્ગો સર્વિસ', hi: 'पार्सल व कार्ગો સર્વિસ' }, 
-    icon: '📦', 
-    col: 'left' 
-  },
-  { 
-    id: 'new_bus', 
-    label: { en: 'Brand New Bus', gu: 'નવી લક્ઝરી બસ', hi: 'नई लग्जरी बस' }, 
-    icon: '🚍', 
-    col: 'left' 
-  },
-  { 
-    id: 'rest_stop', 
-    label: { en: 'Good Rest Stop', gu: 'સારો હોટલ હોલ્ટ', hi: 'अच्छा होटल स्टॉप' }, 
-    icon: '🍽', 
-    col: 'left' 
-  },
-  
-  // Right Column Routes (First 4 items)
-  { 
-    id: 'route_ahmedabad', 
-    label: { en: 'Surat ⇄ Ahmedabad', gu: 'સુરત ⇄ અમદાવાદ', hi: 'सूरत ⇄ અમદાવાદ' }, 
-    icon: '🚌', 
-    col: 'right' 
-  },
-  { 
-    id: 'route_mumbai', 
-    label: { en: 'Surat ⇄ Mumbai', gu: 'સુરત ⇄ મુંબઈ', hi: 'સૂરત ⇄ મુંબઈ' }, 
-    icon: '🚌', 
-    col: 'right' 
-  },
-  { 
     id: 'route_pune', 
     label: { en: 'Surat ⇄ Pune', gu: 'સુરત ⇄ પુણે', hi: 'सूरत ⇄ पुणे' }, 
-    icon: '🚌', 
-    col: 'right' 
+    icon: '🚌' 
   },
   { 
     id: 'route_rajkot', 
-    label: { en: 'Surat ⇄ Rajkot', gu: 'સુરત ⇄ રાજકોટ', hi: 'सूरत ⇄ રાજકોટ' }, 
-    icon: '🚌', 
-    col: 'right' 
-  },
-
-  // Secondary Features
-  { 
-    id: 'sleeper', 
-    label: { en: 'Comfortable Sleeper', gu: 'આરામદાયક સ્લીપર', hi: 'આરામદાયક સ્લીપર' }, 
-    icon: '🛏', 
-    col: 'left' 
-  },
-  { 
-    id: 'hygiene', 
-    label: { en: 'Clean & Hygienic', gu: 'એકદમ સ્વચ્છ બસ', hi: 'સાફ-સુથરી બસ' }, 
-    icon: '✨', 
-    col: 'right' 
-  },
-  { 
-    id: 'ac', 
-    label: { en: 'Good AC', gu: 'સરસ AC કૂલિંગ', hi: 'બઢિયા AC કૂલિંગ' }, 
-    icon: '❄️', 
-    col: 'left' 
-  },
-  { 
-    id: 'charging', 
-    label: { en: 'Charging Facility', gu: 'મોબાઇલ ચાર્જિંગ', hi: 'ચાર્જિંગ સુવિધા' }, 
-    icon: '🔋', 
-    col: 'right' 
-  },
-  { 
-    id: 'booking', 
-    label: { en: 'Easy Booking', gu: 'સરળ બુકિંગ', hi: 'આસાન બુકિંગ' }, 
-    icon: '🎫', 
-    col: 'left' 
-  },
-  { 
-    id: 'overall', 
-    label: { en: 'Overall Experience', gu: '૧૦૦% સંતોષકારક સફર', hi: 'શાનદાર અનુભવ' }, 
-    icon: '💯', 
-    col: 'right' 
-  },
+    label: { en: 'Surat ⇄ Rajkot', gu: 'સુરત ⇄ રાજકોટ', hi: 'सूरत ⇄ राजकोट' }, 
+    icon: '🚌' 
+  }
 ];
+
+export const MAIN_6_CHIPS = MAIN_CHIPS;
 
 export const CONNECTORS = {
   en: [
@@ -188,54 +102,30 @@ export const localizedReviewData = {
       "સુરતથી અન્ય શહેરોમાં તાત્કાલિક પાર્સલ મોકલવા માટે સાવન ટ્રાવેલ્સ ઉત્તમ છે.",
       "ઓફિસ સ્ટાફ (7567529600 / 7567529700) પાર્સલ બુકિંગ ખૂબ જ ઝડપથી કરી આપે છે."
     ],
-    new_bus: [
-      "નવી લક્ઝરી બસ હતી અને તેનું એર સસ્પેન્શન ખૂબ જ સ્મૂધ હતું.",
-      "બસ એકદમ નવી, આધુનિક અને અવાજ વગરની હતી.",
-      "નવી બસની સુવિધા અને ગાદી ખૂબ જ આરામદાયક લાગી."
-    ],
-    rest_stop: [
-      "હોટલ સ્ટોપ ખૂબ જ સ્વચ્છ, સારો અને સારો નાસ્તો-જમવાનું મળે તેવો હતો.",
-      "જમવા માટે રોકેલી હોટલ એકદમ ચોખ્ખી અને ફેમિલી માટે યોગ્ય હતી."
+    sleeper: [
+      "સ્લીપર બર્થ ખૂબ જ પહોળો, સ્વચ્છ અને આરામદાયક હતો.",
+      "ચાદર અને ઓશિકા એકદમ સાફ-સુથરા મળ્યા, ઊંઘ ખૂબ સરસ આવી.",
+      "સ્લીપર કોચમાં પડદા અને પ્રાઇવસીની વ્યવસ્થા ખૂબ જ સરસ હતી."
     ],
     route_ahmedabad: [
       "સુરતથી અમદાવાદ અને અમદાવાદથી સુરત માટે સૌથી બેસ્ટ બસ સર્વિસ છે.",
-      "સુરત - અમદાવાદ રૂટ પર સાવન ટ્રાવેલ્સની મુસાફરી ખૂબ જ ઝડપી અને આરામદાયક રહી."
+      "સુરત - અમદાવાદ રૂટ પર સાવન ટ્રાવેલ્સની મુસાફરી ખૂબ જ ઝડપી અને આરામદાયક રહી.",
+      "અમદાવાદથી સુરત આવવા માટે સમયસર અને શ્રેષ્ઠ બસ સુવિધા."
     ],
     route_mumbai: [
       "સુરતથી મુંબઈ અને મુંબઈથી સુરત માટે ઉત્તમ સ્લીપર કોચ છે.",
-      "મુંબઈ રૂટ પર સમયસર અને સુરક્ષિત પહોંચાડવા બદલ સાવન ટ્રાવેલ્સનો આભાર."
+      "મુંબઈ રૂટ પર સમયસર અને સુરક્ષિત પહોંચાડવા બદલ સાવન ટ્રાવેલ્સનો આભાર.",
+      "રાત્રે મુંબઈથી સુરતનો સફર ખૂબ જ શાંતિપૂર્ણ રહ્યો."
     ],
     route_pune: [
-      "સુરતથી પુણે અને પુણેથી સુરત રાત્રિ મુસાફરી માટે શ્રેષ્ઠ બસ છે.",
-      "પુણે રૂટ પર ડ્રાઇવરે ખૂબ જ સલામત અને શાંત ડ્રાઇવિંગ કર્યું."
+      "સુરતથી પુણે અને પુણેથી સુરત મુસાફરી માટે શ્રેષ્ઠ લક્ઝરી બસ છે.",
+      "પુણે રૂટ પર ડ્રાઇવરે ખૂબ જ સલામત અને શાંત ડ્રાઇવિંગ કર્યું.",
+      "સુરતથી પુણે જવા માટે સમયસર અને આરામદાયક સ્લીપર બસ સર્વિસ."
     ],
     route_rajkot: [
       "સુરતથી રાજકોટ અને રાજકોટથી સુરત જવા માટે સૌથી વિશ્વાસુ ટ્રાવેલ્સ છે.",
-      "સુરત - રાજકોટ રૂટ પર બસ સમયસર પહોંચી અને ઊંઘ પણ સરસ આવી."
-    ],
-    sleeper: [
-      "સ્લીપર બર્થ ખૂબ જ પહોળો, સ્વચ્છ અને આરામદાયક હતો.",
-      "ચાદર અને ઓશિકા એકદમ સાફ-સુથરા મળ્યા, ઊંઘ ખૂબ સરસ આવી."
-    ],
-    hygiene: [
-      "બસની અંદર એકદમ ચોખ્ખાઈ અને તાજગીભરી સુગંધ હતી.",
-      "ક્યાંય ધૂળ કે ગંદકી નહોતી, સ્વચ્છતા ૧૦/૧૦ હતી."
-    ],
-    ac: [
-      "AC કૂલિંગ એકદમ માપનું અને સુખદ હતું.",
-      "રાત્રે એસીનું તાપમાન ખૂબ જ અનુકૂળ રાખવામાં આવ્યું હતું."
-    ],
-    charging: [
-      "દરેક સીટ પાસે મોબાઇલ ચાર્જિંગ પોઇન્ટ ચાલુ હતો.",
-      "ચાર્જિંગની સુવિધા હોવાથી પ્રવાસમાં કોઈ ચિંતા ન રહી."
-    ],
-    booking: [
-      "ટિકિટ બુકિંગ અને બોર્ડિંગ ખૂબ જ સરળ અને ઝડપી રહ્યું.",
-      "ઓફિસથી ટિકિટ કન્ફર્મેશન તરત મળી ગયું."
-    ],
-    overall: [
-      "એકંદરે ૧૦૦% સંતોષકારક સફર રહી, ખૂબ મજા આવી!",
-      "સાવન ટ્રાવેલ્સને ૫ માંથી ૫ સ્ટાર આપું છું."
+      "સુરત - રાજકોટ રૂટ પર બસ સમયસર પહોંચી અને ઊંઘ પણ સરસ આવી.",
+      "રાજકોટથી સુરત આવવા માટે શ્રેષ્ઠ અને આરામદાયક મુસાફરી."
     ],
     closings: [
       "દરેક મિત્રો અને પરિવારજનોને સાવન ટ્રાવેલ્સમાં મુસાફરી કરવાની ભલામણ કરું છું.",
@@ -274,13 +164,10 @@ export const localizedReviewData = {
       "Best parcel delivery office in Surat for sending urgent packages safely.",
       "Highly recommend Savan Travels office (7567529600 / 7567529700) for fast parcel courier booking."
     ],
-    new_bus: [
-      "Rode in their brand new luxury bus fleet which was immaculate and quiet.",
-      "The bus was a brand new luxury coach with top-class air suspension."
-    ],
-    rest_stop: [
-      "Great rest stop selection with clean washrooms and hygienic food options.",
-      "Clean rest stop with good quality food and neat restroom facilities."
+    sleeper: [
+      "The sleeper berth was spacious, cozy, and comfortable.",
+      "Pillows and bedsheets in the sleeper were clean and soft.",
+      "Had a very peaceful night sleep in their luxury sleeper coach."
     ],
     route_ahmedabad: [
       "Best bus service for Surat to Ahmedabad and Ahmedabad to Surat travel.",
@@ -297,30 +184,6 @@ export const localizedReviewData = {
     route_rajkot: [
       "Excellent bus service on Surat to Rajkot and Rajkot to Surat route.",
       "Punctual timing and smooth ride on the Surat to Rajkot journey."
-    ],
-    sleeper: [
-      "The sleeper berth was spacious, cozy, and comfortable.",
-      "Pillows and bedsheets in the sleeper were clean and soft."
-    ],
-    hygiene: [
-      "The bus was spotless, clean, and well hygienic.",
-      "The cleanliness of the bus interior was truly impressive."
-    ],
-    ac: [
-      "The AC cooling was set at a perfect, pleasant temperature.",
-      "Good AC performance kept the bus cool and fresh."
-    ],
-    charging: [
-      "Working charging ports at every seat were very useful.",
-      "Mobile charging facilities were fully functional and handy."
-    ],
-    booking: [
-      "Ticket booking and boarding were instant and hassle-free.",
-      "Seamless online booking experience with quick confirmation."
-    ],
-    overall: [
-      "Superb experience overall, highly impressed!",
-      "10/10 travel experience with Savan Travels."
     ],
     closings: [
       "Would definitely recommend Savan Travels to everyone.",
@@ -352,42 +215,25 @@ export const localizedReviewData = {
       "मैंने सावन ट्रैवल्स ऑफिस से पार्सल भेजा था जो समय पर सुरक्षित पहुंच गया।",
       "पार्सल बुकिंग के लिए सावन ट्रैवल्स ऑफिस (7567529600 / 7567529700) सबसे बढ़िया विकल्प है।"
     ],
-    new_bus: [
-      "बस एकदम नई लग्जरी कोच थी, जिसका सस्पेंशन बहुत आरामदायक था।",
-      "नई गाड़ी में सफर करके बिल्कुल भी थकान महसूस नहीं हुई।"
-    ],
-    rest_stop: [
-      "होटल स्टॉप बहुत साफ-सुथरा और परिवार के लिए बहुत उपयुक्त था।"
+    sleeper: [
+      "स्लीपर बर्थ काफी चौड़ी, आरामदायक और साफ-सुथरी थी।",
+      "स्लीपर में पर्दे और कुशनिंग की व्यवस्था बहुत अच्छी थी।"
     ],
     route_ahmedabad: [
-      "सूरत से अहमदाबाद और अहमदाबाद से सूरत के लिए सबसे बेहतरीन बस सेवा है।"
+      "सूरत से अहमदाबाद और अहमदाबाद से सूरत के लिए सबसे बेहतरीन बस सेवा है।",
+      "सूरत से अहमदाबाद रूट पर समय पर और सुरक्षित पहुंचाने के लिए धन्यवाद।"
     ],
     route_mumbai: [
-      "सूरत से मुंबई और मुंबई से सूरत के लिए सबसे आरामदायक स्लीपर बस है।"
+      "सूरत से मुंबई और मुंबई से सूरत के लिए सबसे आरामदायक स्लीपर बस है।",
+      "मुंबई रूट पर बस में सफर बहुत ही सुकून भरा रहा।"
     ],
     route_pune: [
-      "सूरत से पुणे रूट पर सावन ट्रैवल्स का सफर बहुत ही शांतिपूर्ण और आरामदायक रहा।"
+      "सूरत से पुणे और पुणे से सूरत रूट पर सावन ट्रैवल्स का सफर बहुत ही शांतिपूर्ण और आरामदायक रहा।",
+      "पुणे रूट पर ड्राइवर ने बहुत सुरक्षित ड्राइविंग की।"
     ],
     route_rajkot: [
-      "सूरत से राजकोट और राजकोट से सूरत रूट पर समय पर पहुंचाने के लिए धन्यवाद।"
-    ],
-    sleeper: [
-      "स्लीपर बर्थ काफी चौड़ी, आरामदायक और साफ-सुथरी थी।"
-    ],
-    hygiene: [
-      "बस में स्वच्छता का विशेष ध्यान रखा गया था, सब कुछ साफ था।"
-    ],
-    ac: [
-      "AC की कूलिंग बहुत बढ़िया और आरामदायक थी।"
-    ],
-    charging: [
-      "सीट के पास मोबाइल चार्जिंग पॉइंट सही तरीके से काम कर रहा था।"
-    ],
-    booking: [
-      "टिकट बुकिंग और बस में चढ़ने की प्रक्रिया बहुत आसान थी।"
-    ],
-    overall: [
-      "कुल मिलाकर 10/10 का अनुभव रहा, पूरी तरह संतुष्ट हूं!"
+      "सूरत से राजकोट और राजकोट से सूरत रूट पर समय पर पहुंचाने के लिए धन्यवाद।",
+      "राजकोट रूट पर बहुत ही आरामदायक सफर रहा।"
     ],
     closings: [
       "मैं अपने सभी परिचितों को सावन ट्रैवल्स में सफर करने की सलाह दूंगा।",

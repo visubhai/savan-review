@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { MAIN_6_CHIPS } from './data/reviews';
+import { MAIN_CHIPS } from './data/reviews';
 import { generateReview } from './utils/reviewGenerator';
 import { RefreshCw, Star, ExternalLink, Check, HeartHandshake, PhoneCall } from 'lucide-react';
 
@@ -217,14 +217,14 @@ export default function App() {
           </div>
         </div>
 
-        {/* MAIN 6 CHOICE CHIPS (3x2 GRID) */}
+        {/* MAIN CHOICE CHIPS (8 CHIPS IN 4x2 GRID) */}
         <div className="space-y-1.5">
           <p className="text-[10px] font-black uppercase tracking-wider text-amber-400/90 text-center">
             {t.subquestion}
           </p>
 
           <div className="grid grid-cols-2 gap-1.5">
-            {MAIN_6_CHIPS.map((chip) => {
+            {MAIN_CHIPS.map((chip) => {
               const isSelected = selectedChips.includes(chip.id);
               const chipLabel = chip.label[lang] || chip.label.gu;
 
