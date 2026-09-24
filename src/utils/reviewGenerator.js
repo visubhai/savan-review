@@ -54,9 +54,9 @@ function getRandomItem(arr) {
 /**
  * Internal single generation pass for a specific language
  */
-function generateSinglePass(selectedOptions = [], lang = 'gu') {
-  const data = localizedReviewData[lang] || localizedReviewData.gu;
-  const connectorsList = CONNECTORS[lang] || CONNECTORS.gu;
+function generateSinglePass(selectedOptions = [], lang = 'en') {
+  const data = localizedReviewData[lang] || localizedReviewData.en;
+  const connectorsList = CONNECTORS[lang] || CONNECTORS.en;
 
   // 1. Pick Opening
   const opening = getRandomItem(data.openings);
@@ -93,7 +93,7 @@ function generateSinglePass(selectedOptions = [], lang = 'gu') {
   // 4. Very rare phone mention (~8% probability: approx 1 in 12 to 14 reviews)
   let rarePhone = null;
   if (Math.random() < 0.08) {
-    const phoneList = RARE_PHONE_SNIPPETS[lang] || RARE_PHONE_SNIPPETS.gu;
+    const phoneList = RARE_PHONE_SNIPPETS[lang] || RARE_PHONE_SNIPPETS.en;
     rarePhone = getRandomItem(phoneList);
   }
 
@@ -113,7 +113,7 @@ function generateSinglePass(selectedOptions = [], lang = 'gu') {
 /**
  * Ultra-fast review generator with non-repetition guarantees & multi-language support
  */
-export function generateReview(selectedOptions = [], lang = 'gu') {
+export function generateReview(selectedOptions = [], lang = 'en') {
   let bestReview = '';
   let attempts = 0;
   const maxAttempts = 20;

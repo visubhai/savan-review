@@ -51,12 +51,12 @@ const CONTENT = {
 const DEFAULT_SELECTED = ['staff', 'timing', 'parcel'];
 
 export default function App() {
-  const [lang, setLang] = useState('gu');
+  const [lang, setLang] = useState('en');
   const [selectedChips, setSelectedChips] = useState(DEFAULT_SELECTED);
-  const [reviewText, setReviewText] = useState(() => generateReview(DEFAULT_SELECTED, 'gu'));
+  const [reviewText, setReviewText] = useState(() => generateReview(DEFAULT_SELECTED, 'en'));
   const [copied, setCopied] = useState(false);
 
-  const t = CONTENT[lang] || CONTENT.gu;
+  const t = CONTENT[lang] || CONTENT.en;
 
   // Change Language
   const handleLang = (newLang) => {
@@ -241,7 +241,7 @@ export default function App() {
           <div className="grid grid-cols-2 gap-1.5">
             {MAIN_CHIPS.map((chip) => {
               const isSelected = selectedChips.includes(chip.id);
-              const chipLabel = chip.label[lang] || chip.label.gu;
+              const chipLabel = chip.label[lang] || chip.label.en;
 
               return (
                 <button
