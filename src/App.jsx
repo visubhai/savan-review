@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MAIN_CHIPS } from './data/reviews.js';
 import { generateReviewBatch } from './utils/reviewGenerator.js';
+import { getActiveBranch, BRANCHES } from './data/branches.js';
 import { 
   Sparkles, 
   ExternalLink, 
@@ -13,7 +14,7 @@ import {
   PhoneCall 
 } from 'lucide-react';
 
-export const GOOGLE_REVIEW_URL = 'https://search.google.com/local/writereview?placeid=ChIJoZ0ZYgBP4DsRglX2PXFQ7rk';
+export const GOOGLE_REVIEW_URL = BRANCHES.default.reviewUrl;
 
 const CONTENT = {
   en: {
@@ -69,7 +70,20 @@ const CONTENT = {
 const BATCH_SIZE = 4;
 
 export default function App() {
+  const [activeBranch, setActiveBranch] = useState(() => getActiveBranch());
   const [lang, setLang] = useState('en');
+
+  useEffect(() => {
+    const handleUrlChange = () => {
+      setActiveBranch(getActiveBranch());
+    };
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
   // NO PRE-SELECTION: Customer selects whatever they want!
   const [selectedChips, setSelectedChips] = useState([]);
   const [reviewsList, setReviewsList] = useState(() => generateReviewBatch([], 'en', BATCH_SIZE));
@@ -190,7 +204,7 @@ export default function App() {
     setCopiedAction(true);
 
     setTimeout(() => {
-      window.open(GOOGLE_REVIEW_URL, '_blank', 'noopener,noreferrer');
+      window.open(activeBranch.reviewUrl, '_blank', 'noopener,noreferrer');
     }, 300);
 
     setTimeout(() => setCopiedAction(false), 4000);
@@ -250,7 +264,7 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-1 text-[10px] sm:text-xs font-black text-indigo-800 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-full shadow-xs shrink-0">
-          <span>{t.badge}</span>
+          <span>{activeBranch.id === 'bapunagar' ? activeBranch.badge : t.badge}</span>
         </div>
       </header>
 
