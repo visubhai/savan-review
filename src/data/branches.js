@@ -5,7 +5,8 @@ export const BRANCHES = {
     branchLabel: 'Main Office',
     badge: '⭐ 5-Star Review',
     city: 'Surat',
-    reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJoZ0ZYgBP4DsRglX2PXFQ7rk'
+    reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJoZ0ZYgBP4DsRglX2PXFQ7rk',
+    phoneNumbers: ['7567529600', '7567529700']
   },
   bapunagar: {
     id: 'bapunagar',
@@ -13,7 +14,8 @@ export const BRANCHES = {
     branchLabel: 'Bapunagar Branch',
     badge: '📍 Bapunagar • ⭐ 5★',
     city: 'Ahmedabad',
-    reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJVWFaAACHXjkRalu2mOmvNbk'
+    reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJVWFaAACHXjkRalu2mOmvNbk',
+    phoneNumbers: ['7567529300', '7567537300']
   }
 };
 

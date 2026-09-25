@@ -547,9 +547,14 @@ export default function App() {
         <div className="flex items-center justify-center gap-2">
           <PhoneCall className="w-3 h-3 text-indigo-600 shrink-0" />
           <span>{t.callUs}</span>
-          <a href="tel:7567529600" className="text-indigo-600 font-extrabold hover:underline">7567529600</a>
-          <span>•</span>
-          <a href="tel:7567529700" className="text-indigo-600 font-extrabold hover:underline">7567529700</a>
+          {(activeBranch.phoneNumbers || ['7567529600', '7567529700']).map((phone, idx, arr) => (
+            <React.Fragment key={phone}>
+              <a href={`tel:${phone}`} className="text-indigo-600 font-extrabold hover:underline">
+                {phone}
+              </a>
+              {idx < arr.length - 1 && <span>•</span>}
+            </React.Fragment>
+          ))}
         </div>
         <p className="text-[9px] text-slate-400 flex items-center justify-center gap-1 font-medium">
           <span>સાવન ટ્રાવેલ્સ</span>
