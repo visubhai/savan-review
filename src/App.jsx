@@ -138,28 +138,48 @@ export default function App() {
     setCurrentIndex(0);
 
     const targetText = newBatch[0] || '';
-    const tokens = targetText.match(/\S+\s*/g) || [targetText];
-    const stepDelay = Math.max(18, Math.min(38, Math.round(520 / Math.max(1, tokens.length))));
+
+    // Split into realistic BPE-like subword chunks (2-5 chars)
+    const tokens = [];
+    let pos = 0;
+    while (pos < targetText.length) {
+      const size = 2 + Math.floor(Math.random() * 4);
+      tokens.push(targetText.slice(pos, pos + size));
+      pos += size;
+    }
+    if (tokens.length === 0) tokens.push('');
+
+    // Target ~1.2s to ~2.3s total typing duration depending on length
+    const avgTokenMs = Math.max(36, Math.min(72, Math.round(1650 / Math.max(1, tokens.length))));
+    const thinkingMs = 700 + Math.floor(Math.random() * 180);
 
     streamTimersRef.current.timeout = setTimeout(() => {
       setStreamPhase('streaming');
       let tokenIdx = 0;
 
-      streamTimersRef.current.interval = setInterval(() => {
+      const streamNextToken = () => {
         tokenIdx++;
         if (tokenIdx >= tokens.length) {
           setStreamedText(targetText);
-          clearInterval(streamTimersRef.current.interval);
-          streamTimersRef.current.interval = null;
           streamTimersRef.current.timeout = setTimeout(() => {
             setStreamPhase('idle');
             setIsRegenerating(false);
-          }, 120);
-        } else {
-          setStreamedText(tokens.slice(0, tokenIdx).join(''));
+          }, 280);
+          return;
         }
-      }, stepDelay);
-    }, 260);
+
+        const chunk = tokens[tokenIdx - 1];
+        setStreamedText(tokens.slice(0, tokenIdx).join(''));
+
+        const jitter = Math.round((Math.random() - 0.4) * avgTokenMs * 0.65);
+        const punctuationPause = /[.,!?]/.test(chunk) ? 120 + Math.floor(Math.random() * 60) : 0;
+        const nextDelay = Math.max(24, avgTokenMs + jitter + punctuationPause);
+
+        streamTimersRef.current.timeout = setTimeout(streamNextToken, nextDelay);
+      };
+
+      streamNextToken();
+    }, thinkingMs);
   };
 
   useEffect(() => {
