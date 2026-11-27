@@ -26,6 +26,8 @@ const CONTENT = {
     mainBtn: 'Copy & Post to Google',
     mainBtnCopied: 'Copied! Opening Google...',
     regenerateBtn: 'Regenerate Options',
+    generatingBtn: 'Generating...',
+    aiThinkingText: 'Writing fresh review...',
     copyOnly: 'Copy',
     copiedOnly: 'Copied!',
     editBtn: 'Edit',
@@ -42,6 +44,8 @@ const CONTENT = {
     mainBtn: 'Copy & Post to Google',
     mainBtnCopied: 'Copied! Google khule che...',
     regenerateBtn: 'Regenerate Options',
+    generatingBtn: 'Generating...',
+    aiThinkingText: 'Navo review banave che...',
     copyOnly: 'Copy',
     copiedOnly: 'Copied!',
     editBtn: 'Edit',
@@ -58,6 +62,8 @@ const CONTENT = {
     mainBtn: 'Copy & Post to Google',
     mainBtnCopied: 'Copied! Google khul raha hai...',
     regenerateBtn: 'Regenerate Options',
+    generatingBtn: 'Generating...',
+    aiThinkingText: 'Naya review likh raha hai...',
     copyOnly: 'Copy',
     copiedOnly: 'Copied!',
     editBtn: 'Edit',
@@ -99,44 +105,94 @@ export default function App() {
   const [copiedOnly, setCopiedOnly] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
+  const [streamPhase, setStreamPhase] = useState('idle'); // 'idle' | 'thinking' | 'streaming'
+  const [streamedText, setStreamedText] = useState('');
 
   const textareaRef = useRef(null);
   const touchStartX = useRef(0);
+  const streamTimersRef = useRef({ timeout: null, interval: null });
   const t = CONTENT[lang] || CONTENT.en;
 
   const currentReview = reviewsList[currentIndex] || '';
+
+  const cancelStream = () => {
+    if (streamTimersRef.current.timeout) {
+      clearTimeout(streamTimersRef.current.timeout);
+      streamTimersRef.current.timeout = null;
+    }
+    if (streamTimersRef.current.interval) {
+      clearInterval(streamTimersRef.current.interval);
+      streamTimersRef.current.interval = null;
+    }
+    setStreamPhase('idle');
+    setIsRegenerating(false);
+  };
+
+  const triggerLiveGeneration = (newBatch) => {
+    cancelStream();
+    setIsRegenerating(true);
+    setIsEditing(false);
+    setStreamPhase('thinking');
+    setStreamedText('');
+    setReviewsList(newBatch);
+    setCurrentIndex(0);
+
+    const targetText = newBatch[0] || '';
+    const tokens = targetText.match(/\S+\s*/g) || [targetText];
+    const stepDelay = Math.max(18, Math.min(38, Math.round(520 / Math.max(1, tokens.length))));
+
+    streamTimersRef.current.timeout = setTimeout(() => {
+      setStreamPhase('streaming');
+      let tokenIdx = 0;
+
+      streamTimersRef.current.interval = setInterval(() => {
+        tokenIdx++;
+        if (tokenIdx >= tokens.length) {
+          setStreamedText(targetText);
+          clearInterval(streamTimersRef.current.interval);
+          streamTimersRef.current.interval = null;
+          streamTimersRef.current.timeout = setTimeout(() => {
+            setStreamPhase('idle');
+            setIsRegenerating(false);
+          }, 120);
+        } else {
+          setStreamedText(tokens.slice(0, tokenIdx).join(''));
+        }
+      }, stepDelay);
+    }, 260);
+  };
+
+  useEffect(() => {
+    return () => cancelStream();
+  }, []);
 
   // 1. Language change
   const handleLang = (newLang) => {
     setLang(newLang);
     const newBatch = generateReviewBatch(selectedChips, newLang, BATCH_SIZE, activeBranch.id);
-    setReviewsList(newBatch);
-    setCurrentIndex(0);
-    setIsEditing(false);
+    triggerLiveGeneration(newBatch);
   };
 
   // 2. Toggle category chip
   const handleToggleChip = (chipId) => {
-    setSelectedChips((prev) => {
-      const next = prev.includes(chipId)
-        ? prev.filter((id) => id !== chipId)
-        : [...prev, chipId];
-      
-      const newBatch = generateReviewBatch(next, lang, BATCH_SIZE, activeBranch.id);
-      setReviewsList(newBatch);
-      setCurrentIndex(0);
-      setIsEditing(false);
-      return next;
-    });
+    const next = selectedChips.includes(chipId)
+      ? selectedChips.filter((id) => id !== chipId)
+      : [...selectedChips, chipId];
+
+    setSelectedChips(next);
+    const newBatch = generateReviewBatch(next, lang, BATCH_SIZE, activeBranch.id);
+    triggerLiveGeneration(newBatch);
   };
 
   // 3. Carousel Navigation: Left & Right
   const handlePrev = () => {
+    cancelStream();
     setCurrentIndex((prev) => (prev - 1 + reviewsList.length) % reviewsList.length);
     setIsEditing(false);
   };
 
   const handleNext = () => {
+    cancelStream();
     setCurrentIndex((prev) => (prev + 1) % reviewsList.length);
     setIsEditing(false);
   };
@@ -156,14 +212,10 @@ export default function App() {
     }
   };
 
-  // 4. Regenerate a new batch of 4 options
+  // 4. Regenerate a new batch of 4 options with live AI streaming animation
   const handleRegenerate = () => {
-    setIsRegenerating(true);
     const newBatch = generateReviewBatch(selectedChips, lang, BATCH_SIZE, activeBranch.id);
-    setReviewsList(newBatch);
-    setCurrentIndex(0);
-    setIsEditing(false);
-    setTimeout(() => setIsRegenerating(false), 300);
+    triggerLiveGeneration(newBatch);
   };
 
   // 5. Direct review text edit
@@ -201,6 +253,7 @@ export default function App() {
   // Primary Action: 1-Tap Copy & Post to Google
   const handleCopyAndPost = async () => {
     if (!currentReview) return;
+    cancelStream();
 
     try {
       if (navigator.vibrate) navigator.vibrate(60);
@@ -219,6 +272,7 @@ export default function App() {
   // Secondary Action: Copy-only next to 5★
   const handleCopyOnly = async () => {
     if (!currentReview) return;
+    cancelStream();
 
     try {
       if (navigator.vibrate) navigator.vibrate(40);
@@ -231,6 +285,7 @@ export default function App() {
 
   // Toggle Edit / Done
   const handleToggleEdit = () => {
+    cancelStream();
     if (isEditing) {
       setIsEditing(false);
       if (textareaRef.current) textareaRef.current.blur();
@@ -341,10 +396,8 @@ export default function App() {
                 type="button"
                 onClick={() => {
                   setSelectedChips([]);
-                  const newBatch = generateReviewBatch([], lang, BATCH_SIZE);
-                  setReviewsList(newBatch);
-                  setCurrentIndex(0);
-                  setIsEditing(false);
+                  const newBatch = generateReviewBatch([], lang, BATCH_SIZE, activeBranch.id);
+                  triggerLiveGeneration(newBatch);
                 }}
                 className="text-indigo-600 hover:underline cursor-pointer lowercase text-[10px] font-bold"
               >
@@ -389,8 +442,14 @@ export default function App() {
           <div 
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className="bg-white rounded-2xl p-2.5 sm:p-3 shadow-xs border border-slate-200/90 relative min-h-[105px] max-h-[118px] flex flex-col justify-between overflow-hidden transition-all"
+            className={`bg-white rounded-2xl p-2.5 sm:p-3 shadow-xs border relative min-h-[105px] max-h-[118px] flex flex-col justify-between overflow-hidden transition-all duration-200 ${
+              streamPhase !== 'idle' ? 'ai-generating-card' : 'border-slate-200/90'
+            }`}
           >
+            {streamPhase !== 'idle' && (
+              <div className="pointer-events-none absolute inset-0 ai-card-sweep" />
+            )}
+
             {/* LEFT ARROW BUTTON (<) */}
             <button
               type="button"
@@ -412,7 +471,7 @@ export default function App() {
             </button>
 
             {/* REVIEW TEXT (CLEAN, COMPACT & NO SCROLL COLLISION) */}
-            <div className="px-6 sm:px-7 py-0.5 my-auto flex items-center justify-center overflow-hidden">
+            <div className="px-6 sm:px-7 py-0.5 my-auto flex items-center justify-center overflow-hidden relative z-[1]">
               {isEditing ? (
                 <textarea
                   ref={textareaRef}
@@ -422,9 +481,26 @@ export default function App() {
                   rows={3}
                   aria-label="Edit review text"
                 />
+              ) : streamPhase === 'thinking' ? (
+                <div className="w-full max-w-[260px] flex flex-col items-center gap-1.5 py-0.5">
+                  <div className="flex items-center gap-1 text-[10px] font-bold text-indigo-600">
+                    <Sparkles className="w-3 h-3 animate-pulse" />
+                    <span>{t.aiThinkingText}</span>
+                  </div>
+                  <div className="w-full space-y-1.5">
+                    <div className="h-2 w-[92%] mx-auto rounded-full ai-shimmer-bar" />
+                    <div className="h-2 w-[78%] mx-auto rounded-full ai-shimmer-bar" />
+                  </div>
+                </div>
+              ) : streamPhase === 'streaming' ? (
+                <p className="text-xs sm:text-[13px] font-normal text-slate-800 leading-snug text-center select-none overflow-hidden line-clamp-3">
+                  "{streamedText}
+                  <span className="ai-stream-cursor" aria-hidden="true" />"
+                </p>
               ) : (
                 <p 
                   onClick={() => {
+                    cancelStream();
                     setIsEditing(true);
                     setTimeout(() => textareaRef.current?.focus(), 50);
                   }}
@@ -436,12 +512,13 @@ export default function App() {
             </div>
 
             {/* BOTTOM CAROUSEL DOTS (• • ▬ •) */}
-            <div className="flex items-center justify-center gap-1 pt-1">
+            <div className="flex items-center justify-center gap-1 pt-1 relative z-[1]">
               {reviewsList.map((_, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => {
+                    cancelStream();
                     setCurrentIndex(idx);
                     setIsEditing(false);
                   }}
@@ -534,10 +611,14 @@ export default function App() {
           <button
             type="button"
             onClick={handleRegenerate}
-            className="w-full min-h-[38px] py-2 px-4 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-xs cursor-pointer active:scale-[0.98] transition-all touch-manipulation flex items-center justify-center gap-1.5"
+            className={`w-full min-h-[38px] py-2 px-4 rounded-xl font-bold text-xs sm:text-sm border shadow-xs cursor-pointer active:scale-[0.98] transition-all touch-manipulation flex items-center justify-center gap-1.5 ${
+              isRegenerating
+                ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200/90'
+            }`}
           >
             <Sparkles className={`w-3.5 h-3.5 text-indigo-600 ${isRegenerating ? 'animate-spin' : ''}`} />
-            <span>{t.regenerateBtn}</span>
+            <span>{isRegenerating ? t.generatingBtn : t.regenerateBtn}</span>
           </button>
 
           {/* SIMPLE HELPFUL 1-LINE INSTRUCTION */}
