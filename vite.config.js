@@ -11,7 +11,7 @@ function generateBranchPagesPlugin() {
       const distDir = path.resolve(process.cwd(), 'dist');
       const indexPath = path.join(distDir, 'index.html');
       if (fs.existsSync(indexPath)) {
-        const branches = ['bapunagar'];
+        const branches = ['bapunagar', 'dhal'];
         branches.forEach((branch) => {
           const branchDir = path.join(distDir, branch);
           if (!fs.existsSync(branchDir)) {
