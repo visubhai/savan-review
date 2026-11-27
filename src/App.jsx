@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MAIN_CHIPS } from './data/reviews.js';
+import { MAIN_CHIPS, DHAL_CHIPS } from './data/reviews.js';
 import { generateReviewBatch } from './utils/reviewGenerator.js';
 import { getActiveBranch, BRANCHES } from './data/branches.js';
 import { 
@@ -73,9 +73,15 @@ export default function App() {
   const [activeBranch, setActiveBranch] = useState(() => getActiveBranch());
   const [lang, setLang] = useState('en');
 
+  const chipsList = activeBranch.id === 'dhal' ? DHAL_CHIPS : MAIN_CHIPS;
+
   useEffect(() => {
     const handleUrlChange = () => {
-      setActiveBranch(getActiveBranch());
+      const branch = getActiveBranch();
+      setActiveBranch(branch);
+      setSelectedChips([]);
+      setReviewsList(generateReviewBatch([], lang, BATCH_SIZE, branch.id));
+      setCurrentIndex(0);
     };
     window.addEventListener('popstate', handleUrlChange);
     window.addEventListener('hashchange', handleUrlChange);
@@ -83,10 +89,10 @@ export default function App() {
       window.removeEventListener('popstate', handleUrlChange);
       window.removeEventListener('hashchange', handleUrlChange);
     };
-  }, []);
+  }, [lang]);
   // NO PRE-SELECTION: Customer selects whatever they want!
   const [selectedChips, setSelectedChips] = useState([]);
-  const [reviewsList, setReviewsList] = useState(() => generateReviewBatch([], 'en', BATCH_SIZE));
+  const [reviewsList, setReviewsList] = useState(() => generateReviewBatch([], 'en', BATCH_SIZE, getActiveBranch().id));
   const [currentIndex, setCurrentIndex] = useState(0);
   
   const [copiedAction, setCopiedAction] = useState(false);
@@ -103,7 +109,7 @@ export default function App() {
   // 1. Language change
   const handleLang = (newLang) => {
     setLang(newLang);
-    const newBatch = generateReviewBatch(selectedChips, newLang, BATCH_SIZE);
+    const newBatch = generateReviewBatch(selectedChips, newLang, BATCH_SIZE, activeBranch.id);
     setReviewsList(newBatch);
     setCurrentIndex(0);
     setIsEditing(false);
@@ -116,7 +122,7 @@ export default function App() {
         ? prev.filter((id) => id !== chipId)
         : [...prev, chipId];
       
-      const newBatch = generateReviewBatch(next, lang, BATCH_SIZE);
+      const newBatch = generateReviewBatch(next, lang, BATCH_SIZE, activeBranch.id);
       setReviewsList(newBatch);
       setCurrentIndex(0);
       setIsEditing(false);
@@ -153,7 +159,7 @@ export default function App() {
   // 4. Regenerate a new batch of 4 options
   const handleRegenerate = () => {
     setIsRegenerating(true);
-    const newBatch = generateReviewBatch(selectedChips, lang, BATCH_SIZE);
+    const newBatch = generateReviewBatch(selectedChips, lang, BATCH_SIZE, activeBranch.id);
     setReviewsList(newBatch);
     setCurrentIndex(0);
     setIsEditing(false);
@@ -258,13 +264,13 @@ export default function App() {
               {t.title}
             </h1>
             <p className="text-[10px] text-indigo-600 font-extrabold uppercase tracking-wide">
-              {t.subtitle}
+              {activeBranch.subtitle || t.subtitle}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-1 text-[10px] sm:text-xs font-black text-indigo-800 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-full shadow-xs shrink-0">
-          <span>{activeBranch.id === 'bapunagar' ? activeBranch.badge : t.badge}</span>
+          <span>{activeBranch.id !== 'default' ? activeBranch.badge : t.badge}</span>
         </div>
       </header>
 
@@ -348,7 +354,7 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-2 gap-1 sm:gap-1.5">
-            {MAIN_CHIPS.map((chip) => {
+            {chipsList.map((chip) => {
               const isSelected = selectedChips.includes(chip.id);
               const chipLabel = chip.label[lang] || chip.label.en;
 

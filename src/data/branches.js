@@ -16,6 +16,16 @@ export const BRANCHES = {
     city: 'Ahmedabad',
     reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJVWFaAACHXjkRalu2mOmvNbk',
     phoneNumbers: ['7567529300', '7567537300']
+  },
+  dhal: {
+    id: 'dhal',
+    name: 'Savan Travels - Nana Varachha Dhal',
+    branchLabel: 'Nana Varachha Dhal',
+    badge: '📍 Nana Varachha Dhal • ⭐ 5★',
+    subtitle: 'Nana Varachha Dhal • All Saurashtra Booking',
+    city: 'Surat',
+    reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJ4TY5jxpP4DsRUNvGiwDilfA',
+    phoneNumbers: ['6356498000', '7984845050']
   }
 };
 
@@ -30,6 +40,15 @@ export function getActiveBranch() {
   const path = (window.location.pathname || '').toLowerCase();
   const search = (window.location.search || '').toLowerCase();
   const hash = (window.location.hash || '').toLowerCase();
+
+  // If path contains 'dhal', or query ?branch=dhal / ?dhal, or hash #dhal
+  if (
+    path.includes('dhal') ||
+    search.includes('dhal') ||
+    hash.includes('dhal')
+  ) {
+    return BRANCHES.dhal;
+  }
 
   // If path contains 'bapunagar', or query ?branch=bapunagar / ?bapunagar, or hash #bapunagar
   if (

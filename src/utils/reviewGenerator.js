@@ -1,7 +1,7 @@
-import { localizedReviewData, CONNECTORS, RARE_PHONE_SNIPPETS } from '../data/reviews.js';
+import { localizedReviewData, CONNECTORS, RARE_PHONE_SNIPPETS, DHAL_PHONE_SNIPPETS } from '../data/reviews.js';
 
 // Persistent memory to track generated review hashes and prevent repetitions
-const SEEN_HASHES_KEY = 'savan_seen_reviews_v2';
+const SEEN_HASHES_KEY = 'savan_seen_reviews_v3';
 const MAX_SEEN_HISTORY = 1500;
 
 let memorySeenHashes = new Set();
@@ -51,83 +51,226 @@ function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+const PROPER_NOUNS = [
+  'Savan', 'Surat', 'Ahmedabad', 'Mumbai', 'Pune', 'Rajkot', 'Nana', 'Dhal',
+  'Bhavnagar', 'Amreli', 'Mahuva', 'Savarkundla', 'Junagadh', 'Botad',
+  'Gariyadhar', 'Una', 'Somnath', 'Morbi', 'Jamnagar', 'Palitana', 'Talaja',
+  'Gondal', 'Jetpur', 'Kodinar', 'Porbandar', 'Dwarka', 'Diwali', 'Holi',
+  'Saatam', 'WhatsApp', 'RedBus', 'Redbus', 'AC ', 'UPI', 'I ', 'CTM',
+  'Geeta', 'Kamrej', 'Hirabaug', 'Borivali', 'Andheri', 'Wakad', 'Hinjewadi',
+  'Greenland', 'Madhapar', 'Baroda', 'Kathiyawad', 'Saurashtra', 'Google'
+];
+
+function startsWithProperNoun(sentence) {
+  return PROPER_NOUNS.some((p) => sentence.startsWith(p));
+}
+
+function ensureSentenceEnd(str) {
+  const trimmed = (str || '').trim();
+  if (!trimmed) return '';
+  const last = trimmed[trimmed.length - 1];
+  if (last === '.' || last === '!' || last === '?') return trimmed;
+  return `${trimmed}.`;
+}
+
+function stripTrailingPeriod(str) {
+  const trimmed = (str || '').trim();
+  return trimmed.endsWith('.') ? trimmed.slice(0, -1) : trimmed;
+}
+
+function hasBrandOverlap(candidate, existingText) {
+  if (!existingText) return false;
+  const candLow = candidate.toLowerCase();
+  const extLow = existingText.toLowerCase();
+
+  if (extLow.includes('savan') && candLow.includes('savan')) return true;
+  if (extLow.includes('nana varachha') && candLow.includes('nana varachha')) return true;
+  if ((extLow.includes('5 star') || extLow.includes('5/5')) && (candLow.includes('5 star') || candLow.includes('5/5'))) return true;
+  if (extLow.includes('dhal') && candLow.includes('dhal') && Math.random() < 0.7) return true;
+  return false;
+}
+
+function isBranchCompatible(item, branchId, selectedOptions = []) {
+  const low = item.toLowerCase();
+  const isDhal = branchId === 'dhal';
+
+  if (!isDhal) {
+    // Main & Bapunagar branches shouldn't pull Nana Varachha Dhal or Saurashtra-counter phrases
+    if (low.includes('dhal') || low.includes('nana varachha') || low.includes('saurashtra')) {
+      return false;
+    }
+    return true;
+  }
+
+  // Dhal branch shouldn't pull Mumbai/Pune route openings or parcel openings unless selected
+  if ((low.includes('mumbai') && !selectedOptions.includes('route_mumbai')) ||
+      (low.includes('pune') && !selectedOptions.includes('route_pune'))) {
+    return false;
+  }
+  if (low.includes('parcel') && !selectedOptions.includes('parcel')) {
+    return false;
+  }
+  return true;
+}
+
+function pickSmart(arr, existingText, branchId = 'default', selectedOptions = []) {
+  if (!arr || arr.length === 0) return '';
+  const branchFiltered = arr.filter((item) => isBranchCompatible(item, branchId, selectedOptions));
+  const pool = branchFiltered.length > 0 ? branchFiltered : arr;
+
+  if (!existingText) return getRandomItem(pool);
+  const filtered = pool.filter((item) => !hasBrandOverlap(item, existingText));
+  return filtered.length > 0 ? getRandomItem(filtered) : getRandomItem(pool);
+}
+
+function joinPartsNaturally(parts, connectorsList, lang) {
+  if (parts.length === 0) return '';
+  if (parts.length === 1) return parts[0];
+
+  const inlineWord = lang === 'gu' ? 'ane' : lang === 'hi' ? 'aur' : 'and';
+  let result = parts[0];
+
+  for (let i = 1; i < parts.length; i++) {
+    const next = parts[i];
+    if (!next) continue;
+
+    // Occasionally join two short clauses inline like natural speech
+    if (result.length < 75 && next.length < 75 && !result.endsWith('!') && Math.random() < 0.25) {
+      const cleanPrev = stripTrailingPeriod(result);
+      const nextBody = startsWithProperNoun(next)
+        ? next
+        : next.charAt(0).toLowerCase() + next.slice(1);
+      const joiner = Math.random() < 0.55 ? ` ${inlineWord} ` : ', ';
+      result = `${cleanPrev}${joiner}${nextBody}`;
+      continue;
+    }
+
+    // Standard sentence boundary, rarely with a casual spoken connector
+    const prevEnded = ensureSentenceEnd(result);
+    if (Math.random() < 0.22 && connectorsList && connectorsList.length > 0) {
+      const conn = getRandomItem(connectorsList);
+      const nextBody = startsWithProperNoun(next)
+        ? next
+        : next.charAt(0).toLowerCase() + next.slice(1);
+      result = `${prevEnded} ${conn} ${nextBody}`;
+    } else {
+      result = `${prevEnded} ${next}`;
+    }
+  }
+
+  return result;
+}
+
 /**
- * Internal single generation pass for a specific language
+ * Internal single generation pass producing varied, human-sounding Google reviews
  */
-function generateSinglePass(selectedOptions = [], lang = 'en') {
+function generateSinglePass(selectedOptions = [], lang = 'en', branchId = 'default') {
   const data = localizedReviewData[lang] || localizedReviewData.en;
   const connectorsList = CONNECTORS[lang] || CONNECTORS.en;
+  const isDhal = branchId === 'dhal';
 
-  // 1. Pick Opening
-  const opening = getRandomItem(data.openings);
+  const generalPool = isDhal
+    ? ['dhal_counter', 'dhal_rates', 'dhal_saurashtra', 'dhal_seats', 'dhal_family', 'dhal_urgent']
+    : ['staff', 'timing', 'sleeper', 'parcel'];
 
-  // 2. Active options: if no pre-selection, pick 1 pleasant general topic
-  let activeOptions = [];
-  if (selectedOptions && selectedOptions.length > 0) {
-    activeOptions = selectedOptions;
-  } else {
-    // No pre-selection: pick 1 general highlight so review is clean & natural
-    const generalPool = ['staff', 'timing', 'sleeper'];
-    activeOptions = [getRandomItem(generalPool)];
-  }
+  let reviewText = '';
 
-  // Shuffle active category order for high variation
-  const shuffledCategories = shuffleArray(activeOptions);
-
-  // 3. Middle Sentences
-  const middleSentences = [];
-  shuffledCategories.forEach((catId, index) => {
-    const sentences = data[catId];
-    if (sentences && sentences.length > 0) {
-      let sentence = getRandomItem(sentences);
-      
-      // Inject connector for variety
-      if (index > 0 && Math.random() > 0.65) {
-        const connector = getRandomItem(connectorsList);
-        const properNouns = ['Savan', 'Surat', 'Ahmedabad', 'Mumbai', 'Pune', 'Rajkot', 'I '];
-        const startsWithProper = properNouns.some(p => sentence.startsWith(p));
-        if (connector.endsWith(',') && !startsWithProper) {
-          const lowerFirst = sentence.charAt(0).toLowerCase() + sentence.slice(1);
-          sentence = `${connector} ${lowerFirst}`;
-        } else {
-          sentence = `${connector} ${sentence}`;
-        }
+  if (!selectedOptions || selectedOptions.length === 0) {
+    // NO CHIPS SELECTED: high structural diversity (standalone 1-liners, short 1-2 part reviews, occasional context)
+    const roll = Math.random();
+    if (roll < 0.55) {
+      const quickPool = isDhal ? data.dhal_quick : data.quick;
+      reviewText = getRandomItem(quickPool);
+    } else if (roll < 0.82) {
+      const cat = getRandomItem(generalPool);
+      const mainSent = getRandomItem(data[cat]);
+      if (Math.random() < 0.45) {
+        const closing = pickSmart(data.closings, mainSent, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(mainSent)} ${closing}`;
+      } else {
+        reviewText = mainSent;
       }
-      middleSentences.push(sentence);
+    } else {
+      const cat = getRandomItem(generalPool);
+      const mainSent = getRandomItem(data[cat]);
+      const opening = pickSmart(data.openings, mainSent, branchId, selectedOptions);
+      if (Math.random() < 0.25 && opening.length + mainSent.length < 130) {
+        const closing = pickSmart(data.closings, `${opening} ${mainSent}`, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(opening)} ${ensureSentenceEnd(mainSent)} ${closing}`;
+      } else {
+        reviewText = `${ensureSentenceEnd(opening)} ${mainSent}`;
+      }
     }
-  });
+  } else if (selectedOptions.length === 1) {
+    // 1 CHIP SELECTED: avoid forced opening + closing formula
+    const mainSent = getRandomItem(data[selectedOptions[0]]) || '';
+    const roll = Math.random();
 
-  // 4. Very rare phone mention (~8% probability: approx 1 in 12 to 14 reviews)
-  let rarePhone = null;
-  if (Math.random() < 0.08) {
-    const phoneList = RARE_PHONE_SNIPPETS[lang] || RARE_PHONE_SNIPPETS.en;
-    rarePhone = getRandomItem(phoneList);
+    if (roll < 0.45) {
+      if (mainSent.length < 110 && Math.random() < 0.42) {
+        const closing = pickSmart(data.closings, mainSent, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(mainSent)} ${closing}`;
+      } else {
+        reviewText = mainSent;
+      }
+    } else if (roll < 0.8) {
+      const opening = pickSmart(data.openings, mainSent, branchId, selectedOptions);
+      reviewText = `${ensureSentenceEnd(opening)} ${mainSent}`;
+    } else {
+      const opening = pickSmart(data.openings, mainSent, branchId, selectedOptions);
+      const closing = pickSmart(data.closings, `${opening} ${mainSent}`, branchId, selectedOptions);
+      reviewText = `${ensureSentenceEnd(opening)} ${ensureSentenceEnd(mainSent)} ${closing}`;
+    }
+  } else {
+    // 2+ CHIPS SELECTED: shuffle chips, join naturally, only occasionally wrap with opening or closing
+    const shuffledCategories = shuffleArray(selectedOptions);
+    const picked = [];
+    for (const catId of shuffledCategories) {
+      const sentences = data[catId];
+      if (sentences && sentences.length > 0) {
+        picked.push(pickSmart(sentences, picked.join(' '), branchId, selectedOptions));
+      }
+    }
+
+    const body = joinPartsNaturally(picked, connectorsList, lang);
+    const roll = Math.random();
+
+    if (roll < 0.48 || body.length > 155) {
+      reviewText = body;
+    } else if (roll < 0.76) {
+      const opening = pickSmart(data.openings, body, branchId, selectedOptions);
+      reviewText = `${ensureSentenceEnd(opening)} ${body}`;
+    } else {
+      const closing = pickSmart(data.closings, body, branchId, selectedOptions);
+      reviewText = `${ensureSentenceEnd(body)} ${closing}`;
+    }
   }
 
-  // 5. Closing
-  const closing = getRandomItem(data.closings);
-
-  // Combine into one clean review string
-  const reviewParts = [opening, ...middleSentences];
-  if (rarePhone) {
-    reviewParts.push(rarePhone);
+  // Very rare phone mention (~5% probability, only on concise reviews)
+  if (reviewText && reviewText.length < 155 && Math.random() < 0.05) {
+    const phoneDict = isDhal ? DHAL_PHONE_SNIPPETS : RARE_PHONE_SNIPPETS;
+    const phoneList = phoneDict[lang] || phoneDict.en;
+    const rarePhone = getRandomItem(phoneList);
+    if (rarePhone) {
+      reviewText = `${ensureSentenceEnd(reviewText)} ${rarePhone}`;
+    }
   }
-  reviewParts.push(closing);
 
-  return reviewParts.filter(Boolean).join(" ");
+  return reviewText.trim();
 }
 
 /**
  * Ultra-fast review generator with non-repetition guarantees & multi-language support
  */
-export function generateReview(selectedOptions = [], lang = 'en') {
+export function generateReview(selectedOptions = [], lang = 'en', branchId = 'default') {
   let bestReview = '';
   let attempts = 0;
   const maxAttempts = 20;
 
   while (attempts < maxAttempts) {
     attempts++;
-    const candidate = generateSinglePass(selectedOptions, lang);
+    const candidate = generateSinglePass(selectedOptions, lang, branchId);
+    if (!candidate) continue;
     const hash = simpleHash(candidate);
 
     if (!memorySeenHashes.has(hash)) {
@@ -143,22 +286,23 @@ export function generateReview(selectedOptions = [], lang = 'en') {
 /**
  * Generate a batch of unique reviews (e.g. 4 options for carousel navigation)
  */
-export function generateReviewBatch(selectedOptions = [], lang = 'en', count = 4) {
+export function generateReviewBatch(selectedOptions = [], lang = 'en', count = 4, branchId = 'default') {
   const batch = [];
   const localSet = new Set();
   let attempts = 0;
 
   while (batch.length < count && attempts < count * 20) {
     attempts++;
-    const candidate = generateReview(selectedOptions, lang);
-    if (!localSet.has(candidate)) {
+    const candidate = generateReview(selectedOptions, lang, branchId);
+    if (candidate && !localSet.has(candidate)) {
       localSet.add(candidate);
       batch.push(candidate);
     }
   }
 
   while (batch.length < count) {
-    batch.push(generateSinglePass(selectedOptions, lang));
+    const fallback = generateSinglePass(selectedOptions, lang, branchId);
+    if (fallback) batch.push(fallback);
   }
 
   return batch;
