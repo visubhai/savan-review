@@ -162,7 +162,7 @@ function joinPartsNaturally(parts, connectorsList, lang) {
 }
 
 /**
- * Internal single generation pass producing varied, human-sounding Google reviews
+ * Internal single generation pass producing varied, 2-3 line human-sounding Google reviews
  */
 function generateSinglePass(selectedOptions = [], lang = 'en', branchId = 'default') {
   const data = localizedReviewData[lang] || localizedReviewData.en;
@@ -170,59 +170,83 @@ function generateSinglePass(selectedOptions = [], lang = 'en', branchId = 'defau
   const isDhal = branchId === 'dhal';
 
   const generalPool = isDhal
-    ? ['dhal_counter', 'dhal_rates', 'dhal_saurashtra', 'dhal_seats', 'dhal_family', 'dhal_urgent']
-    : ['staff', 'timing', 'sleeper', 'parcel'];
+    ? ['dhal_counter', 'dhal_rates', 'dhal_seats', 'dhal_family', 'dhal_saurashtra', 'dhal_urgent', 'timing']
+    : ['staff', 'timing', 'sleeper', 'parcel', 'route_ahmedabad', 'route_rajkot'];
 
   let reviewText = '';
 
   if (!selectedOptions || selectedOptions.length === 0) {
-    // NO CHIPS SELECTED: high structural diversity (standalone 1-liners, short 1-2 part reviews, occasional context)
+    // NO CHIPS SELECTED: Always generate 2-3 natural sentences (~95-175 chars, 2-3 visual lines)
+    const cats = shuffleArray(generalPool);
+    const firstSent = pickSmart(data[cats[0]], '', branchId, selectedOptions);
+    const secondSent = pickSmart(data[cats[1]], firstSent, branchId, selectedOptions);
     const roll = Math.random();
-    if (roll < 0.55) {
-      const quickPool = isDhal ? data.dhal_quick : data.quick;
-      reviewText = getRandomItem(quickPool);
-    } else if (roll < 0.82) {
-      const cat = getRandomItem(generalPool);
-      const mainSent = getRandomItem(data[cat]);
-      if (Math.random() < 0.45) {
-        const closing = pickSmart(data.closings, mainSent, branchId, selectedOptions);
-        reviewText = `${ensureSentenceEnd(mainSent)} ${closing}`;
+
+    if (roll < 0.42) {
+      // Two distinct highlights joined naturally (+ short closing if still concise)
+      const combined = joinPartsNaturally([firstSent, secondSent], connectorsList, lang);
+      if (combined.length < 115) {
+        const closing = pickSmart(data.closings, combined, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(combined)} ${closing}`;
       } else {
-        reviewText = mainSent;
+        reviewText = combined;
+      }
+    } else if (roll < 0.74) {
+      // Natural opening + highlight (+ short closing if concise)
+      const opening = pickSmart(data.openings, firstSent, branchId, selectedOptions);
+      const base = joinPartsNaturally([opening, firstSent], connectorsList, lang);
+      if (base.length < 120) {
+        const closing = pickSmart(data.closings, base, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(base)} ${closing}`;
+      } else {
+        reviewText = joinPartsNaturally([opening, firstSent, secondSent], connectorsList, lang);
       }
     } else {
-      const cat = getRandomItem(generalPool);
-      const mainSent = getRandomItem(data[cat]);
-      const opening = pickSmart(data.openings, mainSent, branchId, selectedOptions);
-      if (Math.random() < 0.25 && opening.length + mainSent.length < 130) {
-        const closing = pickSmart(data.closings, `${opening} ${mainSent}`, branchId, selectedOptions);
-        reviewText = `${ensureSentenceEnd(opening)} ${ensureSentenceEnd(mainSent)} ${closing}`;
+      // Quick remark + specific highlight + optional closing
+      const quickPool = isDhal ? data.dhal_quick : data.quick;
+      const quickItem = pickSmart(quickPool, '', branchId, selectedOptions);
+      const detail = pickSmart(data[cats[0]], quickItem, branchId, selectedOptions);
+      const combined = joinPartsNaturally([quickItem, detail], connectorsList, lang);
+      if (combined.length < 115) {
+        const closing = pickSmart(data.closings, combined, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(combined)} ${closing}`;
       } else {
-        reviewText = `${ensureSentenceEnd(opening)} ${mainSent}`;
+        reviewText = combined;
       }
     }
   } else if (selectedOptions.length === 1) {
-    // 1 CHIP SELECTED: avoid forced opening + closing formula
+    // 1 CHIP SELECTED: Build 2-3 line review centered on the selected chip
     const mainSent = getRandomItem(data[selectedOptions[0]]) || '';
     const roll = Math.random();
 
-    if (roll < 0.45) {
-      if (mainSent.length < 110 && Math.random() < 0.42) {
-        const closing = pickSmart(data.closings, mainSent, branchId, selectedOptions);
-        reviewText = `${ensureSentenceEnd(mainSent)} ${closing}`;
-      } else {
-        reviewText = mainSent;
-      }
-    } else if (roll < 0.8) {
+    if (roll < 0.4) {
       const opening = pickSmart(data.openings, mainSent, branchId, selectedOptions);
-      reviewText = `${ensureSentenceEnd(opening)} ${mainSent}`;
+      const base = `${ensureSentenceEnd(opening)} ${mainSent}`;
+      if (base.length < 125) {
+        const closing = pickSmart(data.closings, base, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(base)} ${closing}`;
+      } else {
+        reviewText = base;
+      }
+    } else if (roll < 0.75) {
+      // Selected chip + complementary quick remark or general detail
+      const extraPool = isDhal ? data.dhal_quick : data.quick;
+      const extra = pickSmart(extraPool, mainSent, branchId, selectedOptions);
+      const base = joinPartsNaturally([mainSent, extra], connectorsList, lang);
+      if (base.length < 115) {
+        const closing = pickSmart(data.closings, base, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(base)} ${closing}`;
+      } else {
+        reviewText = base;
+      }
     } else {
+      // Context opening + selected chip + closing
       const opening = pickSmart(data.openings, mainSent, branchId, selectedOptions);
       const closing = pickSmart(data.closings, `${opening} ${mainSent}`, branchId, selectedOptions);
       reviewText = `${ensureSentenceEnd(opening)} ${ensureSentenceEnd(mainSent)} ${closing}`;
     }
   } else {
-    // 2+ CHIPS SELECTED: shuffle chips, join naturally, only occasionally wrap with opening or closing
+    // 2+ CHIPS SELECTED: shuffle chips, join naturally, ensure at least 2-3 lines
     const shuffledCategories = shuffleArray(selectedOptions);
     const picked = [];
     for (const catId of shuffledCategories) {
@@ -235,19 +259,23 @@ function generateSinglePass(selectedOptions = [], lang = 'en', branchId = 'defau
     const body = joinPartsNaturally(picked, connectorsList, lang);
     const roll = Math.random();
 
-    if (roll < 0.48 || body.length > 155) {
+    if (body.length >= 135) {
       reviewText = body;
-    } else if (roll < 0.76) {
-      const opening = pickSmart(data.openings, body, branchId, selectedOptions);
-      reviewText = `${ensureSentenceEnd(opening)} ${body}`;
+    } else if (body.length < 95 || roll < 0.45) {
+      if (roll < 0.5) {
+        const opening = pickSmart(data.openings, body, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(opening)} ${body}`;
+      } else {
+        const closing = pickSmart(data.closings, body, branchId, selectedOptions);
+        reviewText = `${ensureSentenceEnd(body)} ${closing}`;
+      }
     } else {
-      const closing = pickSmart(data.closings, body, branchId, selectedOptions);
-      reviewText = `${ensureSentenceEnd(body)} ${closing}`;
+      reviewText = body;
     }
   }
 
-  // Very rare phone mention (~5% probability, only on concise reviews)
-  if (reviewText && reviewText.length < 155 && Math.random() < 0.05) {
+  // Very rare phone mention (~5% probability, only if it keeps total within ~175 chars)
+  if (reviewText && reviewText.length < 140 && Math.random() < 0.05) {
     const phoneDict = isDhal ? DHAL_PHONE_SNIPPETS : RARE_PHONE_SNIPPETS;
     const phoneList = phoneDict[lang] || phoneDict.en;
     const rarePhone = getRandomItem(phoneList);

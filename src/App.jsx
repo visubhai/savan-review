@@ -462,7 +462,7 @@ export default function App() {
           <div 
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className={`bg-white rounded-2xl p-2.5 sm:p-3 shadow-xs border relative min-h-[105px] max-h-[118px] flex flex-col justify-between overflow-hidden transition-all duration-200 ${
+            className={`bg-white rounded-2xl p-2.5 sm:p-3 shadow-xs border relative min-h-[112px] max-h-[132px] flex flex-col justify-between overflow-hidden transition-all duration-200 ${
               streamPhase !== 'idle' ? 'ai-generating-card' : 'border-slate-200/90'
             }`}
           >
@@ -497,8 +497,8 @@ export default function App() {
                   ref={textareaRef}
                   value={currentReview}
                   onChange={handleTextChange}
-                  className="w-full text-xs sm:text-[13px] font-normal text-slate-800 placeholder-slate-400 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none leading-snug text-center p-0 overflow-y-auto max-h-[60px]"
-                  rows={3}
+                  className="w-full text-xs sm:text-[13px] font-normal text-slate-800 placeholder-slate-400 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none leading-snug text-center p-0 overflow-y-auto max-h-[76px]"
+                  rows={4}
                   aria-label="Edit review text"
                 />
               ) : streamPhase === 'thinking' ? (
@@ -513,7 +513,7 @@ export default function App() {
                   </div>
                 </div>
               ) : streamPhase === 'streaming' ? (
-                <p className="text-xs sm:text-[13px] font-normal text-slate-800 leading-snug text-center select-none overflow-hidden line-clamp-3">
+                <p className="text-xs sm:text-[13px] font-normal text-slate-800 leading-snug text-center select-none overflow-hidden line-clamp-4">
                   "{streamedText}
                   <span className="ai-stream-cursor" aria-hidden="true" />"
                 </p>
@@ -524,7 +524,7 @@ export default function App() {
                     setIsEditing(true);
                     setTimeout(() => textareaRef.current?.focus(), 50);
                   }}
-                  className="text-xs sm:text-[13px] font-normal text-slate-800 leading-snug text-center select-none cursor-pointer overflow-hidden line-clamp-3"
+                  className="text-xs sm:text-[13px] font-normal text-slate-800 leading-snug text-center select-none cursor-pointer overflow-hidden line-clamp-4"
                 >
                   "{currentReview}"
                 </p>
